@@ -187,6 +187,9 @@ export default defineNuxtConfig({
     // vuetify
     "@mdi/font/css/materialdesignicons.css",
     "vuetify/lib/styles/main.sass",
+
+    // plugin styles
+    "@fancyapps/ui/dist/fancybox/fancybox.css",
   ],
 
   // https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
