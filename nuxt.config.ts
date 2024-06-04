@@ -189,7 +189,11 @@ export default defineNuxtConfig({
     "vuetify/lib/styles/main.sass",
 
     // plugin styles
+    "animate.css",
     "@fancyapps/ui/dist/fancybox/fancybox.css",
+
+    // https://github.com/surmon-china/videojs-player
+    "video.js/dist/video-js.css",
   ],
 
   // https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
