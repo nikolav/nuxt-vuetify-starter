@@ -25,7 +25,9 @@
     "nikolav-treets": "^1.2.43",
     "nuxt": "^3.11.2",
     "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "vue-router": "^4.3.2",
+    "vue-spinner": "^1.0.4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.4.1",

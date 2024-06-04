@@ -124,7 +124,7 @@ export default defineNuxtConfig({
     presets: [
       {
         from: "lodash",
-        imports: ["get", "trimEnd"],
+        imports: ["get", "trimEnd", "some", "assign"],
         // imports: [{ name: "get", as: "lodashGet" }],
       },
     ],
@@ -234,6 +234,7 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       "Open+Sans": true,
+      Roboto: true,
     },
     useStylesheet: true,
     download: false,
@@ -258,7 +259,7 @@ export default defineNuxtConfig({
     // },
   },
   colorMode: {
-    // preference: "system", // default value of $colorMode.preference
+    // preference: "light", // default value of $colorMode.preference
     // fallback: "light", // fallback value if not system preference found
     // hid: "nuxt-color-mode-script",
     // globalName: "__NUXT_COLOR_MODE__",

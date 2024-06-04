@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// import { useTheme } from "vuetify";
+// const t$ = useTheme();
+
 // @@eos
 </script>
 <template>

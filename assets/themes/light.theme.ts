@@ -3,12 +3,12 @@ import { type ThemeDefinition } from "vuetify";
 import chroma from "chroma-js";
 import { THEME_ACCENT_SHIFT } from "@/config";
 
-const primary = "3b6891";
+const primary = "#3b6891";
 // primary => accent1, accent2, complement
 
-const primary2 = "e7e5e4";
-const primary3 = "fbbf24";
-const secondary = "a1a1aa";
+const primary2 = "#e7e5e4";
+const primary3 = "#fbbf24";
+const secondary = "#a1a1aa";
 
 const pHsla = chroma(primary).hsl();
 const hueShift = (amount: number) => (n: number, i: number) =>

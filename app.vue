@@ -1,15 +1,19 @@
 <script lang="ts" setup>
-const { $theme } = useNuxtApp();
+import { SpinnerAppProcessing } from "@/components/ui";
+const {
+  $theme: { theme },
+} = useNuxtApp();
 // #eos
 </script>
 <template>
-  <VApp :theme="$theme.theme.value" class="component--app-main">
+  <VApp :theme="theme" class="component--app-main">
     <!-- @pages -->
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
     <!-- @ui:status -->
     <NuxtLoadingIndicator color="red" />
+    <SpinnerAppProcessing :opacity="0.8" />
   </VApp>
 </template>
 <style>
