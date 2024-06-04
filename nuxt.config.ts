@@ -45,6 +45,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/color-mode",
     "@nuxtjs/tailwindcss",
+    "nuxt-icon",
   ],
   build: {
     // transpile: ["vuetify"],
@@ -304,6 +305,7 @@ export default defineNuxtConfig({
     // # Import fully resolved config
     // # import tailwindConfig from '#tailwind-config'
     exposeConfig: true,
+    // # Extend the Tailwind config
     // config: {},
     // injectPosition: 0,
     viewer: false,

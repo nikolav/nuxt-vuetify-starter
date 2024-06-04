@@ -13,7 +13,9 @@ const cmtoggle = () => {
 </script>
 <template>
   <section class="page--index">
-    <button @click="cmtoggle">cm</button>
+    <button class="text-blue-400 bg-blue-100 p-2 rounded-lg shadow-sm" @click="cmtoggle">
+      <Icon size="32" name="formkit:submit" />
+    </button>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. In reiciendis id
       eius perspiciatis culpa dolorum laboriosam nisi possimus suscipit, amet
