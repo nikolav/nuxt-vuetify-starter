@@ -44,6 +44,7 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@nuxt/image",
     "@nuxtjs/color-mode",
+    "@nuxtjs/tailwindcss",
   ],
   build: {
     // transpile: ["vuetify"],
@@ -296,5 +297,15 @@ export default defineNuxtConfig({
     // classPrefix: "",
     classSuffix: "",
     // storageKey: "nuxt-color-mode",
+  },
+  tailwindcss: {
+    cssPath: "~/assets/tailwind.css",
+    configPath: "~/config/tailwind.config.ts",
+    // # Import fully resolved config
+    // # import tailwindConfig from '#tailwind-config'
+    exposeConfig: true,
+    // config: {},
+    // injectPosition: 0,
+    viewer: false,
   },
 });
