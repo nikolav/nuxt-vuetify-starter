@@ -13,12 +13,14 @@
     "demo": "node ./demo.mjs "
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@nuxt/image": "^1.7.0",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/i18n": "^8.3.1",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/core": "^10.10.0",
     "@vueuse/nuxt": "^10.10.0",
+    "chroma-js": "^2.4.2",
     "lodash": "^4.17.21",
     "nikolav-treets": "^1.2.43",
     "nuxt": "^3.11.2",
@@ -31,8 +33,11 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.13",
+    "@types/chroma-js": "^2.4.4",
     "@types/lodash": "^4.17.4",
     "nuxt-icon": "^0.6.10",
-    "sass": "^1.77.4"
+    "sass": "^1.77.4",
+    "vite-plugin-vuetify": "^2.0.3",
+    "vuetify": "^3.6.8"
   }
 }

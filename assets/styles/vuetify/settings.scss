@@ -1,0 +1,12 @@
+// @use "vuetify/settings";
+
+@use "vuetify/settings" with (
+  // # VBadge
+  // $badge-font-size: 0.88rem,
+  // // $badge-padding: 10px 10px,
+  // $badge-height: 22px,
+  // $badge-min-width: 22px,
+  // $badge-border-radius: 11px,
+
+  $rounded: ("lg2": 12px, "lg3": 16px, "lg4": 18px, "xl2": 32px, "xl3": 48px,)
+);

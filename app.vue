@@ -1,17 +1,18 @@
 <script lang="ts" setup>
+const { $theme } = useNuxtApp();
 // #eos
 </script>
 <template>
-  <section class="component--app">
+  <VApp :theme="$theme.theme.value" class="component--app-main">
     <!-- @pages -->
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
     <!-- @ui:status -->
     <NuxtLoadingIndicator color="red" />
-  </section>
+  </VApp>
 </template>
-<style lang="sass">
+<style>
 .BLUR-enter-active,
 .BLUR-leave-active {
   transition: all 0.55s;

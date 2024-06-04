@@ -1,7 +1,9 @@
-// import vitePluginVuetify, { transformAssetUrls } from "vite-plugin-vuetify";
-
-// import { ENDPOINT_GRAPHQL, API_URL } from "./config";
-// import { stripSlashesEnd } from "./utils/strip-slashes-end";
+import vitePluginVuetify, { transformAssetUrls } from "vite-plugin-vuetify";
+import {
+  // ENDPOINT_GRAPHQL,
+  // API_URL
+  SSR,
+} from "./config";
 import trimEnd from "lodash/trimEnd";
 
 const BASE_DIR = process.env.BASE_DIR;
@@ -28,7 +30,7 @@ const meta: TMeta = [
 export default defineNuxtConfig({
   devtools: { enabled: false },
   // # client-side only rendering; no prerender
-  // ssr: false,
+  ssr: SSR,
 
   // #hybrid-rendering
   // #https://nuxt.com/docs/getting-started/server#hybrid-rendering
@@ -64,9 +66,29 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
+    // https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
+    (_options, nuxt) => {
+      nuxt.hooks.hook("vite:extendConfig", (config) => {
+        // --at-ts-expect-error
+        // config.plugins.push(vitePluginVuetify({ autoImport: true }));
+        try {
+          config.plugins &&
+            config.plugins.push(
+              vitePluginVuetify({
+                autoImport: true,
+                styles: {
+                  configFile: "assets/styles/vuetify/settings.scss",
+                },
+              })
+            );
+        } catch (error) {
+          // ignore
+        }
+      });
+    },
   ],
   build: {
-    // transpile: ["vuetify"],
+    transpile: ["vuetify"],
   },
 
   runtimeConfig: {
@@ -143,6 +165,10 @@ export default defineNuxtConfig({
   css: [
     // default
     "~/assets/styles/main.scss",
+
+    // vuetify
+    "@mdi/font/css/materialdesignicons.css",
+    "vuetify/lib/styles/main.sass",
   ],
 
   // https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
@@ -157,11 +183,11 @@ export default defineNuxtConfig({
     define: {
       // "process.env.DEBUG": false,
     },
-    // vue: {
-    //   template: {
-    //     transformAssetUrls,
-    //   },
-    // },
+    vue: {
+      template: {
+        transformAssetUrls,
+      },
+    },
   },
 
   // https://apollo.nuxtjs.org/getting-started/configuration#configuration

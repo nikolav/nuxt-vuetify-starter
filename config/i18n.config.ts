@@ -5,7 +5,7 @@ export default defineI18nConfig(() => ({
   messages: {
     sr: {
       message: {
-        about: "o",
+        about: "o nama",
         hello: "zdravo",
         apple: "jabuka | jabuka | {count} jabuke",
       },
