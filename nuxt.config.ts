@@ -124,7 +124,25 @@ export default defineNuxtConfig({
     presets: [
       {
         from: "lodash",
-        imports: ["get", "trimEnd", "some", "assign"],
+        imports: [
+          "assign",
+          "each",
+          "forEach",
+          "get",
+          "hasOwn",
+          "noop",
+          "set",
+          "some",
+          "trimEnd",
+          "unset",
+          "once",
+          "uniqueId",
+          "escapeRegExp",
+          {
+            name: "get",
+            as: "getPath",
+          },
+        ],
         // imports: [{ name: "get", as: "lodashGet" }],
       },
     ],
