@@ -30,13 +30,31 @@ export default defineNuxtConfig({
   // # client-side only rendering; no prerender
   // ssr: false,
 
+  // #hybrid-rendering
+  // #https://nuxt.com/docs/getting-started/server#hybrid-rendering
+  // #https://nuxt.com/docs/guide/concepts/rendering#:~:text=defineNuxtConfig(%7B-,routeRules,-%3A%20%7B
+  // routeRules: {
+  //   // Generated at build time for SEO purpose
+  //   "/": { prerender: true },
+  //   // Cached for 1 hour
+  //   "/api/*": { cache: { maxAge: 60 * 60 } },
+  //   // Redirection to avoid 404
+  //   "/old-page": {
+  //     redirect: { to: "/new-page", statusCode: 302 },
+  //   },
+  //   // ...
+  // },
+  //
+  // #Selective Pre-rendering @nitro
+  // nitro: {
+  //   prerender: {
+  //     // routes: ["/"],
+  //     // ignore: ["/dynamic"],
+  //   },
+  // },
   // target: "static",
   // generate: { routes: [] },
 
-  // #https://nuxt.com/docs/guide/concepts/rendering#:~:text=defineNuxtConfig(%7B-,routeRules,-%3A%20%7B
-  // routeRules: {
-  //   "/": { prerender: true },
-  // },
   modules: [
     "@vueuse/nuxt",
     "@pinia/nuxt",
@@ -118,10 +136,9 @@ export default defineNuxtConfig({
       noscript: [{ children: "JavaScript is required" }],
     },
     // transition pages
-    // pageTransition: { name: "BLUR", mode: "in-out" },
+    pageTransition: { name: "BLUR" },
     // transition layouts
-    // layoutTransition: { name: "BLUR" },
-    // layoutTransition: false,
+    layoutTransition: { name: "BLUR" },
   },
   css: [
     // default
@@ -146,81 +163,6 @@ export default defineNuxtConfig({
     //   },
     // },
   },
-
-  //
-  // #hybrid-rendering
-  // #https://nuxt.com/docs/getting-started/server#hybrid-rendering
-  // routeRules: {
-  //   // Generated at build time for SEO purpose
-  //   "/": { prerender: true },
-  //   // Cached for 1 hour
-  //   "/api/*": { cache: { maxAge: 60 * 60 } },
-  //   // Redirection to avoid 404
-  //   "/old-page": {
-  //     redirect: { to: "/new-page", statusCode: 302 },
-  //   },
-  //   // ...
-  // },
-  //
-  // #Selective Pre-rendering @nitro
-  // nitro: {
-  //   prerender: {
-  //     // routes: ["/"],
-  //     // ignore: ["/dynamic"],
-  //   },
-  // },
-  //
-  // @tw
-  // tailwindcss: {
-  //   cssPath: "~/assets/tailwind.css",
-  //   configPath: "~/config/tailwind.config.ts",
-  //   //
-  //   // # Import fully resolved config
-  //   // # import tailwindConfig from '#tailwind-config'
-  //   exposeConfig: true,
-  //   // config: {},
-  //   // injectPosition: 0,
-  //   viewer: false,
-  // },
-  // colorMode: {
-  //   // preference: "system", // default value of $colorMode.preference
-  //   // fallback: "light", // fallback value if not system preference found
-  //   // hid: "nuxt-color-mode-script",
-  //   // globalName: "__NUXT_COLOR_MODE__",
-  //   // componentName: "ColorScheme",
-  //   // classPrefix: "",
-  //   classSuffix: "",
-  //   // storageKey: "nuxt-color-mode",
-  // },
-
-  // #https://google-fonts.nuxtjs.org
-  // googleFonts: {
-  //   families: {
-  //     "Open+Sans": true,
-  //     "Roboto+Mono": true,
-  //   },
-  //   useStylesheet: true,
-  //   download: false,
-  // },
-
-  // https://image.nuxt.com/get-started/configuration
-  // image: {
-  //   // quality: 92,
-  //   // inject: true,
-  //   // format: ["webp"],
-  //   // domains: ["nuxtjs.org"],
-  //   //
-  //   // The screen sizes predefined by `@nuxt/image`:
-  //   // screens: {
-  //   //   xs: 320,
-  //   //   sm: 640,
-  //   //   md: 768,
-  //   //   lg: 1024,
-  //   //   xl: 1280,
-  //   //   xxl: 1536,
-  //   //   "2xl": 1536,
-  //   // },
-  // },
 
   // https://apollo.nuxtjs.org/getting-started/configuration#configuration
   // https://apollo.nuxtjs.org/getting-started/configuration#clients
