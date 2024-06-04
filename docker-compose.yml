@@ -1,0 +1,10 @@
+services:
+  nuxtapp:
+    container_name: nuxtapp
+    build: .
+    ports:
+      - 8080:3000
+    # volumes:
+    #   - .:/home/app
+    env_file:
+      - .env

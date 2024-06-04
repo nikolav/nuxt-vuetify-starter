@@ -101,12 +101,12 @@ export default defineNuxtPlugin((nuxtApp) => {
       //   MyButton: { color: 'secondary' },
       //   VBtn: { color: 'primary' },
       // },
-      // <CustomComponent>: {
-      //   "foo:1": "bar",
-      // },
       VCol: {
         cols: 12,
       },
+      // <CustomComponent>: {
+      //   "foo:1": "bar",
+      // },
     },
 
     icons: {
