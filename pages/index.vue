@@ -1,26 +1,13 @@
 <script setup lang="ts">
-console.log(get({ a: 1 }, "aa"));
+const { t, setLocale } = useI18n();
 // @@eos
 </script>
 <template>
   <section class="page--index">
+    <button @click="setLocale('en')">en</button>
+    <button @click="setLocale('sr')">sr</button>
     <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus
-      excepturi earum praesentium aut iste vero eligendi veniam consequatur quas
-      consequuntur perspiciatis molestiae tempore, ducimus sint ratione. Quidem
-      harum nostrum enim?
-    </p>
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus
-      excepturi earum praesentium aut iste vero eligendi veniam consequatur quas
-      consequuntur perspiciatis molestiae tempore, ducimus sint ratione. Quidem
-      harum nostrum enim?
-    </p>
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus
-      excepturi earum praesentium aut iste vero eligendi veniam consequatur quas
-      consequuntur perspiciatis molestiae tempore, ducimus sint ratione. Quidem
-      harum nostrum enim?
+      {{ t("message.apple", 1) }}
     </p>
   </section>
 </template>

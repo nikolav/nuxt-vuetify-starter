@@ -5,12 +5,17 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "dev:host": "nuxt dev --host ",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start": "node .output/server/index.mjs ",
+    "demo": "node ./demo.mjs "
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^8.3.1",
     "lodash": "^4.17.21",
+    "nikolav-treets": "^1.2.43",
     "nuxt": "^3.11.2",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"

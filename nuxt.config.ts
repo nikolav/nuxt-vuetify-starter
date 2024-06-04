@@ -28,7 +28,7 @@ const meta: TMeta = [
 export default defineNuxtConfig({
   devtools: { enabled: false },
   // # client-side only rendering; no prerender
-  ssr: false,
+  // ssr: false,
 
   // target: "static",
   // generate: { routes: [] },
@@ -37,29 +37,7 @@ export default defineNuxtConfig({
   // routeRules: {
   //   "/": { prerender: true },
   // },
-
-  modules: [
-    // https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
-    // (_options, nuxt) => {
-    //   nuxt.hooks.hook("vite:extendConfig", (config) => {
-    //     // --at-ts-expect-error
-    //     // config.plugins.push(vitePluginVuetify({ autoImport: true }));
-    //     try {
-    //       config.plugins &&
-    //         config.plugins.push(
-    //           vitePluginVuetify({
-    //             autoImport: true,
-    //             styles: {
-    //               configFile: "assets/styles/vuetify/settings.scss",
-    //             },
-    //           })
-    //         );
-    //     } catch (error) {
-    //       // ignore
-    //     }
-    //   });
-    // },
-  ],
+  modules: ["@nuxtjs/i18n"],
   build: {
     // transpile: ["vuetify"],
   },
@@ -72,7 +50,6 @@ export default defineNuxtConfig({
       // apiBase: '/api'
     },
   },
-  // include auto import dirs, overriding default path
   hooks: {
     // # append dirs, extending default path
     // "components:dirs": (dirs) => {
@@ -82,6 +59,7 @@ export default defineNuxtConfig({
     //   });
     // },
   },
+  // include auto import dirs, overriding default path
   components: [
     // {
     //   path: "/path",
@@ -97,17 +75,12 @@ export default defineNuxtConfig({
     presets: [
       {
         from: "lodash",
-        imports: ["get"],
+        imports: ["get", "trimEnd"],
+        // imports: [{ name: "get", as: "lodashGet" }],
       },
-      // #enable the auto-import of the `useI18n` composable from the `vue-i18n` package
-      //   {
-      //     from: "vue-i18n",
-      //     imports: ["useI18n"],
-      //   },
     ],
   },
   app: {
-    //
     baseURL: BASE_DIR,
     buildAssetsDir: `${trimEnd(BASE_DIR, "/")}/_nuxt/`,
     //
@@ -136,9 +109,9 @@ export default defineNuxtConfig({
       noscript: [{ children: "JavaScript is required" }],
     },
     // transition pages
-    pageTransition: { name: "BLUR", mode: "in-out" },
+    // pageTransition: { name: "BLUR", mode: "in-out" },
     // transition layouts
-    layoutTransition: { name: "BLUR" },
+    // layoutTransition: { name: "BLUR" },
     // layoutTransition: false,
   },
   css: [
@@ -263,5 +236,11 @@ export default defineNuxtConfig({
     options: {
       scrollBehaviorType: "smooth",
     },
+  },
+  i18n: {
+    vueI18n: "./config/i18n.config.ts",
+    defaultLocale: "sr",
+    locales: ["en", "sr"],
+    strategy: "prefix_except_default",
   },
 });
