@@ -1,14 +1,24 @@
 <script setup lang="ts">
-const { t } = useI18n();
-const localePath = useLocalePath();
+// For Nuxt 3
+definePageMeta({
+  colorMode: "light",
+});
+const cm$ = useColorMode();
+
+const cmtoggle = () => {
+  cm$.preference = "light" != cm$.preference ? "light" : "dark";
+};
+
 // @@eos
 </script>
 <template>
   <section class="page--index">
-    <NuxtLink :to="localePath('o-nama')">{{ t("message.about") }}</NuxtLink> |
-    <NuxtLink :to="localePath('o-nama', 'en')">{{
-      t("message.about")
-    }}</NuxtLink>
+    <button @click="cmtoggle">cm</button>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. In reiciendis id
+      eius perspiciatis culpa dolorum laboriosam nisi possimus suscipit, amet
+      corporis laudantium repellendus! Rem quibusdam nostrum ab eos esse? A.
+    </p>
   </section>
 </template>
 <style lang="scss" scoped></style>

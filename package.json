@@ -26,6 +26,7 @@
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
+    "@nuxtjs/color-mode": "^3.4.1",
     "@types/lodash": "^4.17.4",
     "sass": "^1.77.4"
   }

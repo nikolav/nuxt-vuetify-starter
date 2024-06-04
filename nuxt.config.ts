@@ -43,6 +43,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxtjs/google-fonts",
     "@nuxt/image",
+    "@nuxtjs/color-mode",
   ],
   build: {
     // transpile: ["vuetify"],
@@ -270,6 +271,7 @@ export default defineNuxtConfig({
   // https://image.nuxt.com/get-started/configuration
   image: {
     // quality: 92,
+    // # globally initialize an $img helper
     // inject: true,
     // format: ["webp"],
     // domains: ["nuxtjs.org"],
@@ -284,5 +286,15 @@ export default defineNuxtConfig({
     //   xxl: 1536,
     //   "2xl": 1536,
     // },
+  },
+  colorMode: {
+    // preference: "system", // default value of $colorMode.preference
+    // fallback: "light", // fallback value if not system preference found
+    // hid: "nuxt-color-mode-script",
+    // globalName: "__NUXT_COLOR_MODE__",
+    // componentName: "ColorScheme",
+    // classPrefix: "",
+    classSuffix: "",
+    // storageKey: "nuxt-color-mode",
   },
 });
