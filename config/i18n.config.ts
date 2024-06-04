@@ -5,12 +5,14 @@ export default defineI18nConfig(() => ({
   messages: {
     sr: {
       message: {
+        about: "o",
         hello: "zdravo",
         apple: "jabuka | jabuka | {count} jabuke",
       },
     },
     en: {
       message: {
+        about: "about",
         hello: "hello",
         apple: "apples | apple | {count} apples",
       },

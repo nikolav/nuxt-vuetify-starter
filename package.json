@@ -13,6 +13,7 @@
     "demo": "node ./demo.mjs "
   },
   "dependencies": {
+    "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/i18n": "^8.3.1",
     "lodash": "^4.17.21",
     "nikolav-treets": "^1.2.43",

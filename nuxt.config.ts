@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   // routeRules: {
   //   "/": { prerender: true },
   // },
-  modules: ["@nuxtjs/i18n"],
+  modules: ["@nuxtjs/i18n", "@nuxtjs/google-fonts"],
   build: {
     // transpile: ["vuetify"],
   },
@@ -240,7 +240,25 @@ export default defineNuxtConfig({
   i18n: {
     vueI18n: "./config/i18n.config.ts",
     defaultLocale: "sr",
-    locales: ["en", "sr"],
-    strategy: "prefix_except_default",
+    locales: ["sr", "en"],
+    strategy: "prefix_and_default",
+    customRoutes: "config",
+    pages: {
+      "o-nama": {
+        en: "/about",
+        sr: "/o-nama",
+      },
+    },
+  },
+  experimental: {
+    scanPageMeta: true,
+  },
+  // #https://google-fonts.nuxtjs.org
+  googleFonts: {
+    families: {
+      "Open+Sans": true,
+    },
+    useStylesheet: true,
+    download: false,
   },
 });
