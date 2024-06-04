@@ -37,7 +37,13 @@ export default defineNuxtConfig({
   // routeRules: {
   //   "/": { prerender: true },
   // },
-  modules: ["@nuxtjs/i18n", "@nuxtjs/google-fonts"],
+  modules: [
+    "@vueuse/nuxt",
+    "@pinia/nuxt",
+    "@nuxtjs/i18n",
+    "@nuxtjs/google-fonts",
+    "@nuxt/image",
+  ],
   build: {
     // transpile: ["vuetify"],
   },
@@ -260,5 +266,23 @@ export default defineNuxtConfig({
     },
     useStylesheet: true,
     download: false,
+  },
+  // https://image.nuxt.com/get-started/configuration
+  image: {
+    // quality: 92,
+    // inject: true,
+    // format: ["webp"],
+    // domains: ["nuxtjs.org"],
+    //
+    // The screen sizes predefined by `@nuxt/image`:
+    // screens: {
+    //   xs: 320,
+    //   sm: 640,
+    //   md: 768,
+    //   lg: 1024,
+    //   xl: 1280,
+    //   xxl: 1536,
+    //   "2xl": 1536,
+    // },
   },
 });
