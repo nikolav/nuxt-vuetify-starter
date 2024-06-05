@@ -1,0 +1,8 @@
+{
+  "message": {
+    "about": "about",
+    "hello": "hello",
+    "apple": "apples | {n} apple | {n} apples",
+    "welcome": "welcome"
+  }
+}

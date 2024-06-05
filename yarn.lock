@@ -1919,6 +1919,15 @@
   dependencies:
     upath "^2.0.1"
 
+"@vueuse/components@^10.10.0":
+  version "10.10.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/components/-/components-10.10.0.tgz#19ae966a713fe8a083bd41c595812ec80f03a46d"
+  integrity sha512-HiA10NQ9HJAGnju+8ZK4TyA8LIc0a6BnJmVWDa/k+TRhaYCVacSDU04k0BQ2otV+gghUDdwu98upf6TDRXpoeg==
+  dependencies:
+    "@vueuse/core" "10.10.0"
+    "@vueuse/shared" "10.10.0"
+    vue-demi ">=0.14.7"
+
 "@vueuse/components@^10.9.0":
   version "10.10.0"
   resolved "https://registry.npmjs.org/@vueuse/components/-/components-10.10.0.tgz"

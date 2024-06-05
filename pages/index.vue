@@ -1,13 +1,16 @@
 <script setup lang="ts">
+const { n, d, t, setLocale } = useI18n();
+const date = new Date();
 // @@eos
 </script>
 <template>
   <section class="page--index">
+    <VBtn color="primary" @click="setLocale('sr-Latn-RS')">sr-Latn-RS</VBtn>
+    <VBtn color="primary" @click="setLocale('sr-Cyrl-RS')">sr-Cyrl-RS</VBtn>
+    <VBtn @click="setLocale('en')">en</VBtn>
     <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio
-      aliquid, corporis eius quaerat saepe nemo aperiam laboriosam repellat
-      molestiae omnis similique, a itaque ipsa iusto cumque sunt illo?
-      Doloribus, aspernatur!
+      {{ t("message.welcome") }} | {{ d(date, "short") }} |
+      {{ n(122333, "currency") }}
     </p>
   </section>
 </template>

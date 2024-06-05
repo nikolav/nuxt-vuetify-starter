@@ -1,7 +1,7 @@
 import vitePluginVuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import {
   // ENDPOINT_GRAPHQL,
-  // API_URL
+  API_URL,
   SSR,
 } from "./config";
 import trimEnd from "lodash/trimEnd";
@@ -16,15 +16,15 @@ const meta: TMeta = [
 
 // --force-https
 // <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-// if (
-//   /dnofiq4anfaqwrzctj\.xyz/.test(API_URL)
-//   // API_URL.startsWith("https")
-//   // || /herokuapp\.com/.test(API_URL)
-// )
-//   meta.push({
-//     "http-equiv": "Content-Security-Policy",
-//     content: "upgrade-insecure-requests",
-//   });
+if (
+  // /dnofiq4anfaqwrzctj\.xyz/.test(API_URL)
+  API_URL.startsWith("https")
+  // || /herokuapp\.com/.test(API_URL)
+)
+  meta.push({
+    "http-equiv": "Content-Security-Policy",
+    content: "upgrade-insecure-requests",
+  });
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -206,7 +206,7 @@ export default defineNuxtConfig({
       },
     },
     define: {
-      // "process.env.DEBUG": false,
+      "process.env.DEBUG": false,
     },
     vue: {
       template: {
@@ -241,14 +241,15 @@ export default defineNuxtConfig({
   },
   i18n: {
     vueI18n: "./config/i18n.config.ts",
-    defaultLocale: "sr",
-    locales: ["sr", "en"],
+    defaultLocale: "sr-Latn-RS",
+    locales: ["en", "sr-Latn-RS"],
     strategy: "prefix_and_default",
     customRoutes: "config",
     pages: {
       "o-nama": {
         en: "/about",
-        sr: "/o-nama",
+        "sr-Latn-RS": "/o-nama",
+        "sr-Cyrl-RS": "/o-nama-cyr",
       },
     },
   },
@@ -284,7 +285,7 @@ export default defineNuxtConfig({
     // },
   },
   colorMode: {
-    // preference: "light", // default value of $colorMode.preference
+    // preference: "system", // default value of $colorMode.preference
     // fallback: "light", // fallback value if not system preference found
     // hid: "nuxt-color-mode-script",
     // globalName: "__NUXT_COLOR_MODE__",

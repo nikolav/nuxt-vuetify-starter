@@ -32,8 +32,8 @@ const complement = chroma
 export const light: ThemeDefinition = {
   dark: false,
   colors: {
-    background: "#FFFFFF",
-    surface: "#FFFFFF",
+    background: "#fffffc",
+    surface: "#fcfcfb",
     primary,
     // secondary: "#e2e2e2",
     secondary,

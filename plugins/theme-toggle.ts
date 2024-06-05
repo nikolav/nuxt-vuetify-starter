@@ -4,7 +4,7 @@ export default defineNuxtPlugin((_nuxtapp) => {
     theme: { DARK, LIGHT, DEFAULT },
   } = useAppConfig();
   const theme = computed(() =>
-    "system" != cm$.preference ? cm$.preference : DEFAULT
+    "system" !== cm$.preference ? cm$.preference : cm$.value || DEFAULT
   );
   const themeToggle = (mode?: string | undefined) => {
     cm$.preference = mode || (DARK !== theme.value ? DARK : LIGHT);
