@@ -132,6 +132,8 @@ export default defineAppConfig({
     appPublic: URL_APP_PUBLIC,
     github: "https://github.com/nikolav/nuxtflask",
     QUERY: "q",
+    TRANSLATION_ENDPOINT:
+      "https://translation.googleapis.com/language/translate/v2",
   },
   storage: {
     MENU_CATEGORY: "7n0FS9ZxoVN",

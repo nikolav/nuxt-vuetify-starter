@@ -242,3 +242,12 @@ export interface IInputFileUpload {
     file: File;
   };
 }
+
+export interface ITranslationQuery {
+  q: string;
+  target: string;
+  source?: string;
+  format?: string;
+  model?: string;
+  key?: string;
+}

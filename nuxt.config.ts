@@ -2,6 +2,7 @@ import vitePluginVuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import {
   // ENDPOINT_GRAPHQL,
   API_URL,
+  URL_APP_PUBLIC,
   SSR,
 } from "./config";
 import trimEnd from "lodash/trimEnd";
@@ -125,6 +126,7 @@ export default defineNuxtConfig({
       {
         from: "lodash",
         imports: [
+          "transform",
           "assign",
           "each",
           "forEach",
@@ -176,7 +178,7 @@ export default defineNuxtConfig({
       noscript: [{ children: "JavaScript is required" }],
     },
     // transition pages
-    pageTransition: { name: "BLUR" },
+    pageTransition: { name: "BLUR", mode: "in-out" },
     // transition layouts
     layoutTransition: { name: "BLUR" },
   },
@@ -242,14 +244,32 @@ export default defineNuxtConfig({
   i18n: {
     vueI18n: "./config/i18n.config.ts",
     defaultLocale: "sr-Latn-RS",
-    locales: ["en", "sr-Latn-RS"],
+    baseUrl: URL_APP_PUBLIC,
+    locales: [
+      {
+        code: "en",
+        iso: "en",
+        name: "English",
+      },
+      {
+        code: "sr-Cyrl-RS",
+        iso: "sr-Cyrl-RS",
+        name: "Српски",
+      },
+      {
+        code: "sr-Latn-RS",
+        iso: "sr-Latn-RS",
+        name: "Srpski",
+        isCatchallLocale: true,
+      },
+    ],
     strategy: "prefix_and_default",
     customRoutes: "config",
     pages: {
       "o-nama": {
-        en: "/about",
-        "sr-Latn-RS": "/o-nama",
+        en: "/about-us",
         "sr-Cyrl-RS": "/o-nama-cyr",
+        "sr-Latn-RS": "/o-nama",
       },
     },
   },
