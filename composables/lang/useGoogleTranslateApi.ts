@@ -1,8 +1,9 @@
 import { CLOUD_TRANSLATION_API_KEY as API_KEY } from "@/config";
 import type { ITranslationQuery } from "@/types";
 // #https://cloud.google.com/translate/docs/reference/rest/v2/translate#http-request
-export const useGoogleTranslateApi = (format = "text") => {
+export const useGoogleTranslateApi = () => {
   const {
+    app: { TRANSLATION_DEFAULTS, TRANSLATION_ENABLED },
     urls: { TRANSLATION_ENDPOINT },
   } = useAppConfig();
   const pc = useProcessMonitor();
@@ -10,7 +11,7 @@ export const useGoogleTranslateApi = (format = "text") => {
   watchProcessing(() => pc.processing.value);
   const tr = async (config: ITranslationQuery) => {
     const body: ITranslationQuery = transform(
-      assign({}, { format: "text", key: API_KEY }, config),
+      assign({}, TRANSLATION_DEFAULTS, config),
       (res: any, value: string, key: string) => {
         res[key] = "q" === key ? String(value).trim() : value;
         return res;
@@ -18,6 +19,8 @@ export const useGoogleTranslateApi = (format = "text") => {
       <ITranslationQuery>{}
     );
     if (!body.q) return;
+    if (!TRANSLATION_ENABLED) return body.q;
+    // 
     let res;
     try {
       pc.begin();

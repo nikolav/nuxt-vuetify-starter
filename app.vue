@@ -4,6 +4,14 @@ const {
   $theme: { theme },
 } = useNuxtApp();
 
+useSeoMeta({
+  title: "nuxtapp",
+  ogTitle: "nuxtapp",
+  description: "nuxtapp",
+  ogDescription: "nuxtapp",
+  ogImage: "https://example.com/image.png",
+  twitterCard: "summary_large_image",
+});
 // #seo :locale
 const localeHead = useLocaleHead({
   addDirAttribute: true,

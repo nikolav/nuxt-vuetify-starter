@@ -2,7 +2,10 @@
   "message": {
     "about": "o nama",
     "hello": "zdravo",
+    "hello2": "@.capitalize:message.hello",
     "apple": "0 jabuka | {n} jabuka | {n} jabuke | {n} jabuka",
-    "welcome": "dobrodošli"
+    "welcome": "dobrodošli",
+    "hellouser": "Zdravo, {user}!",
+    "homeAddress": "adresa stanovanja"
   }
 }

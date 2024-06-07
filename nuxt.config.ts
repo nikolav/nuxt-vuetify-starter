@@ -30,7 +30,10 @@ if (
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  // # client-side only rendering; no prerender
+
+  // # client-side rendering;
+  //  prerender    .true
+  //  no-prerender .false
   ssr: SSR,
 
   // #hybrid-rendering
@@ -38,20 +41,21 @@ export default defineNuxtConfig({
   // #https://nuxt.com/docs/guide/concepts/rendering#:~:text=defineNuxtConfig(%7B-,routeRules,-%3A%20%7B
   // routeRules: {
   //   // Generated at build time for SEO purpose
-  //   "/": { prerender: true },
+  //   // "/": { prerender: true },
+  //   // "/o-nama": { prerender: true },
   //   // Cached for 1 hour
-  //   "/api/*": { cache: { maxAge: 60 * 60 } },
+  //   // "/api/*": { cache: { maxAge: 60 * 60 } },
   //   // Redirection to avoid 404
-  //   "/old-page": {
-  //     redirect: { to: "/new-page", statusCode: 302 },
-  //   },
+  //   // "/old-page": {
+  //   //   redirect: { to: "/new-page", statusCode: 302 },
+  //   // },
   //   // ...
   // },
   //
   // #Selective Pre-rendering @nitro
   // nitro: {
   //   prerender: {
-  //     // routes: ["/"],
+  //     // routes: ['/user/1', '/user/2'],
   //     // ignore: ["/dynamic"],
   //   },
   // },
@@ -122,32 +126,32 @@ export default defineNuxtConfig({
     // autoImport: false
     dirs: ["./keys"],
     //
-    presets: [
-      {
-        from: "lodash",
-        imports: [
-          "transform",
-          "assign",
-          "each",
-          "forEach",
-          "get",
-          "hasOwn",
-          "noop",
-          "set",
-          "some",
-          "trimEnd",
-          "unset",
-          "once",
-          "uniqueId",
-          "escapeRegExp",
-          {
-            name: "get",
-            as: "getPath",
-          },
-        ],
-        // imports: [{ name: "get", as: "lodashGet" }],
-      },
-    ],
+    // presets: [
+    //   {
+    //     from: "lodash",
+    //     imports: [
+    //       "assign",
+    //       "each",
+    //       "escapeRegExp",
+    //       "forEach",
+    //       "get",
+    //       "hasOwn",
+    //       "noop",
+    //       "once",
+    //       "set",
+    //       "some",
+    //       "transform",
+    //       "trimEnd",
+    //       "uniqueId",
+    //       "unset",
+    //       {
+    //         name: "get",
+    //         as: "getPath",
+    //       },
+    //     ],
+    //     // imports: [{ name: "get", as: "lodashGet" }],
+    //   },
+    // ],
   },
   app: {
     baseURL: BASE_DIR,
@@ -157,7 +161,8 @@ export default defineNuxtConfig({
       charset: "utf-8",
       viewport:
         "width=device-width, initial-scale=1.0, shrink-to-fit=no, minimum-scale=1",
-      title: "",
+      title: "app",
+      titleTemplate: "%s | nikolav.rs",
       // https://www.geeksforgeeks.org/meta-tags-in-nuxt-js/
       meta,
       //

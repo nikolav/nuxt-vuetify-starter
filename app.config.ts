@@ -1,6 +1,10 @@
 import type { TStoreMain, TStoreFlags, IConfigDocs, IAppData } from "@/types";
 import assign from "lodash/assign";
-import { PRODUCTION$, URL_APP_PUBLIC } from "@/config";
+import {
+  PRODUCTION$,
+  URL_APP_PUBLIC,
+  CLOUD_TRANSLATION_API_KEY,
+} from "@/config";
 
 const themeDark = "dark";
 const themeLight = "light";
@@ -16,6 +20,8 @@ export default defineAppConfig({
   app: {
     DEFAULT_TRANSITION: "slide-y-reverse-transition",
     DEFAULT_NO_IMAGE: "/no-image.jpg",
+    TRANSLATION_ENABLED: true,
+    TRANSLATION_DEFAULTS: { format: "text", key: CLOUD_TRANSLATION_API_KEY },
   },
   docs: {
     USER_PHOTOS_prefix: "@user:photos:",
