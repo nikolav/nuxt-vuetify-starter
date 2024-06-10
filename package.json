@@ -10,7 +10,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "start": "node .output/server/index.mjs ",
-    "demo": "node ./demo.mjs "
+    "demo": "node ./demo.mjs ",
+    "deploy:dev": "firebase deploy --only hosting:qdeiymppite "
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",

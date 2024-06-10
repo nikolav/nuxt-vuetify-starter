@@ -7,12 +7,11 @@ const date = new Date();
 </script>
 <template>
   <section class="component--">
-    <pre>{{ locale }}</pre>
-    <VBtn color="primary" @click="setLocale('sr-Latn-RS')">sr-Latn-RS</VBtn>
-    <VBtn color="primary" @click="setLocale('sr-Cyrl-RS')">sr-Cyrl-RS</VBtn>
-    <VBtn @click="setLocale('en')">en</VBtn>
-    |
-    <NuxtLinkLocale to="/">index</NuxtLinkLocale>
+    <div class="d-flex items-center gap-5 justify-center ma-2">
+      <NuxtLinkLocale to="/">index</NuxtLinkLocale>
+      <NuxtLinkLocale to="o-nama">o-nama</NuxtLinkLocale>
+      <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
+    </div>
     <hr />
     <p>{{ t("message.about") }}</p>
   </section>

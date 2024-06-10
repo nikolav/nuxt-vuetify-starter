@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "site": "qdeiymppite",
+    "public": ".output/public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}

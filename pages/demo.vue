@@ -2,22 +2,17 @@
 definePageMeta({
   layout: false,
 });
-const { tr } = useGoogleTranslateApi();
-const gtr = async () => {
-  const res = await tr({
-    q: "hello",
-    target: "es",
-  });
-  console.log({ res });
-};
+
 // @@eos
 </script>
 <template>
   <section class="page--demo">
-    <NuxtLinkLocale to="/">index</NuxtLinkLocale> |
-    <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
+    <div class="d-flex items-center gap-5 justify-center ma-2">
+      <NuxtLinkLocale to="/">index</NuxtLinkLocale>
+      <NuxtLinkLocale to="o-nama">o-nama</NuxtLinkLocale>
+      <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
+    </div>
     <hr />
-    <VBtn @click="gtr">tr</VBtn>
   </section>
 </template>
 <style lang="scss" scoped></style>
