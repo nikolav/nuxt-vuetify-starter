@@ -278,9 +278,6 @@ export default defineNuxtConfig({
       },
     },
   },
-  experimental: {
-    scanPageMeta: true,
-  },
   // #https://google-fonts.nuxtjs.org
   googleFonts: {
     families: {
@@ -329,5 +326,9 @@ export default defineNuxtConfig({
     // config: {},
     // injectPosition: 0,
     viewer: false,
+  },
+  experimental: {
+    scanPageMeta: true,
+    // typedPages: true,
   },
 });
