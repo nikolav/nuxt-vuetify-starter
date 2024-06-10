@@ -5,7 +5,6 @@ const {
   escapeRegExp,
   forEach,
   get,
-  hasOwn,
   noop,
   once,
   set,
@@ -23,8 +22,6 @@ export {
   forEach,
   get as getPath,
   get,
-  getPath,
-  hasOwn,
   noop,
   once,
   set,
@@ -37,3 +34,4 @@ export {
 export { isNumeric } from "./is-numeric";
 export { secureLeft } from "./secure-left";
 export { idGen } from "./id-gen";
+export { hasOwn } from "./has-own";
