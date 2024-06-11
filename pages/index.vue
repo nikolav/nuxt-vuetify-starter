@@ -37,6 +37,7 @@ const authAdmin = async () =>
       <VCardActions>
         <VSpacer />
         <VBtn @click="authAdmin">login</VBtn>
+        <VBtn @click="auth.logout()">logout</VBtn>
       </VCardActions>
     </VCard>
   </section>

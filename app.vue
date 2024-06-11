@@ -2,7 +2,43 @@
 import { SpinnerAppProcessing } from "@/components/ui";
 import { UID } from "@/keys";
 
+const route = useRoute();
 const auth = useStoreApiAuth();
+
+// set default guest key @!auth
+onceOn(
+  () => auth.initialized$ && !auth.isAuth$,
+  () => {
+    nextTick(() => {
+      if (!auth.token$) auth.tokenPutDefault();
+    });
+  }
+);
+// onAuthStatus
+watch(
+  [() => auth.isAuth$, () => auth.isDefault$],
+  async ([isAuth, isDefault]) => {
+    if (!isDefault) {
+      if (!isAuth) {
+        // handle logouts;
+        //  clear cache, hard reload
+        return reloadNuxtApp({
+          path: "/",
+          persistState: false,
+        });
+      }
+      // handle logins
+      // # redirect to index if auth updated at login pages
+      if (["auth-register", "auth-login"].includes(String(route.name)))
+        await navigateTo({ name: "index" });
+
+      // break
+      return;
+    }
+    // default user auth status change
+  }
+);
+
 // provide current user data
 const uid = computed(() => get(auth.user$, "id"));
 provide(UID, uid);
