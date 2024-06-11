@@ -9,7 +9,6 @@ definePageMeta({
 
 const uid = inject(UID);
 
-
 // @@eos
 </script>
 <template>
