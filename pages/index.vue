@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Dump } from "@/components/dev";
+import { ProvideTranslation } from "@/components/lang";
 const { n, d, t, locale, setLocale } = useI18n();
 const date = new Date();
 const auth = useStoreApiAuth();
@@ -32,6 +33,17 @@ const authAdmin = async () =>
           {{ t("message.welcome") }} | {{ d(date, "long") }} |
           {{ n(122333, "currency") }}
         </p>
+        <ProvideTranslation
+          :query="{
+            q: 'trees',
+            target: locale,
+          }"
+          v-slot="{ translation }"
+        >
+          <small>--</small>
+          <p>{{ translation }}</p>
+          <small>--</small>
+        </ProvideTranslation>
         <Dump :data="{ user: auth.user$ }" />
       </VCardText>
       <VCardActions>
