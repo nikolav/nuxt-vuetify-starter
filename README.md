@@ -27,13 +27,6 @@ Build the application for production:
 yarn build
 ```
 
-Publish development preview on `https://qdeiymppite.web.app/`:
-
-```bash
-# yarn
-yarn run deploy:dev 
-```
-
 Locally preview production build:
 
 ```bash
@@ -41,7 +34,14 @@ Locally preview production build:
 yarn preview
 ```
 
-@[deployment documentation](https://nuxt.com/docs/getting-started/deployment)
+Publish development preview on `https://qdeiymppite.web.app/`:
 
+```bash
+# yarn
+yarn run deploy:dev 
+```
+
+
+@[deployment documentation](https://nuxt.com/docs/getting-started/deployment)
 
 
