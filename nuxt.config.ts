@@ -1,11 +1,6 @@
 import vitePluginVuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import trimEnd from "lodash/trimEnd";
-import {
-  // ENDPOINT_GRAPHQL,
-  API_URL,
-  URL_APP_PUBLIC,
-  SSR,
-} from "./config";
+import { ENDPOINT_GRAPHQL, API_URL, URL_APP_PUBLIC, SSR } from "./config";
 
 const BASE_DIR = process.env.BASE_DIR;
 
@@ -91,6 +86,8 @@ export default defineNuxtConfig({
         }
       });
     },
+    // https://apollo.nuxtjs.org/getting-started/quick-start
+    "@nuxtjs/apollo",
   ],
   build: {
     transpile: ["vuetify"],
@@ -330,5 +327,24 @@ export default defineNuxtConfig({
   experimental: {
     scanPageMeta: true,
     // typedPages: true,
+  },
+  // https://apollo.nuxtjs.org/getting-started/configuration#configuration
+  // https://apollo.nuxtjs.org/getting-started/configuration#clients
+  apollo: {
+    autoImports: true,
+    authType: "Bearer",
+    authHeader: "Authorization",
+    tokenStorage: "cookie",
+    proxyCookies: true,
+    clients: {
+      default: {
+        httpEndpoint: ENDPOINT_GRAPHQL,
+        httpLinkOptions: {
+          // Enable sending cookies over cross-origin requests
+          credentials: "include",
+        },
+        tokenName: "@apollo/token:l7iPx",
+      },
+    },
   },
 });

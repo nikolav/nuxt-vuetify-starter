@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { Dump } from "@/components/dev";
+import { Dump } from "@/components/dev";
 definePageMeta({
   layout: false,
 });

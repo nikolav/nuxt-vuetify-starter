@@ -14,9 +14,11 @@ const {
   uniqueId,
   startCase,
   unset,
+  isEmpty,
 } = ld;
 
 export {
+  isEmpty,
   startCase,
   assign,
   each,
@@ -33,9 +35,9 @@ export {
   uniqueId,
   unset,
 };
-// 
+//
 export * from "./re";
-// 
+//
 export { isNumeric } from "./is-numeric";
 export { secureLeft } from "./secure-left";
 export { idGen } from "./id-gen";
