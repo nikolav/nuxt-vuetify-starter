@@ -8,7 +8,7 @@ import {
 
 const themeDark = "dark";
 const themeLight = "light";
-const TAG_USER_PROFILE_prefix = "@user:profile:6wSQNhAi:";
+const TAG_USER_PROFILE_prefix = "@user:profile:w175I1JG:";
 
 export default defineAppConfig({
   ADMIN_EMAIL: "admin@nikolav.rs",
@@ -32,6 +32,7 @@ export default defineAppConfig({
   },
   //
   key: {
+    TOPIC_RATINGS: "ratings:ZM2Vz8rC",
     APP_MOUNTED: "Zkcmk4BnXHU",
     APP_PROCESSING: "FlaelfhZddK",
     CHAT_NAME: "QOPnfTw9",

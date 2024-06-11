@@ -5,14 +5,7 @@ definePageMeta({
   layout: false,
 });
 
-const gv = useStoreGravatars();
-
-// const {
-//   stores: {
-//     gravatars: { GRAVATARS_CACHE },
-//   },
-// } = useAppConfig();
-// const { data } = useDoc(GRAVATARS_CACHE);
+const { store, rate } = useTopicRating("@R1");
 
 // @@eos
 </script>
@@ -24,9 +17,8 @@ const gv = useStoreGravatars();
       <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
     </div>
     <hr />
-    <VBtn @click="gv.refresh()">refresh</VBtn>
-    <VAvatar :image="gv.src" />
-    <Dump :data="{ store: gv.store }" />
+    <Dump :data="{ store }" />
+    <VBtn v-for="n in 5" :key="n" @click="rate(n)">{{ n }}</VBtn>
   </section>
 </template>
 <style lang="scss" scoped></style>
