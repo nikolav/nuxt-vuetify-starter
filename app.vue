@@ -1,5 +1,12 @@
 <script lang="ts" setup>
 import { SpinnerAppProcessing } from "@/components/ui";
+import { UID } from "@/keys";
+
+const auth = useStoreApiAuth();
+// provide current user data
+const uid = computed(() => get(auth.user$, "id"));
+provide(UID, uid);
+
 const {
   $theme: { theme },
 } = useNuxtApp();

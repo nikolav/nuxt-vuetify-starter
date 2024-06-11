@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import { Dump } from "@/components/dev";
 const { n, d, t, locale, setLocale } = useI18n();
 const date = new Date();
+const auth = useStoreApiAuth();
+const authAdmin = async () =>
+  await auth.login({
+    email: "admin@nikolav.rs",
+    password: "5ba8de29-93bb-5bc2-9e03-b1a8c7c6737b",
+  });
 
 // @@eos
 </script>
@@ -25,9 +32,13 @@ const date = new Date();
           {{ t("message.welcome") }} | {{ d(date, "long") }} |
           {{ n(122333, "currency") }}
         </p>
+        <Dump :data="{ user: auth.user$ }" />
       </VCardText>
+      <VCardActions>
+        <VSpacer />
+        <VBtn @click="authAdmin">login</VBtn>
+      </VCardActions>
     </VCard>
-    |
   </section>
 </template>
 <style lang="scss" scoped></style>

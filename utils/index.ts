@@ -12,10 +12,12 @@ const {
   transform,
   trimEnd,
   uniqueId,
+  startCase,
   unset,
 } = ld;
 
 export {
+  startCase,
   assign,
   each,
   escapeRegExp,
@@ -31,6 +33,9 @@ export {
   uniqueId,
   unset,
 };
+// 
+export * from "./re";
+// 
 export { isNumeric } from "./is-numeric";
 export { secureLeft } from "./secure-left";
 export { idGen } from "./id-gen";

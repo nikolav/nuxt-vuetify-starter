@@ -1,11 +1,11 @@
 import vitePluginVuetify, { transformAssetUrls } from "vite-plugin-vuetify";
+import trimEnd from "lodash/trimEnd";
 import {
   // ENDPOINT_GRAPHQL,
   API_URL,
   URL_APP_PUBLIC,
   SSR,
 } from "./config";
-import trimEnd from "lodash/trimEnd";
 
 const BASE_DIR = process.env.BASE_DIR;
 

@@ -1,3 +1,3 @@
-export {};
+import type { InjectionKey, Ref } from "vue";
 
-export const AA = "aa";
+export const UID = <InjectionKey<Ref<string | undefined>>>Symbol();

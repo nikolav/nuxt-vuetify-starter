@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { n, d, t, setLocale, locale } = useI18n();
+const { t } = useI18n();
 const localePath = useLocalePath();
 const date = new Date();
 
