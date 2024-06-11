@@ -35,6 +35,8 @@ export default defineAppConfig({
   },
   //
   key: {
+    PRODUCTS_CHANGE: "O36Bjz6COY6i",
+    FLAG_CART_OPEN: "OBNwu3k37w3a6H",
     APP_MOUNTED: "Zkcmk4BnXHU",
     APP_PROCESSING: "FlaelfhZddK",
     CHAT_MAIN: "cLgtZdZLXHNdstzt",
@@ -79,6 +81,14 @@ export default defineAppConfig({
   },
   //
   stores: {
+    cart: {
+      initial: {
+        // `pid:amount` map to store
+        items: <Record<number, number>>{},
+        // additional order information
+        data: <Record<string, any>>{},
+      },
+    },
     gravatars: {
       BASE_URL: "https://www.gravatar.com/avatar",
       GRAVATARS_CACHE: "gravatars:DKueKjfBLJlRj7k",

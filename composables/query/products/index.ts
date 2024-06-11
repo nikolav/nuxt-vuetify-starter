@@ -1,0 +1,1 @@
+export { useQueryProductsPrices } from "./useQueryProductsPrices"
