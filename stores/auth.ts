@@ -1,5 +1,5 @@
-// import { signOut } from "firebase/auth";
-// import { auth as firebaseAuth } from "@/services/firebase";
+import { signOut } from "firebase/auth";
+import { auth as firebaseAuth } from "@/services/firebase";
 import type {
   IAuthCreds,
   IAuthLogoutResponse,
@@ -165,7 +165,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
             status.successful();
 
             // clear fb auth
-            // await signOut(firebaseAuth);
+            await signOut(firebaseAuth);
           }
         },
       });

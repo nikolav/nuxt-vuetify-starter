@@ -116,11 +116,21 @@ export interface IDocDataTask {
   href?: string | undefined;
   description?: string | undefined;
 }
-export interface IAuthProfile {
+
+export type TBaseAuthProfile = Record<string, any>;
+export interface IAuthProfile extends TBaseAuthProfile {
   firstName?: string | undefined;
   lastName?: string | undefined;
+  phone?: string | undefined;
+  address?: string | undefined;
   avatar?: IStorageFileDataSaved;
+  businessName?: string | undefined;
   about?: string | undefined;
+  facebook?: string | undefined;
+  instagram?: string | undefined;
+  googleCalendarEditPageLink?: string | undefined;
+  googleCalendarEmbedLink?: string | undefined;
+  authProvider?: Record<string, any>;
 }
 
 export interface IUser {

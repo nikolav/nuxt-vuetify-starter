@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import type { IAuthProfile } from "@/types";
 import { Dump } from "@/components/dev";
+import { UID } from "@/keys";
 
 definePageMeta({
   layout: false,
 });
 
-const { store, rate } = useTopicRating("@R1");
+const uid = inject(UID);
+
 
 // @@eos
 </script>
@@ -17,8 +20,6 @@ const { store, rate } = useTopicRating("@R1");
       <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
     </div>
     <hr />
-    <Dump :data="{ store }" />
-    <VBtn v-for="n in 5" :key="n" @click="rate(n)">{{ n }}</VBtn>
   </section>
 </template>
 <style lang="scss" scoped></style>
