@@ -5,24 +5,15 @@ definePageMeta({
   layout: false,
 });
 
-const file$ = ref();
-const { onChange, open: filePicker } = useFileDialog({ accept: "image/*" });
-onChange((lsFiles) => {
-  file$.value = get(lsFiles, "[0]");
-});
-const { files, upload } = useApiStorage();
-const imageUpload = async () => {
-  if (!file$.value) return;
-  const res = await upload({
-    image: {
-      file: file$.value,
-    },
-  });
-  console.log({ res });
-};
-watchEffect(() => {
-  console.log(file$.value);
-});
+const gv = useStoreGravatars();
+
+// const {
+//   stores: {
+//     gravatars: { GRAVATARS_CACHE },
+//   },
+// } = useAppConfig();
+// const { data } = useDoc(GRAVATARS_CACHE);
+
 // @@eos
 </script>
 <template>
@@ -33,9 +24,9 @@ watchEffect(() => {
       <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
     </div>
     <hr />
-    <VBtn @click="filePicker()">choose</VBtn>
-    <VBtn @click="imageUpload">upload</VBtn>
-    <Dump :data="files" />
+    <VBtn @click="gv.refresh()">refresh</VBtn>
+    <VAvatar :image="gv.src" />
+    <Dump :data="{ store: gv.store }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

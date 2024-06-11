@@ -68,6 +68,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
     lazy: true,
     immediate: false,
   });
+  const uid = computed(() => get(user$.value, "id"));
   const initialized$ = onceMountedOn(true, authDataStart);
   const isAuth$ = computed(() => schemaAuthData.safeParse(user$.value).success);
   const isUser$ = computed(
@@ -183,6 +184,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
     // #crud
     token$,
     user$,
+    uid,
     register,
     login,
     logout,
