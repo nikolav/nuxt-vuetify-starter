@@ -203,3 +203,13 @@ export const M_ordersSetCompleted = gql`
     ordersSetCompleted(oid: $oid, completed: $completed)
   }
 `;
+
+export const M_sendMail = gql`
+  mutation m_sendMail($subject: String!, $template: String!, $data: JsonData!) {
+    sendmail(subject: $subject, template: $template, data: $data) {
+      error
+      status
+    }
+  }
+`;
+

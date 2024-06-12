@@ -16,12 +16,12 @@ const query = `
   }
 `;
 export const useSavePdf = () => {
-  const { watchProcessing } = useStoreAppProcessing();
-  const procSavePdf = useProcessMonitor();
   const auth = useStoreApiAuth();
   const {
     pdf: { DEFAULT_DOWNLOAD_FILENAME },
   } = useAppConfig();
+  const { watchProcessing } = useStoreAppProcessing();
+  const procSavePdf = useProcessMonitor();
   watchProcessing(() => procSavePdf.processing.value);
   const pdf = async (options: IPdfDataInput) => {
     let d;

@@ -9,6 +9,18 @@ definePageMeta({
 
 const uid = inject(UID);
 
+const { sendMail } = useSendMail();
+const mail = async () => {
+  const res = await sendMail({
+    subject: "simple:subj",
+    template: "simple",
+    data: {
+      text: "simple:text",
+    },
+  });
+  console.log({ res });
+};
+
 // @@eos
 </script>
 <template>
@@ -19,6 +31,7 @@ const uid = inject(UID);
       <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
     </div>
     <hr />
+    <VBtn @click="mail">mail</VBtn>
   </section>
 </template>
 <style lang="scss" scoped></style>
