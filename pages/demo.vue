@@ -9,17 +9,36 @@ definePageMeta({
 
 const uid = inject(UID);
 
-const { sendMail } = useSendMail();
-const mail = async () => {
-  const res = await sendMail({
-    subject: "simple:subj",
-    template: "simple",
+const ref_6qiFpra2DMtLghiuo1B = ref();
+
+const data = [
+  { year: 2010, count: 10 },
+  { year: 2011, count: 20 },
+  { year: 2012, count: 15 },
+  { year: 2013, count: 25 },
+  { year: 2014, count: 22 },
+  { year: 2015, count: 30 },
+  { year: 2016, count: 28 },
+];
+
+import Chart from "chart.js/auto";
+onMounted(() => {
+  const chart = new Chart(ref_6qiFpra2DMtLghiuo1B.value, {
+    type: "bar",
+    options: {
+      animation: false,
+    },
     data: {
-      text: "simple:text",
+      labels: map(data, "year"),
+      datasets: [
+        {
+          label: "Acquisitions by year",
+          data: map(data, "count"),
+        },
+      ],
     },
   });
-  console.log({ res });
-};
+});
 
 // @@eos
 </script>
@@ -31,7 +50,16 @@ const mail = async () => {
       <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
     </div>
     <hr />
-    <VBtn @click="mail">mail</VBtn>
+    <VSheet
+      max-width="640"
+      class="mx-auto pa-2 !bg-stone-50"
+      elevation="1"
+      rounded
+    >
+      <VResponsive :aspect-ratio="640 / 480">
+        <canvas ref="ref_6qiFpra2DMtLghiuo1B" width="640" height="480" />
+      </VResponsive>
+    </VSheet>
   </section>
 </template>
 <style lang="scss" scoped></style>

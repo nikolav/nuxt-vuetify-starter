@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Dump } from "@/components/dev";
 import { ProvideTranslation } from "@/components/lang";
+import { API_URL } from "@/config";
+
 const { n, d, t, locale, setLocale } = useI18n();
 const date = new Date();
 const auth = useStoreApiAuth();
@@ -9,6 +11,30 @@ const authAdmin = async () =>
     email: "admin@nikolav.rs",
     password: "5ba8de29-93bb-5bc2-9e03-b1a8c7c6737b",
   });
+
+const Q_apiStatus = gql`
+  query q_apiStatus {
+    status
+  }
+`;
+
+const { data: dataApiStatus } = useFetch(API_URL, {
+  method: "GET",
+  headers: {
+    Accept: "application/json",
+  },
+  lazy: true,
+});
+
+const {
+  graphql: { STORAGE_QUERY_POLL_INTERVAL },
+} = useAppConfig();
+const { result, load: queryStart } = useLazyQuery(Q_apiStatus, undefined, {
+  enabled: true,
+  pollInterval: STORAGE_QUERY_POLL_INTERVAL,
+});
+const graphqlStatus = computed(() => get(result.value, "status"));
+onceMountedOn(true, queryStart);
 
 // @@eos
 </script>
@@ -44,7 +70,13 @@ const authAdmin = async () =>
           <p>{{ translation }}</p>
           <small>--</small>
         </ProvideTranslation>
-        <Dump :data="{ user: auth.user$ }" />
+        <Dump
+          :data="{
+            dataApiStatus,
+            graphqlStatus,
+            user: auth.user$,
+          }"
+        />
       </VCardText>
       <VCardActions>
         <VSpacer />

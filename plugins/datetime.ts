@@ -13,7 +13,7 @@ dayjs.extend(pluginCustomParseFormat);
 export default defineNuxtPlugin({
   name: "datetime",
   parallel: true,
-  setup: (nuxtapp) => {
+  setup: (_nuxtapp) => {
     return {
       provide: {
         dayjs,

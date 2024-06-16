@@ -6,12 +6,14 @@ const route = useRoute();
 const auth = useStoreApiAuth();
 
 // set default guest key @!auth
-onceOn(
+// onceOn(
+onceMountedOn(
   () => auth.initialized$ && !auth.isAuth$,
   () => {
-    nextTick(() => {
-      if (!auth.token$) auth.tokenPutDefault();
-    });
+    if (!auth.token$) auth.tokenPutDefault();
+    // nextTick(() => {
+    //   if (!auth.token$) auth.tokenPutDefault();
+    // });
   }
 );
 // onAuthStatus
