@@ -10,7 +10,7 @@ export const useDocs = <TData = TDocData>(
     graphql: { STORAGE_QUERY_POLL_INTERVAL },
     io: { IOEVENT_DOCS_CHANGE_JsonData },
   } = useAppConfig();
-
+  const token_ = inject(key_TOKEN);
   const topic$ = ref();
   watchEffect(() => {
     topic$.value = toValue(initialTopic);
@@ -37,6 +37,10 @@ export const useDocs = <TData = TDocData>(
   const length$ = computed(() => data$.value.length);
   const reload = async () => await refetch();
   onceMountedOn(enabled$, load);
+  // @auth:change reload
+  watchEffect(() => {
+    if (token_?.value) reload();
+  });
 
   const ioEvent$ = computed(() =>
     enabled$.value ? `${IOEVENT_DOCS_CHANGE_JsonData}${topic$.value}` : ""

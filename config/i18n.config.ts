@@ -58,6 +58,14 @@ export default defineI18nConfig(() => ({
         minimumFractionDigits: 2,
       },
     },
+    en: {
+      currency: {
+        style: "currency",
+        currency: "RSD",
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      },
+    },
   },
 }));
 

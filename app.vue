@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { SpinnerAppProcessing } from "@/components/ui";
-import { UID } from "@/keys";
 
 const route = useRoute();
 const auth = useStoreApiAuth();
@@ -40,7 +39,9 @@ watch(
 
 // provide current user data
 const uid = computed(() => get(auth.user$, "id"));
-provide(UID, uid);
+const token = computed(() => auth.token$ || "");
+provide(key_UID, uid);
+provide(key_TOKEN, token);
 
 const {
   $theme: { theme },

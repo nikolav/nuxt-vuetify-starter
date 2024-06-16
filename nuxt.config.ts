@@ -89,6 +89,7 @@ export default defineNuxtConfig({
     // https://apollo.nuxtjs.org/getting-started/quick-start
     "@nuxtjs/apollo",
   ],
+
   build: {
     transpile: ["vuetify"],
   },
@@ -101,22 +102,25 @@ export default defineNuxtConfig({
       // apiBase: '/api'
     },
   },
-  hooks: {
-    // # append dirs, extending default path
-    // "components:dirs": (dirs) => {
-    //   dirs.push({
-    //     path: "/path",
-    //     prefix: "App",
-    //   });
-    // },
-  },
+
+  // hooks: {
+  //   // # append dirs, extending default path
+  //   // "components:dirs": (dirs) => {
+  //   //   dirs.push({
+  //   //     path: "/path",
+  //   //     prefix: "App",
+  //   //   });
+  //   // },
+  // },
+
   // include auto import dirs, overriding default path
-  components: [
-    // {
-    //   path: "/path",
-    //   prefix: "App",
-    // },
-  ],
+  // components: [
+  //   // {
+  //   //   path: "/path",
+  //   //   prefix: "App",
+  //   // },
+  // ],
+
   imports: {
     // @unimport
     // #disable auto-imports; use explicit imports from #imports
@@ -150,6 +154,7 @@ export default defineNuxtConfig({
     //   },
     // ],
   },
+
   app: {
     baseURL: BASE_DIR,
     buildAssetsDir: `${trimEnd(BASE_DIR, "/")}/_nuxt/`,
@@ -184,6 +189,7 @@ export default defineNuxtConfig({
     // transition layouts
     layoutTransition: { name: "BLUR" },
   },
+
   css: [
     // default
     "~/assets/styles/main.scss",
@@ -219,30 +225,12 @@ export default defineNuxtConfig({
     },
   },
 
-  // https://apollo.nuxtjs.org/getting-started/configuration#configuration
-  // https://apollo.nuxtjs.org/getting-started/configuration#clients
-  // apollo: {
-  //   autoImports: true,
-  //   authType: "Bearer",
-  //   authHeader: "Authorization",
-  //   tokenStorage: "cookie",
-  //   proxyCookies: true,
-  //   clients: {
-  //     default: {
-  //       httpEndpoint: ENDPOINT_GRAPHQL,
-  //       httpLinkOptions: {
-  //         // Enable sending cookies over cross-origin requests
-  //         credentials: "include",
-  //       },
-  //       tokenName: "@apollo/token:McW3G38G4ic",
-  //     },
-  //   },
-  // },
   router: {
     options: {
       scrollBehaviorType: "smooth",
     },
   },
+
   i18n: {
     vueI18n: "./config/i18n.config.ts",
     defaultLocale: "sr-Latn-RS",
@@ -268,13 +256,14 @@ export default defineNuxtConfig({
     strategy: "prefix_and_default",
     customRoutes: "config",
     pages: {
-      "o-nama": {
-        en: "/about-us",
-        "sr-Cyrl-RS": "/o-nama-cyr",
-        "sr-Latn-RS": "/o-nama",
-      },
+      // demo: {
+      //   en: "/demo",
+      //   "sr-Cyrl-RS": "/prikaz-cyr",
+      //   "sr-Latn-RS": "/prikaz",
+      // },
     },
   },
+
   // #https://google-fonts.nuxtjs.org
   googleFonts: {
     families: {
@@ -284,6 +273,7 @@ export default defineNuxtConfig({
     useStylesheet: true,
     download: false,
   },
+
   // https://image.nuxt.com/get-started/configuration
   image: {
     // quality: 92,
@@ -303,6 +293,7 @@ export default defineNuxtConfig({
     //   "2xl": 1536,
     // },
   },
+
   colorMode: {
     // preference: "system", // default value of $colorMode.preference
     // fallback: "light", // fallback value if not system preference found
@@ -313,6 +304,7 @@ export default defineNuxtConfig({
     classSuffix: "",
     // storageKey: "nuxt-color-mode",
   },
+
   tailwindcss: {
     cssPath: "~/assets/tailwind.css",
     configPath: "~/config/tailwind.config.ts",
@@ -324,10 +316,12 @@ export default defineNuxtConfig({
     // injectPosition: 0,
     viewer: false,
   },
+
   experimental: {
     scanPageMeta: true,
     // typedPages: true,
   },
+
   // https://apollo.nuxtjs.org/getting-started/configuration#configuration
   // https://apollo.nuxtjs.org/getting-started/configuration#clients
   apollo: {

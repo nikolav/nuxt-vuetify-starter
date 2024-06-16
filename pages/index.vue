@@ -3,6 +3,7 @@ import { Dump } from "@/components/dev";
 import { ProvideTranslation } from "@/components/lang";
 import { API_URL } from "@/config";
 
+const token = inject(key_TOKEN);
 const { n, d, t, locale, setLocale } = useI18n();
 const date = new Date();
 const auth = useStoreApiAuth();
@@ -36,13 +37,25 @@ const { result, load: queryStart } = useLazyQuery(Q_apiStatus, undefined, {
 const graphqlStatus = computed(() => get(result.value, "status"));
 onceMountedOn(true, queryStart);
 
+const { data: varsData, commit: varsCommit } = useDocs("@vars");
+const varsUpdate3 = async () => await varsCommit({ ["foo:3"]: idGen() }, 20);
+
+const { sendMail } = useSendMail();
+const mail = async () =>
+  await sendMail({
+    subject: "essential",
+    template: "simple",
+    data: {
+      text: "body five weigh lost remember notice conversation round fact business first myself available locate track attention former excitement search living creature basic amount entirely",
+    },
+  });
+
 // @@eos
 </script>
 <template>
   <section class="page--index">
     <div class="d-flex items-center gap-5 justify-center ma-2">
       <NuxtLinkLocale to="/">index</NuxtLinkLocale>
-      <NuxtLinkLocale to="o-nama">o-nama</NuxtLinkLocale>
       <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
     </div>
     <hr />
@@ -59,6 +72,8 @@ onceMountedOn(true, queryStart);
           {{ t("message.welcome") }} | {{ d(date, "long") }} |
           {{ n(122333, "currency") }}
         </p>
+        <VBtn @click="varsUpdate3">VARS</VBtn>
+        <VBtn @click="mail">mail</VBtn>
         <ProvideTranslation
           :query="{
             q: 'trees',
@@ -72,9 +87,11 @@ onceMountedOn(true, queryStart);
         </ProvideTranslation>
         <Dump
           :data="{
+            token,
             dataApiStatus,
             graphqlStatus,
             user: auth.user$,
+            varsData,
           }"
         />
       </VCardText>
