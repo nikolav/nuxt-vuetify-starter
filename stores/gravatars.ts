@@ -1,8 +1,8 @@
 import md5 from "md5";
 import type { TGravatars } from "@/types";
-import { UID } from "@/keys";
+
 export const useStoreGravatars = defineStore("gravatars", () => {
-  const id = inject(UID)!;
+  const id = inject(key_UID)!;
   const {
     stores: {
       gravatars: { BASE_URL, GRAVATARS_CACHE, MODE, SIZE },
