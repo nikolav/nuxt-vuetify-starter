@@ -37,19 +37,6 @@ const { result, load: queryStart } = useLazyQuery(Q_apiStatus, undefined, {
 const graphqlStatus = computed(() => get(result.value, "status"));
 onceMountedOn(true, queryStart);
 
-const { data: varsData, commit: varsCommit } = useDocs("@vars");
-const varsUpdate3 = async () => await varsCommit({ ["foo:3"]: idGen() }, 20);
-
-const { sendMail } = useSendMail();
-const mail = async () =>
-  await sendMail({
-    subject: "essential",
-    template: "simple",
-    data: {
-      text: "body five weigh lost remember notice conversation round fact business first myself available locate track attention former excitement search living creature basic amount entirely",
-    },
-  });
-
 // @@eos
 </script>
 <template>
@@ -72,11 +59,9 @@ const mail = async () =>
           {{ t("message.welcome") }} | {{ d(date, "long") }} |
           {{ n(122333, "currency") }}
         </p>
-        <VBtn @click="varsUpdate3">VARS</VBtn>
-        <VBtn @click="mail">mail</VBtn>
         <ProvideTranslation
           :query="{
-            q: 'trees',
+            q: 'Unless you try to do something beyond what you have already mastered you will never grow.',
             target: locale,
           }"
           v-slot="{ translation }"
@@ -87,11 +72,9 @@ const mail = async () =>
         </ProvideTranslation>
         <Dump
           :data="{
-            token,
-            dataApiStatus,
-            graphqlStatus,
             user: auth.user$,
-            varsData,
+            graphqlStatus,
+            dataApiStatus,
           }"
         />
       </VCardText>
