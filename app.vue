@@ -6,14 +6,11 @@ const route = useRoute();
 const auth = useStoreApiAuth();
 
 // set default guest key @!auth
-// onceOn(
-onceMountedOn(
+onceOn(
   () => auth.initialized$ && !auth.isAuth$,
-  () => {
+  async () => {
+    await nextTick();
     if (!auth.token$) auth.tokenPutDefault();
-    // nextTick(() => {
-    //   if (!auth.token$) auth.tokenPutDefault();
-    // });
   }
 );
 // onAuthStatus
@@ -93,13 +90,13 @@ const localeHead = useLocaleHead({
 <style>
 .BLUR-enter-active,
 .BLUR-leave-active {
-  transition: all 0.24s;
+  transition: all 0.122s;
 }
 
 .BLUR-enter-from,
 .BLUR-leave-to {
   opacity: 0;
-  filter: blur(0.2rem);
+  filter: blur(0.122rem);
 }
 
 .BLUR-leave-active {
