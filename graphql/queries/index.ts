@@ -496,3 +496,9 @@ export const Q_postsListOnly = gql`
     }
   }
 `;
+
+export const Q_apiStatus = gql`
+  query q_apiStatus {
+    status
+  }
+`;
