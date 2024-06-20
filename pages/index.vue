@@ -50,8 +50,8 @@ const { status: graphqlStatus } = useQueryGraphqlStatus();
         <Dump
           :data="{
             user: auth.user$,
-            graphqlStatus,
             dataApiStatus,
+            graphqlStatus,
           }"
         />
       </VCardText>

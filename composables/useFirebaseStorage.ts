@@ -34,7 +34,7 @@ export const useFirebaseStorage = (STORE?: any) => {
               (snapshot) => {
                 const progress =
                   (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log({ [`${title} --upload-progress`]: progress });
+                console.debug({ [`${title} --upload-progress`]: progress });
               },
               // error
               (error) => {
