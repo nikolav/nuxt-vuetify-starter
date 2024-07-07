@@ -1,5 +1,4 @@
 import "vuetify/styles";
-
 import {
   createVuetify,
   // ThemeDefinition
@@ -48,7 +47,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     // https://next.vuetifyjs.com/en/features/theme/#theme-object-structure
     theme: {
       // defaultTheme: "dark",
-      // defaultTheme: "light",
+      defaultTheme: "light",
       themes: {
         light,
         dark,
@@ -82,17 +81,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       global: {
         // ripple: true,
       },
-      // VSheet: {
-      //   elevation: 2,
-      // },
-      VBtn: {
-        color: "secondary",
-        variant: "flat",
-      },
-      // VTextField: {
-      //   "center-affix": true,
-      // },
-
       // MyButton: {
       //   color: 'primary',
       //   variant: 'tonal',
@@ -116,7 +104,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         // # override
         // menu: IconMenu,
         // # add: <VIcon icon="$other">
-        // iconYoutubeText: IconYoutubeText,
+        // iconCustom: IconCustom,
       },
       sets: {
         mdi,
@@ -130,7 +118,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     //   // messages: { zhHans, pl, sv }
     // },
   });
-  // @@
+
   nuxtApp.vueApp.use(vuetify);
 });
 

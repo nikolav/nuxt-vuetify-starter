@@ -246,9 +246,8 @@ export interface IInputSendMail {
 
 export interface IInputFileUpload {
   [title: string]: {
-    // change filename for storing
+    // storage filename
     name?: string;
-    // bytes to upload
     file: File;
   };
 }

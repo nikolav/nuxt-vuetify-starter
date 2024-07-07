@@ -65,10 +65,10 @@ export const useDoc = <TDoc = Record<string, any>>(
     commit,
     reload,
 
-    // aliases
+    // #aliases
     put: commit,
 
-    // #crud/read
+    // #state
     error,
     loading,
     IOEVENT: ioevent,

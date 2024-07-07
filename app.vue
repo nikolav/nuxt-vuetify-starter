@@ -79,10 +79,12 @@ const localeHead = useLocaleHead({
     <template v-for="meta in localeHead.meta" :key="meta.id">
       <Meta :id="meta.id" :property="meta.property" :content="meta.content" />
     </template>
+
     <!-- @pages -->
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+
     <!-- @ui:status -->
     <NuxtLoadingIndicator color="red" />
     <SpinnerAppProcessing :opacity="0.8" />

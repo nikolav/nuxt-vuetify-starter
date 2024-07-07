@@ -1,3 +1,3 @@
 import { z } from "zod";
-import { re_jwt } from "@/utils";
-export const schemaJwt = z.string().regex(re_jwt);
+import validator from "validator";
+export const schemaJwt = z.string().refine(validator.isJWT);

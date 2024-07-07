@@ -24,3 +24,8 @@ export const app = 0 < getApps().length ? getApp() : initializeApp(config);
 export const auth = getAuth(app);
 // export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+// Web Push certificates
+// Firebase Cloud Messaging can use Application Identity key pairs to connect with external push services.
+// #https://developers.google.com/web/updates/2016/07/web-push-interop-wins#introducing_vapid_for_server_identification
+export const VAPID_KEY = "BA5afVljVVDNRB2hf-lwSFwzAZcgVW1mYFsT65Oszp9qZIWOfZ9HTX_OXZfErx7iMXXZXv37CW8kS2H4xBJ-naE"
