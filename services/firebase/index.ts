@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
-// import { getFirestore } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getMessaging, isSupported } from "firebase/messaging";
 
@@ -24,7 +24,7 @@ export const app = 0 < getApps().length ? getApp() : initializeApp(config);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const auth = getAuth(app);
-// export const db = getFirestore(app);
+export const db = getFirestore(app);
 export const storage = getStorage(app);
 
 export const messaging = async () =>
