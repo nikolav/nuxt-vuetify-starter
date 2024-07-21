@@ -20,4 +20,4 @@ export const URL_VERIFY_EMAIL = `${trimEnd(
   "/"
 )}/auth-verify-email`;
 
-export const SSR = true;
+export { SSR } from "./vars.env";

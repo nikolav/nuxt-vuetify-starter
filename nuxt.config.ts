@@ -12,11 +12,7 @@ const meta: TMeta = [
 
 // --force-https
 // <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-if (
-  // /dnofiq4anfaqwrzctj\.xyz/.test(API_URL)
-  API_URL.startsWith("https")
-  // || /herokuapp\.com/.test(API_URL)
-)
+if (API_URL.startsWith("https"))
   meta.push({
     "http-equiv": "Content-Security-Policy",
     content: "upgrade-insecure-requests",
@@ -44,10 +40,19 @@ export default defineNuxtConfig({
   //   // "/old-page": {
   //   //   redirect: { to: "/new-page", statusCode: 302 },
   //   // },
+  // Set prerender to true to configure it to be prerendered
+  // "/rss.xml": { prerender: true },
+  // Set it to false to configure it to be skipped for prerendering
+  // "/this-DOES-NOT-get-prerendered": { prerender: false },
+  // Everything under /blog gets prerendered as long as it
+  // is linked to from another page
+  // "/blog/**": { prerender: true },
+
   //   // ...
   // },
   //
   // #Selective Pre-rendering @nitro
+  // #https://nuxt.com/docs/getting-started/prerendering#selective-pre-rendering
   // nitro: {
   //   prerender: {
   //     // routes: ['/user/1', '/user/2'],
@@ -103,14 +108,23 @@ export default defineNuxtConfig({
     },
   },
 
-  // hooks: {
-  //   // # append dirs, extending default path
-  //   // "components:dirs": (dirs) => {
-  //   //   dirs.push({
-  //   //     path: "/path",
-  //   //     prefix: "App",
-  //   //   });
-  //   // },
+  hooks: {
+    //   // # append dirs, extending default path
+    //   // "components:dirs": (dirs) => {
+    //   //   dirs.push({
+    //   //     path: "/path",
+    //   //     prefix: "App",
+    //   //   });
+    // async "prerender:routes"(ctx) {
+    //   const { pages } = await fetch("https://api.some-cms.com/pages").then(
+    //     (res) => res.json()
+    //   );
+    //   for (const page of pages) {
+    //     ctx.routes.add(`/${page.name}`);
+    //   }
+    // },
+  },
+
   // },
 
   // include auto import dirs, overriding default path
@@ -320,6 +334,7 @@ export default defineNuxtConfig({
   experimental: {
     scanPageMeta: true,
     // typedPages: true,
+    // inlineRouteRules: true,
   },
 
   // https://apollo.nuxtjs.org/getting-started/configuration#configuration

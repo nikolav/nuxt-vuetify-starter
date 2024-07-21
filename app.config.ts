@@ -109,7 +109,7 @@ export default defineAppConfig({
     },
     auth: {
       KEY_ACCESS_TOKEN: ":sEe5xYuTL4q",
-      KEY_USEFETCH_AUTHDATA: "GEXjh1kt9Oc",
+      KEY_USEFETCH_AUTHDATA: "oDgSc6Xp4kU",
       authDataFields: ["id", "email"],
       initial: () => "",
       authHeaders: (token: string, additional?: Record<string, any>) =>
@@ -193,5 +193,15 @@ export default defineAppConfig({
   },
   date: {
     ISO_FORMAT: "YYYY-MM-DD HH:mm:ss.SSSSSS",
+  },
+  firebase: {
+    messaging: {
+      // Web Push certificates
+      // Firebase Cloud Messaging can use Application Identity key pairs to connect with external push services.
+      // #https://developers.google.com/web/updates/2016/07/web-push-interop-wins#introducing_vapid_for_server_identification
+      VAPID_KEY:
+        "BA5afVljVVDNRB2hf-lwSFwzAZcgVW1mYFsT65Oszp9qZIWOfZ9HTX_OXZfErx7iMXXZXv37CW8kS2H4xBJ-naE",
+      FCM_TOKEN: "EdVEeoDfdOK1",
+    },
   },
 });
