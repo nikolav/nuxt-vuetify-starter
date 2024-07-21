@@ -5,16 +5,20 @@ definePageMeta({
   layout: false,
 });
 
-const { data, commit, rm, length } =
-  useFirebaseCloudFirestoreCollection("demo");
-const dropVar = async () => {
-  console.log({ res: await rm("MUhZc2LCLrb6rdqnrwFG") });
-};
-const updateVar = async () => {
-  await commit({ value: `::${Math.random()}` }, "MUhZc2LCLrb6rdqnrwFG");
+const {
+  data,
+  commit,
+  clear: dataClear,
+  drop: fieldDrop,
+} = useFirebaseCloudFirestoreDoc("app:config");
+
+const fieldPut = async () => {
+  await commit({ foo: Math.random(), bar: Math.random() });
 };
 
-const ids = computed(() => map(data.value, "id"));
+const fieldDropFoo = async () => {
+  await fieldDrop("foo");
+};
 
 // @@eos
 </script>
@@ -25,9 +29,10 @@ const ids = computed(() => map(data.value, "id"));
       <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
     </div>
     <hr />
-    <VBtn @click="updateVar">put</VBtn>
-    <VBtn @click="dropVar">drop</VBtn>
-    <Dump :data="{ length, ids, vars: data }" />
+    <VBtn @click="fieldPut">put</VBtn>
+    <VBtn @click="dataClear">clear</VBtn>
+    <VBtn @click="fieldDropFoo">drop:foo</VBtn>
+    <Dump :data="{ data }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

@@ -195,6 +195,9 @@ export default defineAppConfig({
     ISO_FORMAT: "YYYY-MM-DD HH:mm:ss.SSSSSS",
   },
   firebase: {
+    firestore: {
+      DEFAULT_DOCS_COLLECTION: "docs:8lyrg8edl53",
+    },
     messaging: {
       // Web Push certificates
       // Firebase Cloud Messaging can use Application Identity key pairs to connect with external push services.
