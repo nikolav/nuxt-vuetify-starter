@@ -8,11 +8,13 @@ definePageMeta({
 const { data, commit, rm, length } =
   useFirebaseCloudFirestoreCollection("demo");
 const dropVar = async () => {
-  console.log({ res: await rm("3U4smPGogYfpyd1pB1cO") });
+  console.log({ res: await rm("MUhZc2LCLrb6rdqnrwFG") });
 };
 const updateVar = async () => {
-  await commit({ value: `::${Math.random()}` }, "3U4smPGogYfpyd1pB1cO");
+  await commit({ value: `::${Math.random()}` }, "MUhZc2LCLrb6rdqnrwFG");
 };
+
+const ids = computed(() => map(data.value, "id"));
 
 // @@eos
 </script>
@@ -25,7 +27,7 @@ const updateVar = async () => {
     <hr />
     <VBtn @click="updateVar">put</VBtn>
     <VBtn @click="dropVar">drop</VBtn>
-    <Dump :data="{ length, vars: data }" />
+    <Dump :data="{ length, ids, vars: data }" />
   </section>
 </template>
 <style lang="scss" scoped></style>
