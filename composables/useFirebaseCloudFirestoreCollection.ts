@@ -8,8 +8,10 @@ import {
   doc,
 } from "firebase/firestore";
 import { db as firestoreDB } from "@/services/firebase";
-export const useFirebaseCloudFirestoreCollection = (collectionPath: string) => {
-  const collection$ = collection(firestoreDB, collectionPath);
+export const useFirebaseCloudFirestoreCollection = (
+  collectionPathName: string
+) => {
+  const collection$ = collection(firestoreDB, collectionPathName);
   const data = useCollection(collection$);
   const length = computed(() => len(data.value));
   const put = async (

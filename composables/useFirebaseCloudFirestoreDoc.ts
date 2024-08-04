@@ -10,9 +10,8 @@ export const useFirebaseCloudFirestoreDoc = (ID: string) => {
   const docs$ = collection(firestoreDB, DEFAULT_DOCS_COLLECTION);
   const doc$ = doc(docs$, ID);
   const data = useDocument(doc$);
-  const put = async (fields: Record<string, any>, merge = true) => {
+  const put = async (fields: Record<string, any>, merge = true) =>
     await setDoc(doc$, fields, { merge });
-  };
   const clear = async () => await put({}, false);
   const drop = async (...fields: string[]) => {
     const newData = omit(data.value, fields);

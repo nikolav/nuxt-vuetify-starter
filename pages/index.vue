@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Dump } from "@/components/dev";
 import { ProvideTranslation } from "@/components/lang";
+import clr from "vuetify/util/colors";
 
 const { n, d, t, locale, setLocale } = useI18n();
 const date = new Date();
@@ -18,11 +19,6 @@ const { status: graphqlStatus } = useQueryGraphqlStatus();
 </script>
 <template>
   <section class="page--index">
-    <div class="d-flex items-center gap-5 justify-center ma-2">
-      <NuxtLinkLocale to="/">index</NuxtLinkLocale>
-      <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
-    </div>
-    <hr />
     <VCard max-width="640" class="mx-auto">
       <VCardActions>
         <VBtn color="primary" @click="setLocale('sr-Latn-RS')">sr-Latn-RS</VBtn>
