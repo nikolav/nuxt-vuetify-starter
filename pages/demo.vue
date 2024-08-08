@@ -5,16 +5,17 @@ import { Dump } from "@/components/dev";
 //   layout: false,
 // });
 
+const {
+  icon: {
+    aliases: { nuxt: iconNuxt },
+  },
+} = useAppConfig();
+
 // @@eos
 </script>
 <template>
   <section class="page--demo">
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque
-      consequatur eligendi minima, ut veniam voluptates. Inventore, deleniti
-      laudantium. Sapiente, quod ad. Itaque minus optio molestiae sapiente
-      placeat officiis nesciunt labore?
-    </p>
+    <Icon :size="`12rem`" :name="iconNuxt" />
   </section>
 </template>
 <style lang="scss" scoped></style>

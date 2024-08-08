@@ -2,7 +2,7 @@ import { en, sr, srCyr } from "@/lang/messages";
 export default defineI18nConfig(() => ({
   legacy: false,
   locale: "sr-Latn-RS",
-  fallbackLocale: ["en", "sr-Latn-RS"],
+  fallbackLocale: "en",
   // #https://vue-i18n.intlify.dev/guide/essentials/fallback.html#fallback-interpolation
   // formatFallbackMessages: true,
   messages: {
@@ -14,10 +14,11 @@ export default defineI18nConfig(() => ({
     // snakeCase: (str) => str.split(" ").join("_"),
   },
   pluralRules: {
-    "sr-Latn-RS": pluralSlavic,
-    "sr-Cyrl-RS": pluralSlavic,
+    "sr-Latn-RS": pluralRulesSlavic,
+    "sr-Cyrl-RS": pluralRulesSlavic,
   },
   // #https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
+  // #https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
   // d(date, 'short')
   datetimeFormats: {
     "sr-Latn-RS": {
@@ -70,7 +71,11 @@ export default defineI18nConfig(() => ({
 }));
 
 // helpers
-function pluralSlavic(choice: number, choicesLength: number, orgRule: any) {
+function pluralRulesSlavic(
+  choice: number,
+  choicesLength: number,
+  orgRule: any
+) {
   if (choice === 0) {
     return 0;
   }

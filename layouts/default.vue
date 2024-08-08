@@ -5,7 +5,7 @@
   <section class="layout--default">
     <VAppBar elevation="1" density="comfortable">
       <VAppBarTitle>@demo:app</VAppBarTitle>
-      <div class="d-flex items-center gap-5 justify-center ma-2">
+      <div class="d-flex items-center gap-5 justify-center me-4">
         <NuxtLinkLocale to="/">index</NuxtLinkLocale>
         <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
       </div>

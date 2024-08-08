@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { Dump } from "@/components/dev";
 import { ProvideTranslation } from "@/components/lang";
-import clr from "vuetify/util/colors";
 
-const { n, d, t, locale, setLocale } = useI18n();
+const { n, d, t, locale } = useI18n();
+const setLocale_ = (value: string) => {
+  locale.value = value;
+};
 const date = new Date();
 const auth = useStoreApiAuth();
 const authAdmin = async () =>
@@ -21,9 +23,13 @@ const { status: graphqlStatus } = useQueryGraphqlStatus();
   <section class="page--index">
     <VCard max-width="640" class="mx-auto">
       <VCardActions>
-        <VBtn color="primary" @click="setLocale('sr-Latn-RS')">sr-Latn-RS</VBtn>
-        <VBtn color="primary" @click="setLocale('sr-Cyrl-RS')">sr-Cyrl-RS</VBtn>
-        <VBtn @click="setLocale('en')">en</VBtn>
+        <VBtn color="primary" @click="setLocale_('sr-Latn-RS')"
+          >sr-Latn-RS</VBtn
+        >
+        <VBtn color="primary" @click="setLocale_('sr-Cyrl-RS')"
+          >sr-Cyrl-RS</VBtn
+        >
+        <VBtn @click="setLocale_('en')">en</VBtn>
       </VCardActions>
       <VCardText>
         <pre>{{ locale }}</pre>
@@ -34,7 +40,7 @@ const { status: graphqlStatus } = useQueryGraphqlStatus();
         </p>
         <ProvideTranslation
           :query="{
-            q: 'Unless you try to do something beyond what you have already mastered you will never grow.',
+            q: 'A menos que intentes hacer algo más allá de lo que ya dominas, nunca crecerás.',
             target: locale,
           }"
           v-slot="{ translation }"

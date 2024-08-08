@@ -247,6 +247,7 @@ export default defineNuxtConfig({
 
   i18n: {
     vueI18n: "./config/i18n.config.ts",
+    strategy: "prefix_and_default",
     defaultLocale: "sr-Latn-RS",
     baseUrl: URL_APP_PUBLIC,
     locales: [
@@ -267,7 +268,6 @@ export default defineNuxtConfig({
         isCatchallLocale: true,
       },
     ],
-    strategy: "prefix_and_default",
     customRoutes: "config",
     pages: {
       // demo: {
@@ -355,5 +355,16 @@ export default defineNuxtConfig({
         tokenName: "@apollo/token:l7iPx",
       },
     },
+  },
+
+  icon: {
+    // componentName: "NuxtIcon",
+    // #https://github.com/nuxt/icon?tab=readme-ov-file#custom-local-collections
+    // customCollections: [
+    //   {
+    //     prefix: "my-icon",
+    //     dir: "./assets/my-icons",
+    //   },
+    // ],
   },
 });
