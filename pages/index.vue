@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { Dump } from "@/components/dev";
 import { ProvideTranslation } from "@/components/lang";
+import {
+  langCodeEn,
+  langCodeSrLatn,
+  langCodeSrCyr,
+} from "@/config/i18n.lang-codes";
 
+//
 const { n, d, t, locale } = useI18n();
 const setLocale_ = (value: string) => {
   locale.value = value;
@@ -23,13 +29,13 @@ const { status: graphqlStatus } = useQueryGraphqlStatus();
   <section class="page--index">
     <VCard max-width="640" class="mx-auto">
       <VCardActions>
-        <VBtn color="primary" @click="setLocale_('sr-Latn-RS')"
+        <VBtn color="primary" @click="setLocale_(langCodeSrLatn)"
           >sr-Latn-RS</VBtn
         >
-        <VBtn color="primary" @click="setLocale_('sr-Cyrl-RS')"
+        <VBtn color="primary" @click="setLocale_(langCodeSrCyr)"
           >sr-Cyrl-RS</VBtn
         >
-        <VBtn @click="setLocale_('en')">en</VBtn>
+        <VBtn @click="setLocale_(langCodeEn)">en</VBtn>
       </VCardActions>
       <VCardText>
         <pre>{{ locale }}</pre>

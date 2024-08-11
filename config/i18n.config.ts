@@ -1,35 +1,36 @@
 import { en, sr, srCyr } from "@/lang/messages";
+import { langCodeEn, langCodeSrLatn, langCodeSrCyr } from "./i18n.lang-codes";
 export default defineI18nConfig(() => ({
   legacy: false,
-  locale: "sr-Latn-RS",
-  fallbackLocale: "en",
+  locale: langCodeSrLatn,
+  fallbackLocale: langCodeEn,
   // #https://vue-i18n.intlify.dev/guide/essentials/fallback.html#fallback-interpolation
   // formatFallbackMessages: true,
   messages: {
-    "sr-Latn-RS": sr,
-    "sr-Cyrl-RS": srCyr,
-    en,
+    [langCodeSrLatn]: sr,
+    [langCodeSrCyr]: srCyr,
+    [langCodeEn]: en,
   },
   modifiers: {
     // snakeCase: (str) => str.split(" ").join("_"),
   },
   pluralRules: {
-    "sr-Latn-RS": pluralRulesSlavic,
-    "sr-Cyrl-RS": pluralRulesSlavic,
+    [langCodeSrLatn]: pluralRulesSlavic,
+    [langCodeSrCyr]: pluralRulesSlavic,
   },
   // #https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
   // #https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
   // d(date, 'short')
   datetimeFormats: {
-    "sr-Latn-RS": {
+    [langCodeSrLatn]: {
       short: { year: "numeric", month: "long", day: "numeric" },
       long: { year: "numeric", month: "long", day: "numeric", weekday: "long" },
     },
-    "sr-Cyrl-RS": {
+    [langCodeSrCyr]: {
       short: { year: "numeric", month: "long", day: "numeric" },
       long: { year: "numeric", month: "long", day: "numeric", weekday: "long" },
     },
-    en: {
+    [langCodeEn]: {
       short: { year: "numeric", month: "2-digit", day: "2-digit" },
       long: {
         year: "numeric",
@@ -43,7 +44,7 @@ export default defineI18nConfig(() => ({
   // #https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options
   // n(122333, 'currency')
   numberFormats: {
-    "sr-Latn-RS": {
+    [langCodeSrLatn]: {
       currency: {
         style: "currency",
         currency: "RSD",
@@ -51,7 +52,7 @@ export default defineI18nConfig(() => ({
         minimumFractionDigits: 2,
       },
     },
-    "sr-Cyrl-RS": {
+    [langCodeSrCyr]: {
       currency: {
         style: "currency",
         currency: "RSD",
@@ -59,7 +60,7 @@ export default defineI18nConfig(() => ({
         minimumFractionDigits: 2,
       },
     },
-    en: {
+    [langCodeEn]: {
       currency: {
         style: "currency",
         currency: "RSD",

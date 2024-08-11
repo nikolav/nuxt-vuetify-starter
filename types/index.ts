@@ -256,7 +256,8 @@ export interface ITranslationQuery {
   q: string;
   target: string;
   source?: string;
-  format?: string;
+  // format?: string;
+  format?: "html" | "text";
   model?: string;
   key?: string;
 }

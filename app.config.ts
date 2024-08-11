@@ -3,7 +3,7 @@ import assign from "lodash/assign";
 import {
   PRODUCTION$,
   URL_APP_PUBLIC,
-  CLOUD_TRANSLATION_API_KEY,
+  // CLOUD_TRANSLATION_API_KEY,
 } from "@/config";
 
 const themeDark = "dark";
@@ -21,7 +21,10 @@ export default defineAppConfig({
     DEFAULT_TRANSITION: "slide-y-reverse-transition",
     DEFAULT_NO_IMAGE: "/no-image.jpg",
     TRANSLATION_ENABLED: true,
-    TRANSLATION_DEFAULTS: { format: "text", key: CLOUD_TRANSLATION_API_KEY },
+    TRANSLATION_DEFAULTS: {
+      format: "text",
+      // key: CLOUD_TRANSLATION_API_KEY
+    },
   },
   docs: {
     CHAT_ORDER_COM_USER_prefix: "e5iT1p1Mmx5HD@",
@@ -207,7 +210,7 @@ export default defineAppConfig({
       FCM_TOKEN: "EdVEeoDfdOK1",
     },
   },
-  // 
+  //
   // #https://github.com/nuxt/icon/tree/main?tab=readme-ov-file#icon-customization
   icon: {
     // size: '24px', // default <Icon> size applied
