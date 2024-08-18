@@ -1,42 +1,73 @@
-import { messaging } from "@/services/firebase";
+import { app as firebaseApp } from "@/services/firebase";
 import { getToken, onMessage } from "firebase/messaging";
 interface IFCMOptions {
-  // app in foreground, focused
+  // app@foreground/focused
   onMessage: (...args: any[]) => void;
 }
-export const useFirebaseCloudMessaging = async (options: IFCMOptions) => {
-  const fcm = await messaging();
-  if (!fcm) return;
+import {
+  isSupported as messagingIsSupported,
+  getMessaging,
+} from "firebase/messaging";
+export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
+  // messaging service --init
+  const service = ref();
+  messagingIsSupported().then((isSupported) => {
+    if (!isSupported) return;
+    try {
+      service.value = getMessaging(firebaseApp);
+    } catch (error) {
+      // --debug
+      console.error({ "getMessaging --error": error });
+    }
+  });
+
   const {
     firebase: {
       messaging: { VAPID_KEY, KEY_FCM_DEVICE_TOKENS },
     },
   } = useAppConfig();
-  const { config, configPut } = useDocConfig();
-  // tokens: Ref<Record<string:token, boolean> | undefined>
-  const tokens = config(KEY_FCM_DEVICE_TOKENS);
-  onceMountedOn(true, async () => {
-    try {
-      const token_ = await getToken(fcm, { vapidKey: VAPID_KEY });
-      // config:save
-      if (!token_ || get(tokens.value, token_)) return;
-      await configPut(
-        KEY_FCM_DEVICE_TOKENS,
-        assign({}, tokens.value, { [token_]: true })
-      );
-    } catch (error) {
-      // #debug
-      console.error({ "useFirebaseCloudMessaging:getToken": error });
+  const auth = useStoreApiAuth();
+  const { data, configPut } = useDocConfig();
+
+  // cached user devices tokens
+  //  tokens: Ref<Record<string:token, boolean> | undefined>
+  const tokens = computed(() =>
+    get(data.value, `data.${KEY_FCM_DEVICE_TOKENS}`)
+  );
+
+  // subscribe when service available
+  watch(
+    [() => auth.isAuthenticated$, () => service.value],
+    async ([isAuthenticated, serviceFCM]) => {
+      if (!isAuthenticated) return;
+      if (!serviceFCM) return;
+      try {
+        const tokenFCM = await getToken(serviceFCM, { vapidKey: VAPID_KEY });
+        // token:save
+        if (tokenFCM && !get(tokens.value, tokenFCM)) {
+          await configPut(
+            KEY_FCM_DEVICE_TOKENS,
+            assign({}, tokens.value, { [tokenFCM]: true })
+          );
+        }
+        onMessage(serviceFCM, options.onMessage);
+      } catch (error) {
+        // --debug
+        console.error({ "useFirebaseCloudMessaging:getToken": error });
+      }
+    },
+    {
+      // options --pass
     }
-  });
-  const unsubscribe = onMessage(fcm, options.onMessage);
-  // @@debug
+  );
+  // const unsubscribe = onMessage(serviceFCM, options.onMessage);
+  // --debug
   watchEffect(() => {
     console.log({ "TOKENS:fcm": tokens.value });
   });
+
   return {
     tokens,
-    unsubscribe,
   };
 };
 

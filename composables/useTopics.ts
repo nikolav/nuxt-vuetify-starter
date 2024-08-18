@@ -23,6 +23,7 @@ export const useTopics = () => {
       TOPIC_RATING_POSTS_prefix,
       USER_CONFIG_PREFERENCES,
     },
+    io: { IOEVENT_DOCS_CHANGE_JsonData },
   } = useAppConfig();
   const comChat = (comid: number | undefined) =>
     comid ? `${TOPIC_CHAT_COM_prefix}${comid}` : "";

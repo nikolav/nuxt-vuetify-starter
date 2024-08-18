@@ -3,10 +3,10 @@ import { initializeApp, getApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import {
-  getMessaging,
-  isSupported as messagingIsSupported,
-} from "firebase/messaging";
+// import {
+//   getMessaging,
+//   isSupported as messagingIsSupported,
+// } from "firebase/messaging";
 
 import {
   getRemoteConfig,
@@ -37,15 +37,15 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-export const messaging = async () =>
-  (await messagingIsSupported()) ? getMessaging(app) : undefined;
+// export const messaging = async () =>
+//   (await messagingIsSupported()) ? getMessaging(app) : undefined;
 
 export const remoteConfig = async () => {
   if (!(await remoteConfigIsSupported())) return;
-  const rc = getRemoteConfig(app);
+  const serviceRC = getRemoteConfig(app);
   // minimum fetch interval:
   //   0     development
   //   1hour production
-  rc.settings.minimumFetchIntervalMillis = PRODUCTION$ ? 3600000 : 0;
-  return rc;
+  serviceRC.settings.minimumFetchIntervalMillis = PRODUCTION$ ? 3600000 : 0;
+  return serviceRC;
 };

@@ -11,7 +11,8 @@
     "postinstall": "nuxt prepare",
     "start": "node .output/server/index.mjs ",
     "demo": "node ./demo.mjs ",
-    "deploy:dev": "firebase deploy --only hosting:qdeiymppite "
+    "deploy:dev": "firebase deploy --only hosting:qdeiymppite ",
+    "reinstall": "rm -rf ./node_modules package-lock.json yarn.lock && yarn && yarn run postinstall "
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",

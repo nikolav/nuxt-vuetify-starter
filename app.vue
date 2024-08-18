@@ -68,12 +68,13 @@ const localeHead = useLocaleHead({
   addSeoAttributes: true,
 });
 
-// cloud messaging
+// #cloud messaging
 useFirebaseCloudMessaging({
   onMessage: (payload) => {
     console.log({ "firebaseCloudMessaging:payload": payload });
   },
 });
+
 // #eos
 </script>
 <template>

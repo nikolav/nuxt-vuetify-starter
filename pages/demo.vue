@@ -5,15 +5,11 @@ import { Dump } from "@/components/dev";
 //   layout: false,
 // });
 
-const { config } = useFirebaseRemoteConfig();
-
-const configApp = await config("app");
 
 // @@eos
 </script>
 <template>
   <section class="page--demo">
-    <Dump :data="{ configApp }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

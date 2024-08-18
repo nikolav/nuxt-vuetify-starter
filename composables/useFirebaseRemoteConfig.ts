@@ -6,10 +6,10 @@ export const useFirebaseRemoteConfig = () => {
     PATH: string,
     valueOf = (v: Value): any => v.asString()
   ) => {
-    const rc = await remoteConfig();
-    return rc ? computed(() => valueOf(getValue(rc, PATH))) : undefined;
+    const serviceRC = await remoteConfig();
+    return serviceRC
+      ? computed(() => valueOf(getValue(serviceRC, PATH)))
+      : undefined;
   };
-  return {
-    config,
-  };
+  return config;
 };
