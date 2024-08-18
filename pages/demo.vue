@@ -5,17 +5,15 @@ import { Dump } from "@/components/dev";
 //   layout: false,
 // });
 
-const {
-  icon: {
-    aliases: { nuxt: iconNuxt },
-  },
-} = useAppConfig();
+const { config } = useFirebaseRemoteConfig();
+
+const configApp = await config("app");
 
 // @@eos
 </script>
 <template>
   <section class="page--demo">
-    <Icon :size="`12rem`" :name="iconNuxt" />
+    <Dump :data="{ configApp }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

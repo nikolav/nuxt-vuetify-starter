@@ -9,28 +9,33 @@ export const useFirebaseCloudMessaging = async (options: IFCMOptions) => {
   if (!fcm) return;
   const {
     firebase: {
-      messaging: { VAPID_KEY, FCM_TOKEN },
+      messaging: { VAPID_KEY, KEY_FCM_DEVICE_TOKENS },
     },
   } = useAppConfig();
   const { config, configPut } = useDocConfig();
-  const token = config(FCM_TOKEN);
+  // tokens: Ref<Record<string:token, boolean> | undefined>
+  const tokens = config(KEY_FCM_DEVICE_TOKENS);
   onceMountedOn(true, async () => {
-    if (token.value) return;
     try {
       const token_ = await getToken(fcm, { vapidKey: VAPID_KEY });
       // config:save
-      if (token_) await configPut(FCM_TOKEN, token_);
+      if (!token_ || get(tokens.value, token_)) return;
+      await configPut(
+        KEY_FCM_DEVICE_TOKENS,
+        assign({}, tokens.value, { [token_]: true })
+      );
     } catch (error) {
-      // pass
+      // #debug
+      console.error({ "useFirebaseCloudMessaging:getToken": error });
     }
   });
   const unsubscribe = onMessage(fcm, options.onMessage);
   // @@debug
   watchEffect(() => {
-    console.log({ "TOKEN:fcm": token.value });
+    console.log({ "TOKENS:fcm": tokens.value });
   });
   return {
-    token,
+    tokens,
     unsubscribe,
   };
 };

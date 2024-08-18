@@ -9,9 +9,8 @@ import {
 
 //
 const { n, d, t, locale } = useI18n();
-const setLocale_ = (value: string) => {
-  locale.value = value;
-};
+const setLocale_ = useI18NSetLocale();
+
 const date = new Date();
 const auth = useStoreApiAuth();
 const authAdmin = async () =>

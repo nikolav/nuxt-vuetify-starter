@@ -14,23 +14,25 @@ export default defineNuxtPlugin((nuxtapp) => {
 
     const animatecss_ = () =>
       new Promise((resolve) => {
-        // @cleanup
+        // @cleanup --remove-effect-classes
         const cleanup_ = (evt: any) => {
           evt.stopPropagation();
           el.classList.remove(ANIMATED_, animation_);
           resolve(evt);
         };
-
         el.addEventListener("animationend", cleanup_, { once: true });
+
+        // effect config
         el.style.setProperty(
           "--animate-duration",
           `${isNumeric(duration) ? duration / 1000 + "s" : duration}`
         );
 
-        // trigger animation
+        // trigger effect
         el.classList.add(ANIMATED_, animation_);
       });
 
+    // @value:changed --run-effect
     watch(
       () => toValue(value$),
       async (val) => {

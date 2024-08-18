@@ -7,9 +7,10 @@ const auth = useStoreApiAuth();
 // set default guest key @!auth
 onceOn(
   () => auth.initialized$ && !auth.isAuth$,
-  async () => {
-    await nextTick();
-    if (!auth.token$) auth.tokenPutDefault();
+  () => {
+    nextTick(() => {
+      if (!auth.token$) auth.tokenPutDefault();
+    });
   }
 );
 // onAuthStatus
@@ -36,6 +37,11 @@ watch(
     // default user auth status change
   }
 );
+
+// meta, seo --config
+useHead({
+  titleTemplate: (ttl) => (ttl ? `🌍 ${ttl} | nikolav.rs` : "nikolav.rs"),
+});
 
 // provide current user data
 const uid = computed(() => auth.uid);
@@ -65,7 +71,7 @@ const localeHead = useLocaleHead({
 // cloud messaging
 useFirebaseCloudMessaging({
   onMessage: (payload) => {
-    console.log({ payload });
+    console.log({ "firebaseCloudMessaging:payload": payload });
   },
 });
 // #eos
@@ -94,7 +100,7 @@ useFirebaseCloudMessaging({
 
     <!-- @ui:status -->
     <NuxtLoadingIndicator color="red" />
-    <SpinnerAppProcessing :opacity="0.8" />
+    <SpinnerAppProcessing :opacity="0.81" />
   </VApp>
 </template>
 <style>

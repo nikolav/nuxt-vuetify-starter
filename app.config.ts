@@ -207,7 +207,8 @@ export default defineAppConfig({
       // #https://developers.google.com/web/updates/2016/07/web-push-interop-wins#introducing_vapid_for_server_identification
       VAPID_KEY:
         "BA5afVljVVDNRB2hf-lwSFwzAZcgVW1mYFsT65Oszp9qZIWOfZ9HTX_OXZfErx7iMXXZXv37CW8kS2H4xBJ-naE",
-      FCM_TOKEN: "EdVEeoDfdOK1",
+      // FCM_TOKEN: "EdVEeoDfdOK1",
+      KEY_FCM_DEVICE_TOKENS: "4tSsVfJJb6xa1A",
     },
   },
   //

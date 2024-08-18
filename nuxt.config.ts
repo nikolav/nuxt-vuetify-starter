@@ -109,7 +109,7 @@ export default defineNuxtConfig({
     // apiSecret: '123',
     // Keys within public are also exposed client-side
     public: {
-      // apiBase: '/api'
+      // fooBar: process.env.var
     },
   },
 
@@ -145,6 +145,25 @@ export default defineNuxtConfig({
     // #disable auto-imports; use explicit imports from #imports
     // autoImport: false
     dirs: ["./keys"],
+    presets: [
+      {
+        from: "lodash/get",
+        imports: [
+          {
+            name: "default",
+            as: "get",
+          },
+          {
+            name: "default",
+            as: "getPath",
+          },
+        ],
+      },
+      {
+        from: "lodash/identity",
+        imports: [{ name: "default", as: "identity" }],
+      },
+    ],
     //
     // presets: [
     //   {
@@ -183,7 +202,7 @@ export default defineNuxtConfig({
       viewport:
         "width=device-width, initial-scale=1.0, shrink-to-fit=no, minimum-scale=1",
       title: "app",
-      titleTemplate: "%s | nikolav.rs",
+      // titleTemplate: "%s | nikolav.rs",
       // https://www.geeksforgeeks.org/meta-tags-in-nuxt-js/
       meta,
       //
@@ -304,6 +323,7 @@ export default defineNuxtConfig({
     // # globally initialize an $img helper
     // inject: true,
     // format: ["webp"],
+    // #allow domains to be optimized
     // domains: ["nuxtjs.org"],
     //
     // The screen sizes predefined by `@nuxt/image`:

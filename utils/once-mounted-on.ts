@@ -1,4 +1,4 @@
-export const onceMountedOn = (maybeRefOrValueOn: any, callback: () => void) => {
+export const onceMountedOn = (refGetterValue: any, callback: () => void) => {
   const initialized = ref();
   const onceInitCallback = once(() => {
     try {
@@ -7,14 +7,15 @@ export const onceMountedOn = (maybeRefOrValueOn: any, callback: () => void) => {
       // rethrow
       throw error;
     } finally {
-      nextTick(() => {
-        initialized.value = true;
-      });
+      initialized.value = true;
+      // nextTick(() => {
+      //   initialized.value = true;
+      // });
     }
   });
   onMounted(() => {
     watchEffect(() => {
-      if (toValue(maybeRefOrValueOn)) onceInitCallback();
+      if (toValue(refGetterValue)) onceInitCallback();
     });
   });
   return readonly(initialized);
