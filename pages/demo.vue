@@ -5,11 +5,11 @@ import { Dump } from "@/components/dev";
 //   layout: false,
 // });
 
-
 // @@eos
 </script>
 <template>
   <section class="page--demo">
+    <Dump :data="{}" />
   </section>
 </template>
 <style lang="scss" scoped></style>

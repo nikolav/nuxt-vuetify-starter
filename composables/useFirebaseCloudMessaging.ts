@@ -23,17 +23,12 @@ export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
 
   const {
     firebase: {
-      messaging: { VAPID_KEY, KEY_FCM_DEVICE_TOKENS },
+      messaging: { VAPID_KEY },
     },
   } = useAppConfig();
   const auth = useStoreApiAuth();
-  const { data, configPut } = useDocConfig();
-
-  // cached user devices tokens
-  //  tokens: Ref<Record<string:token, boolean> | undefined>
-  const tokens = computed(() =>
-    get(data.value, `data.${KEY_FCM_DEVICE_TOKENS}`)
-  );
+  // tokens: Ref<Record<string:token, boolean:valid> | undefined>
+  const { tokens, commit: tokenSet } = useDocTokens();
 
   // subscribe when service available
   watch(
@@ -44,12 +39,8 @@ export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
       try {
         const tokenFCM = await getToken(serviceFCM, { vapidKey: VAPID_KEY });
         // token:save
-        if (tokenFCM && !get(tokens.value, tokenFCM)) {
-          await configPut(
-            KEY_FCM_DEVICE_TOKENS,
-            assign({}, tokens.value, { [tokenFCM]: true })
-          );
-        }
+        if (tokenFCM && !get(tokens.value, tokenFCM))
+          await tokenSet(tokenFCM, true);
         onMessage(serviceFCM, options.onMessage);
       } catch (error) {
         // --debug

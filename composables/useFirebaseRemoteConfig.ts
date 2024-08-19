@@ -1,15 +1,21 @@
 import { remoteConfig } from "@/services/firebase";
-import { type Value, getValue } from "firebase/remote-config";
+import {
+  type Value,
+  getValue,
+  isSupported as RCIsSupported,
+} from "firebase/remote-config";
 
 export const useFirebaseRemoteConfig = () => {
-  const config = async (
-    PATH: string,
-    valueOf = (v: Value): any => v.asString()
-  ) => {
-    const serviceRC = await remoteConfig();
-    return serviceRC
-      ? computed(() => valueOf(getValue(serviceRC, PATH)))
-      : undefined;
-  };
+  const serviceRC = ref();
+  RCIsSupported().then((isSupported) => {
+    if (!isSupported) return;
+    remoteConfig().then((client) => {
+      serviceRC.value = client;
+    });
+  });
+  const config = (PATH: string, valueOf = (v: Value): any => v.asString()) =>
+    computed(() =>
+      serviceRC.value ? valueOf(getValue(serviceRC.value, PATH)) : null
+    );
   return config;
 };

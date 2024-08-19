@@ -36,16 +36,18 @@ export const useDoc = <TDoc = Record<string, any>>(
       <IDoc<TDoc>>{}
   );
   const reload = async () => await refetch();
-  onceMountedOn(enabled$, load);
+  useOnceMountedOn(enabled$, load);
 
   const { mutate: mutateDocUpsert } = useMutation<IDoc<TDoc>>(M_docUpsert);
 
-  const commit = async (putData: Record<string, any>) => {
+  const commit = async (putData: Record<string, any>, merge = true) => {
     if (!enabled$.value) return;
-    // update clone
-    const newData_ = batchSet(get(data$.value, "data"), putData);
-    // console.log({ newData_ })
-    await mutateDocUpsert({ data: newData_, doc_id: doc_id$.value });
+    await mutateDocUpsert({ doc_id: doc_id$.value, data: putData, merge });
+  };
+
+  const clear = async () => {
+    if (!enabled$.value) return;
+    await mutateDocUpsert({ doc_id: doc_id$.value, data: {}, merge: false });
   };
 
   const ioevent = computed(() =>
@@ -63,6 +65,7 @@ export const useDoc = <TDoc = Record<string, any>>(
     // #crud
     data: data$,
     commit,
+    clear,
     reload,
 
     // #aliases

@@ -208,7 +208,7 @@ export default defineAppConfig({
       VAPID_KEY:
         "BA5afVljVVDNRB2hf-lwSFwzAZcgVW1mYFsT65Oszp9qZIWOfZ9HTX_OXZfErx7iMXXZXv37CW8kS2H4xBJ-naE",
       // FCM_TOKEN: "EdVEeoDfdOK1",
-      KEY_FCM_DEVICE_TOKENS: "4tSsVfJJb6xa1A",
+      KEY_FCM_DEVICE_TOKENS: "bd4AsY9rIBwAxF:",
     },
   },
   //

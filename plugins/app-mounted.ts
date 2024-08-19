@@ -1,4 +1,7 @@
-import { fetchAndActivate } from "firebase/remote-config";
+import {
+  fetchAndActivate,
+  isSupported as RCIsSupported,
+} from "firebase/remote-config";
 import { remoteConfig } from "@/services/firebase";
 
 // #https://nuxt.com/docs/getting-started/error-handling#vue-rendering-lifecycle
@@ -12,9 +15,11 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     // firebase remote-config
     async () => {
-      const rc = await remoteConfig();
-      if (!rc) return;
-      const res = await fetchAndActivate(rc);
+      const serviceRC = (await RCIsSupported())
+        ? await remoteConfig()
+        : undefined;
+      if (!serviceRC) return;
+      const res = await fetchAndActivate(serviceRC);
       console.log({ "remoteConfig:fetchAndActivate": res });
     },
   ];
