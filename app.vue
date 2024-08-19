@@ -71,7 +71,7 @@ const localeHead = useLocaleHead({
 // #cloud messaging
 useFirebaseCloudMessaging({
   onMessage: (payload) => {
-    console.log({ "firebaseCloudMessaging:payload": payload });
+    console.log({ "firebaseCloudMessaging:payload --debug": payload });
   },
 });
 

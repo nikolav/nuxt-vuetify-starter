@@ -10,11 +10,11 @@ import {
 } from "firebase/messaging";
 export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
   // messaging service --init
-  const service = ref();
+  const serviceCM = ref();
   messagingIsSupported().then((isSupported) => {
     if (!isSupported) return;
     try {
-      service.value = getMessaging(firebaseApp);
+      serviceCM.value = getMessaging(firebaseApp);
     } catch (error) {
       // --debug
       console.error({ "getMessaging --error": error });
@@ -32,16 +32,16 @@ export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
 
   // subscribe when service available
   watch(
-    [() => auth.isAuthenticated$, () => service.value],
-    async ([isAuthenticated, serviceFCM]) => {
+    [() => auth.isAuthenticated$, () => serviceCM.value],
+    async ([isAuthenticated, service]) => {
       if (!isAuthenticated) return;
-      if (!serviceFCM) return;
+      if (!service) return;
       try {
-        const tokenFCM = await getToken(serviceFCM, { vapidKey: VAPID_KEY });
+        const tokenFCM = await getToken(service, { vapidKey: VAPID_KEY });
         // token:save
         if (tokenFCM && !get(tokens.value, tokenFCM))
           await tokenSet(tokenFCM, true);
-        onMessage(serviceFCM, options.onMessage);
+        onMessage(service, options.onMessage);
       } catch (error) {
         // --debug
         console.error({ "useFirebaseCloudMessaging:getToken": error });
