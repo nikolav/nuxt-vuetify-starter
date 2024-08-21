@@ -10,7 +10,7 @@ import { getStorage } from "firebase/storage";
 
 import {
   getRemoteConfig,
-  isSupported as remoteConfigIsSupported,
+  isSupported as RCIsSupported,
 } from "firebase/remote-config";
 
 import { PRODUCTION$ } from "../../config/vars.env";
@@ -36,16 +36,19 @@ export const app = 0 < getApps().length ? getApp() : initializeApp(config);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
-
-// export const messaging = async () =>
-//   (await messagingIsSupported()) ? getMessaging(app) : undefined;
-
 export const remoteConfig = async () => {
-  if (!(await remoteConfigIsSupported())) return;
-  const serviceRC = getRemoteConfig(app);
-  // minimum fetch interval:
-  //   0     development
-  //   1hour production
-  serviceRC.settings.minimumFetchIntervalMillis = PRODUCTION$ ? 3600000 : 0;
-  return serviceRC;
+  try {
+    if (await RCIsSupported()) {
+      const serviceRC = getRemoteConfig(app);
+      // minimum fetch interval:
+      //   0     development
+      //   1hour production
+      serviceRC.settings.minimumFetchIntervalMillis = PRODUCTION$ ? 3600000 : 0;
+      return serviceRC;
+    }
+  } catch (error) {
+    // pass
+    console.error({ "remoteConfig:error": error });
+  }
+  return null;
 };

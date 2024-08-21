@@ -1,17 +1,10 @@
 import { remoteConfig } from "@/services/firebase";
-import {
-  type Value,
-  getValue,
-  isSupported as RCIsSupported,
-} from "firebase/remote-config";
+import { type Value, getValue } from "firebase/remote-config";
 
 export const useFirebaseRemoteConfig = () => {
   const serviceRC = ref();
-  RCIsSupported().then((isSupported) => {
-    if (!isSupported) return;
-    remoteConfig().then((client) => {
-      serviceRC.value = client;
-    });
+  remoteConfig().then((client) => {
+    serviceRC.value = client;
   });
   const config = (PATH: string, valueOf = (v: Value): any => v.asString()) =>
     computed(() =>
