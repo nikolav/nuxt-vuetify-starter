@@ -33,21 +33,23 @@ export const light: ThemeDefinition = {
   dark: false,
   colors: {
     background: "#fffffc",
-    surface: "#fcfcfb",
+    surface: "#fffffc",
+    // surface: "#fcfcfb",
+    //
     primary,
-    // secondary: "#e2e2e2",
     secondary,
+    //
+    success: "#4CAF50",
     error: "#B00020",
     info: "#2196F3",
-    success: "#4CAF50",
     warning: "#FB8C00",
+    //
+    primary2,
+    primary3,
     //
     accent1,
     accent2,
     complement,
-    //
-    primary2,
-    primary3,
   },
   variables: {
     //   "border-color": "#000000",

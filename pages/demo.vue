@@ -1,17 +1,26 @@
 <script setup lang="ts">
 import { Dump } from "@/components/dev";
-
+import { renderIcon } from "@/components/icons";
 // definePageMeta({
 //   layout: false,
 // });
-const configRC = useFirebaseRemoteConfig();
-const x$ = configRC("x");
+
+const {
+  icon: {
+    aliases: { github },
+  },
+} = useAppConfig();
+const IconFoo = renderIcon(github, { class: "translate-y-px" });
+
+const t$ = ref();
 
 // @@eos
 </script>
 <template>
   <section class="page--demo">
-    <Dump :data="{ x$ }" />
+    <VResponsive max-width="550" class="mx-auto overflow-visible">
+      
+    </VResponsive>
   </section>
 </template>
 <style lang="scss" scoped></style>

@@ -40,7 +40,11 @@ export const useDoc = <TDoc = Record<string, any>>(
 
   const { mutate: mutateDocUpsert } = useMutation<IDoc<TDoc>>(M_docUpsert);
 
-  const commit = async (putData: Record<string, any>, merge = true) => {
+  const commit = async (
+    putData: Record<string, any>,
+    // shallow-merge putData{}
+    merge = true
+  ) => {
     if (!enabled$.value) return;
     await mutateDocUpsert({ doc_id: doc_id$.value, data: putData, merge });
   };

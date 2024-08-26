@@ -390,6 +390,7 @@ export default defineNuxtConfig({
   icon: {
     // componentName: "NuxtIcon",
     // #https://github.com/nuxt/icon?tab=readme-ov-file#custom-local-collections
+    // provider: SSR ? undefined : "server",
     // customCollections: [
     //   {
     //     prefix: "my-icon",
