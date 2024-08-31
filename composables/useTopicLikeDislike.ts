@@ -15,6 +15,7 @@ export const useTopicLikeDislike = (T?: any) => {
     };
   }>(LIKEDISLIKE_CACHE_ID);
   const store = computed(() => get(data.value, "data"));
+  const extended = (values: any) => batchSet(store.value, values);
 
   const likesCount = computed(() =>
     !topic$.value
@@ -51,10 +52,13 @@ export const useTopicLikeDislike = (T?: any) => {
     if (isDisliked.value && flag) {
       toggle = true;
     }
-    await commit({
-      ...(toggle ? { [`${topic$.value}.dislikes.${key.value}`]: false } : {}),
-      [`${topic$.value}.likes.${key.value}`]: flag,
-    });
+    await commit(
+      extended({
+        ...(toggle ? { [`${topic$.value}.dislikes.${key.value}`]: false } : {}),
+        [`${topic$.value}.likes.${key.value}`]: flag,
+      }),
+      false
+    );
   };
   const dislike = async (flag = true) => {
     if (!topic$.value) return;
@@ -63,10 +67,13 @@ export const useTopicLikeDislike = (T?: any) => {
     if (isLiked.value && flag) {
       toggle = true;
     }
-    await commit({
-      ...(toggle ? { [`${topic$.value}.likes.${key.value}`]: false } : {}),
-      [`${topic$.value}.dislikes.${key.value}`]: flag,
-    });
+    await commit(
+      extended({
+        ...(toggle ? { [`${topic$.value}.likes.${key.value}`]: false } : {}),
+        [`${topic$.value}.dislikes.${key.value}`]: flag,
+      }),
+      false
+    );
   };
 
   return {

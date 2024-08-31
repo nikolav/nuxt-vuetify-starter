@@ -46,7 +46,11 @@ export const useDoc = <TDoc = Record<string, any>>(
     merge = true
   ) => {
     if (!enabled$.value) return;
-    await mutateDocUpsert({ doc_id: doc_id$.value, data: putData, merge });
+    await mutateDocUpsert({
+      doc_id: doc_id$.value,
+      data: putData,
+      merge,
+    });
   };
 
   const clear = async () => {

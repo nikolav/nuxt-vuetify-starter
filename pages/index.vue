@@ -45,7 +45,7 @@ const { status: graphqlStatus } = useQueryGraphqlStatus();
         </p>
         <ProvideTranslation
           :query="{
-            q: 'A menos que intentes hacer algo más allá de lo que ya dominas, nunca crecerás.',
+            q: 'Ne laissez pas le bruit des opinions des autres étouffer votre propre voix intérieure. Ayez le courage de suivre votre cœur et votre intuition.',
             target: locale,
           }"
           v-slot="{ translation }"

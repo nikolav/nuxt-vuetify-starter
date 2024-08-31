@@ -163,6 +163,10 @@ export default defineNuxtConfig({
         from: "lodash/identity",
         imports: [{ name: "default", as: "identity" }],
       },
+      {
+        from: "lodash/range",
+        imports: [{ name: "default", as: "range" }],
+      },
     ],
     //
     // presets: [

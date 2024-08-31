@@ -1,9 +1,9 @@
 import { io, Socket } from "socket.io-client";
-import type { OrNull } from "@/types";
+import type { OrNoValue } from "@/types";
 import { IO_SERVER } from "@/config";
 
 export const configureIO = () => {
-  let IO: OrNull<Socket> = null;
+  let IO: OrNoValue<Socket> = null;
   try {
     IO = io(IO_SERVER, { withCredentials: true });
   } catch (error) {}

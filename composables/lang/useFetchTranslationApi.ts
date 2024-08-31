@@ -37,7 +37,7 @@ export const useFetchTranslationApi = (QUERY?: any) => {
       ? get(data.value, "data.translations[0].translatedText")
       : q.value
   );
-  onceMountedOn(enabled, async () => await execute());
+  useOnceMountedOn(enabled, async () => await execute());
 
   return {
     query,
