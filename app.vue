@@ -5,11 +5,13 @@ const route = useRoute();
 const auth = useStoreApiAuth();
 
 // set default guest key @!auth
-onceOn(
+// onceOn(
+useOnceOn(
   () => auth.initialized$ && !auth.isAuth$,
-  async () => {
-    await nextTick();
-    if (!auth.token$) auth.tokenPutDefault();
+  () => {
+    nextTick(() => {
+      if (!auth.token$) auth.tokenPutDefault();
+    });
   }
 );
 // onAuthStatus
@@ -37,8 +39,13 @@ watch(
   }
 );
 
+// meta, seo --config
+useHead({
+  titleTemplate: (ttl) => (ttl ? `🌍 ${ttl} | nikolav.rs` : "nikolav.rs"),
+});
+
 // provide current user data
-const uid = computed(() => get(auth.user$, "id"));
+const uid = computed(() => auth.uid);
 const token = computed(() => auth.token$ || "");
 provide(key_UID, uid);
 provide(key_TOKEN, token);
@@ -61,6 +68,14 @@ const localeHead = useLocaleHead({
   identifierAttribute: "id",
   addSeoAttributes: true,
 });
+
+// #cloud messaging
+useFirebaseCloudMessaging({
+  onMessage: (payload) => {
+    console.log({ "firebaseCloudMessaging:payload --debug": payload });
+  },
+});
+
 // #eos
 </script>
 <template>
@@ -87,7 +102,7 @@ const localeHead = useLocaleHead({
 
     <!-- @ui:status -->
     <NuxtLoadingIndicator color="red" />
-    <SpinnerAppProcessing :opacity="0.8" />
+    <SpinnerAppProcessing :opacity="0.81" />
   </VApp>
 </template>
 <style>

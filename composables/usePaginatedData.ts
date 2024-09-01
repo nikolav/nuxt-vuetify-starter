@@ -1,7 +1,7 @@
 import { type Ref } from "vue";
 import type { OrNoValue } from "@/types";
 
-export const usePaginateData = <TData = any>(config: {
+export const usePaginatedData = <TData = any>(config: {
   data: OrNoValue<TData[] | Ref<TData[]>>;
   perPage: number;
 }) => {

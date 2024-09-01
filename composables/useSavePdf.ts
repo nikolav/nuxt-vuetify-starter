@@ -36,7 +36,7 @@ export const useSavePdf = () => {
             Accept: "application/json",
           },
           body: {
-            query: query,
+            query,
             variables: {
               data: options.data,
             },
@@ -80,7 +80,7 @@ export const useSavePdf = () => {
   const printPdf = async (options: IPdfDataInput) =>
     printjs({ printable: await pdf(options), type: "pdf", base64: true });
   return {
-    error: procSavePdf.error.value,
+    error: procSavePdf.error,
     savePdf,
     printPdf,
     pdf,

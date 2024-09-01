@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import { Dump } from "@/components/dev";
 import { ProvideTranslation } from "@/components/lang";
+import {
+  langCodeEn,
+  langCodeSrLatn,
+  langCodeSrCyr,
+} from "@/config/i18n.lang-codes";
 
-const { n, d, t, locale, setLocale } = useI18n();
+//
+const { n, d, t, locale } = useI18n();
+const setLocale_ = useI18NSetLocale();
+
 const date = new Date();
 const auth = useStoreApiAuth();
 const authAdmin = async () =>
@@ -18,16 +26,15 @@ const { status: graphqlStatus } = useQueryGraphqlStatus();
 </script>
 <template>
   <section class="page--index">
-    <div class="d-flex items-center gap-5 justify-center ma-2">
-      <NuxtLinkLocale to="/">index</NuxtLinkLocale>
-      <NuxtLinkLocale to="demo">demo</NuxtLinkLocale>
-    </div>
-    <hr />
     <VCard max-width="640" class="mx-auto">
       <VCardActions>
-        <VBtn color="primary" @click="setLocale('sr-Latn-RS')">sr-Latn-RS</VBtn>
-        <VBtn color="primary" @click="setLocale('sr-Cyrl-RS')">sr-Cyrl-RS</VBtn>
-        <VBtn @click="setLocale('en')">en</VBtn>
+        <VBtn color="primary" @click="setLocale_(langCodeSrLatn)"
+          >sr-Latn-RS</VBtn
+        >
+        <VBtn color="primary" @click="setLocale_(langCodeSrCyr)"
+          >sr-Cyrl-RS</VBtn
+        >
+        <VBtn @click="setLocale_(langCodeEn)">en</VBtn>
       </VCardActions>
       <VCardText>
         <pre>{{ locale }}</pre>
@@ -38,7 +45,7 @@ const { status: graphqlStatus } = useQueryGraphqlStatus();
         </p>
         <ProvideTranslation
           :query="{
-            q: 'Unless you try to do something beyond what you have already mastered you will never grow.',
+            q: 'Ne laissez pas le bruit des opinions des autres étouffer votre propre voix intérieure. Ayez le courage de suivre votre cœur et votre intuition.',
             target: locale,
           }"
           v-slot="{ translation }"

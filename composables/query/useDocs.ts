@@ -20,7 +20,13 @@ export const useDocs = <TData = TDocData>(
     () => !!(toggleEnabled.isActive.value && topic$.value)
   );
 
-  const { result, refetch, load, loading, error } = useLazyQuery<{
+  const {
+    result,
+    refetch,
+    load: queryStart,
+    loading,
+    error,
+  } = useLazyQuery<{
     docsByTopic: IDoc<TData>[];
   }>(
     Q_docsByTopic,
@@ -36,7 +42,7 @@ export const useDocs = <TData = TDocData>(
   );
   const length$ = computed(() => data$.value.length);
   const reload = async () => await refetch();
-  onceMountedOn(enabled$, load);
+  onceMountedOn(enabled$, queryStart);
   // @auth:change reload
   watchEffect(() => {
     if (token_?.value) reload();

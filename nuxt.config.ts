@@ -1,6 +1,11 @@
 import vitePluginVuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import trimEnd from "lodash/trimEnd";
 import { ENDPOINT_GRAPHQL, API_URL, URL_APP_PUBLIC, SSR } from "./config";
+import {
+  langCodeEn,
+  langCodeSrLatn,
+  langCodeSrCyr,
+} from "./config/i18n.lang-codes";
 
 const BASE_DIR = process.env.BASE_DIR;
 
@@ -12,11 +17,7 @@ const meta: TMeta = [
 
 // --force-https
 // <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-if (
-  // /dnofiq4anfaqwrzctj\.xyz/.test(API_URL)
-  API_URL.startsWith("https")
-  // || /herokuapp\.com/.test(API_URL)
-)
+if (API_URL.startsWith("https"))
   meta.push({
     "http-equiv": "Content-Security-Policy",
     content: "upgrade-insecure-requests",
@@ -44,10 +45,19 @@ export default defineNuxtConfig({
   //   // "/old-page": {
   //   //   redirect: { to: "/new-page", statusCode: 302 },
   //   // },
+  // Set prerender to true to configure it to be prerendered
+  // "/rss.xml": { prerender: true },
+  // Set it to false to configure it to be skipped for prerendering
+  // "/this-DOES-NOT-get-prerendered": { prerender: false },
+  // Everything under /blog gets prerendered as long as it
+  // is linked to from another page
+  // "/blog/**": { prerender: true },
+
   //   // ...
   // },
   //
   // #Selective Pre-rendering @nitro
+  // #https://nuxt.com/docs/getting-started/prerendering#selective-pre-rendering
   // nitro: {
   //   prerender: {
   //     // routes: ['/user/1', '/user/2'],
@@ -99,18 +109,27 @@ export default defineNuxtConfig({
     // apiSecret: '123',
     // Keys within public are also exposed client-side
     public: {
-      // apiBase: '/api'
+      // fooBar: process.env.var
     },
   },
 
-  // hooks: {
-  //   // # append dirs, extending default path
-  //   // "components:dirs": (dirs) => {
-  //   //   dirs.push({
-  //   //     path: "/path",
-  //   //     prefix: "App",
-  //   //   });
-  //   // },
+  hooks: {
+    //   // # append dirs, extending default path
+    //   // "components:dirs": (dirs) => {
+    //   //   dirs.push({
+    //   //     path: "/path",
+    //   //     prefix: "App",
+    //   //   });
+    // async "prerender:routes"(ctx) {
+    //   const { pages } = await fetch("https://api.some-cms.com/pages").then(
+    //     (res) => res.json()
+    //   );
+    //   for (const page of pages) {
+    //     ctx.routes.add(`/${page.name}`);
+    //   }
+    // },
+  },
+
   // },
 
   // include auto import dirs, overriding default path
@@ -126,6 +145,29 @@ export default defineNuxtConfig({
     // #disable auto-imports; use explicit imports from #imports
     // autoImport: false
     dirs: ["./keys"],
+    presets: [
+      {
+        from: "lodash/get",
+        imports: [
+          {
+            name: "default",
+            as: "get",
+          },
+          {
+            name: "default",
+            as: "getPath",
+          },
+        ],
+      },
+      {
+        from: "lodash/identity",
+        imports: [{ name: "default", as: "identity" }],
+      },
+      {
+        from: "lodash/range",
+        imports: [{ name: "default", as: "range" }],
+      },
+    ],
     //
     // presets: [
     //   {
@@ -164,7 +206,7 @@ export default defineNuxtConfig({
       viewport:
         "width=device-width, initial-scale=1.0, shrink-to-fit=no, minimum-scale=1",
       title: "app",
-      titleTemplate: "%s | nikolav.rs",
+      // titleTemplate: "%s | nikolav.rs",
       // https://www.geeksforgeeks.org/meta-tags-in-nuxt-js/
       meta,
       //
@@ -233,35 +275,40 @@ export default defineNuxtConfig({
 
   i18n: {
     vueI18n: "./config/i18n.config.ts",
-    defaultLocale: "sr-Latn-RS",
-    baseUrl: URL_APP_PUBLIC,
-    locales: [
-      {
-        code: "en",
-        iso: "en",
-        name: "English",
-      },
-      {
-        code: "sr-Cyrl-RS",
-        iso: "sr-Cyrl-RS",
-        name: "Српски",
-      },
-      {
-        code: "sr-Latn-RS",
-        iso: "sr-Latn-RS",
-        name: "Srpski",
-        isCatchallLocale: true,
-      },
-    ],
     strategy: "prefix_and_default",
+    defaultLocale: langCodeSrLatn,
     customRoutes: "config",
     pages: {
+      // about: {
+      //   en: "/about-us", // -> accessible at /about-us (no prefix since it's the default locale)
+      //   fr: "/a-propos", // -> accessible at /fr/a-propos
+      //   es: "/sobre", // -> accessible at /es/sobre
+      // },
       // demo: {
       //   en: "/demo",
       //   "sr-Cyrl-RS": "/prikaz-cyr",
       //   "sr-Latn-RS": "/prikaz",
       // },
     },
+    baseUrl: URL_APP_PUBLIC,
+    locales: [
+      {
+        code: langCodeEn,
+        iso: langCodeEn,
+        name: "English",
+      },
+      {
+        code: langCodeSrCyr,
+        iso: langCodeSrCyr,
+        name: "Српски",
+      },
+      {
+        code: langCodeSrLatn,
+        iso: langCodeSrLatn,
+        name: "Srpski",
+        isCatchallLocale: true,
+      },
+    ],
   },
 
   // #https://google-fonts.nuxtjs.org
@@ -280,6 +327,7 @@ export default defineNuxtConfig({
     // # globally initialize an $img helper
     // inject: true,
     // format: ["webp"],
+    // #allow domains to be optimized
     // domains: ["nuxtjs.org"],
     //
     // The screen sizes predefined by `@nuxt/image`:
@@ -320,6 +368,7 @@ export default defineNuxtConfig({
   experimental: {
     scanPageMeta: true,
     // typedPages: true,
+    // inlineRouteRules: true,
   },
 
   // https://apollo.nuxtjs.org/getting-started/configuration#configuration
@@ -340,5 +389,17 @@ export default defineNuxtConfig({
         tokenName: "@apollo/token:l7iPx",
       },
     },
+  },
+
+  icon: {
+    // componentName: "NuxtIcon",
+    // #https://github.com/nuxt/icon?tab=readme-ov-file#custom-local-collections
+    // provider: SSR ? undefined : "server",
+    // customCollections: [
+    //   {
+    //     prefix: "my-icon",
+    //     dir: "./assets/my-icons",
+    //   },
+    // ],
   },
 });

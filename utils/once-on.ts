@@ -6,9 +6,10 @@ export const onceOn = (onValue$: any, callback: (...args: any[]) => void) => {
     } catch (error) {
       throw error;
     } finally {
-      nextTick(() => {
-        initialized.value = true;
-      });
+      initialized.value = true;
+      // nextTick(() => {
+      //   initialized.value = true;
+      // });
     }
   });
   watchEffect(() => {

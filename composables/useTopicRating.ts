@@ -19,8 +19,10 @@ export const useTopicRating = (topic: any, _default = 1) => {
   // ratings cache by topic
   const { data, put } = useDoc<IDataRating>(TOPIC_RATINGS);
   const store = computed(() => get(data.value, "data"));
+  const storeExtended = (values: any) => batchSet(store.value, values);
   // topic ratings cache
   const d = computed(() => get(data.value, `data.${topic$.value}`));
+
   const ratingsCount = computed(() =>
     reduce(d.value, (res, val) => (res += !(0 < val) ? 0 : 1), 0)
   );
@@ -36,7 +38,10 @@ export const useTopicRating = (topic: any, _default = 1) => {
   const rate = async (r: any) => {
     if (!(0 <= r)) return;
     try {
-      await put({ [`${topic$.value}.${rid$.value.key}`]: r });
+      await put(
+        storeExtended({ [`${topic$.value}.${rid$.value.key}`]: r }),
+        false
+      );
       set(rid$.value, `val.${topic$.value}`, r);
     } catch (error) {
       // pass
@@ -45,7 +50,10 @@ export const useTopicRating = (topic: any, _default = 1) => {
 
   const clear = async () => {
     try {
-      await put({ [`${topic$.value}.${rid$.value.key}`]: 0 });
+      await put(
+        storeExtended({ [`${topic$.value}.${rid$.value.key}`]: 0 }),
+        false
+      );
       set(rid$.value, `val.${topic$.value}`, 0);
     } catch (error) {
       // pass

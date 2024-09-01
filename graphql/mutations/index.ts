@@ -25,8 +25,8 @@ export const M_docsRm = gql`
 `;
 
 export const M_docUpsert = gql`
-  mutation m_docUpsert($doc_id: String!, $data: JsonData!) {
-    docUpsert(doc_id: $doc_id, data: $data)
+  mutation m_docUpsert($doc_id: String!, $data: JsonData!, $merge: Boolean!) {
+    docUpsert(doc_id: $doc_id, data: $data, merge: $merge)
   }
 `;
 

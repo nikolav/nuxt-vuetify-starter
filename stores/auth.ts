@@ -69,7 +69,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
     immediate: false,
   });
   const uid = computed(() => get(user$.value, "id"));
-  const initialized$ = onceMountedOn(true, authDataStart);
+  const initialized$ = useOnceMountedOn(true, authDataStart);
   const isAuth$ = computed(() => schemaAuthData.safeParse(user$.value).success);
   const isUser$ = computed(
     () => schemaUsersNotReserved.safeParse(user$.value).success
@@ -114,9 +114,9 @@ export const useStoreApiAuth = defineStore("auth", () => {
   });
 
   // track api activity
-  const status = useProcessMonitor();
+  const pc = useProcessMonitor();
   const { watchProcessing } = useStoreAppProcessing();
-  watchProcessing(() => status.processing.value);
+  watchProcessing(() => pc.processing.value);
 
   const authentication$ =
     (authEndpoint: string = URL_AUTH_login) =>
@@ -125,7 +125,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
       if (isAuthenticated$.value) return;
 
       let token: OrNoValue<string> = "";
-      status.begin();
+      pc.begin();
       try {
         token = get(
           await $fetch<IAuthResponse>(authEndpoint, {
@@ -135,14 +135,14 @@ export const useStoreApiAuth = defineStore("auth", () => {
           "token"
         );
       } catch (error) {
-        status.setError(error);
+        pc.setError(error);
       } finally {
         if (schemaJwt.safeParse(token).success) {
           token$.value = token;
-          status.successful();
+          pc.successful();
         }
       }
-      status.done();
+      pc.done();
     };
   // @register
   const register = authentication$(URL_AUTH_register);
@@ -151,7 +151,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
   // @logout
   const logout = async () => {
     if (!isAuth$.value) return;
-    status.begin();
+    pc.begin();
     try {
       await $fetch<IAuthLogoutResponse>(URL_AUTH_logout, {
         method: "POST",
@@ -162,7 +162,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
             // logout success, cache cleared server side,
             //  set token invalid
             token$.value = "";
-            status.successful();
+            pc.successful();
 
             // clear fb auth
             await signOut(firebaseAuth);
@@ -170,23 +170,23 @@ export const useStoreApiAuth = defineStore("auth", () => {
         },
       });
     } catch (error) {
-      status.setError(error);
+      pc.setError(error);
     } finally {
-      status.done();
+      pc.done();
     }
-    if (!status.error.value) {
-      status.successful();
+    if (!pc.error.value) {
+      pc.successful();
     }
   };
 
   // #api
   return {
-    // #crud
     token$,
     user$,
     uid,
-    register,
+    //
     login,
+    register,
     logout,
     authDataReload,
     // alias
@@ -200,7 +200,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
     isAuthenticated$,
 
     // @api/flags
-    status,
+    status: pc,
 
     // hard login
     //  put token:validated

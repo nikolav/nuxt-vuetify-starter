@@ -7,7 +7,8 @@ export const THEME_ACCENT_SHIFT = 33;
 export const DEBUG$ = !PRODUCTION$ && LOGGING_;
 
 export const URL_APP_PUBLIC = PRODUCTION$
-  ? "https://frikom.nikolav.rs/"
+  // ? "https://frikom.nikolav.rs/"
+  ? "https://qdeiymppite.web.app/"
   : "http://localhost:3000/";
 
 export const URL_PASSWORD_RESET_FORM_LINK = `${trimEnd(
@@ -20,4 +21,4 @@ export const URL_VERIFY_EMAIL = `${trimEnd(
   "/"
 )}/auth-verify-email`;
 
-export const SSR = true;
+export { SSR } from "./vars.env";

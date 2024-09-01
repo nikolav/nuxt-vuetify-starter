@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useTheme } from "vuetify";
 import FadeLoader from "vue-spinner/src/FadeLoader.vue";
-import { secureLeft } from "@/utils";
 
 const props = withDefaults(defineProps<{ opacity?: number }>(), {
   opacity: 0.5,

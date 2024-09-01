@@ -23,6 +23,9 @@ export const useTopics = () => {
       TOPIC_RATING_POSTS_prefix,
       USER_CONFIG_PREFERENCES,
     },
+    firebase: {
+      messaging: { KEY_FCM_DEVICE_TOKENS },
+    },
   } = useAppConfig();
   const comChat = (comid: number | undefined) =>
     comid ? `${TOPIC_CHAT_COM_prefix}${comid}` : "";
@@ -60,6 +63,8 @@ export const useTopics = () => {
     sid ? `${POSTS_CHAT_prefix}${sid}` : "";
   const userConfig = (uid: number | undefined) =>
     uid ? `${USER_CONFIG_PREFERENCES}${uid}` : "";
+  const userDeviceTokens = (uid: number | undefined) =>
+    uid ? `${KEY_FCM_DEVICE_TOKENS}${uid}` : "";
 
   return {
     CHAT_MAIN,
@@ -80,5 +85,6 @@ export const useTopics = () => {
     likesPosts,
     chatPosts,
     userConfig,
+    userDeviceTokens,
   };
 };

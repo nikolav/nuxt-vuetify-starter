@@ -3,7 +3,7 @@ import assign from "lodash/assign";
 import {
   PRODUCTION$,
   URL_APP_PUBLIC,
-  CLOUD_TRANSLATION_API_KEY,
+  // CLOUD_TRANSLATION_API_KEY,
 } from "@/config";
 
 const themeDark = "dark";
@@ -21,7 +21,10 @@ export default defineAppConfig({
     DEFAULT_TRANSITION: "slide-y-reverse-transition",
     DEFAULT_NO_IMAGE: "/no-image.jpg",
     TRANSLATION_ENABLED: true,
-    TRANSLATION_DEFAULTS: { format: "text", key: CLOUD_TRANSLATION_API_KEY },
+    TRANSLATION_DEFAULTS: {
+      format: "text",
+      // key: CLOUD_TRANSLATION_API_KEY
+    },
   },
   docs: {
     CHAT_ORDER_COM_USER_prefix: "e5iT1p1Mmx5HD@",
@@ -109,7 +112,7 @@ export default defineAppConfig({
     },
     auth: {
       KEY_ACCESS_TOKEN: ":sEe5xYuTL4q",
-      KEY_USEFETCH_AUTHDATA: "GEXjh1kt9Oc",
+      KEY_USEFETCH_AUTHDATA: "oDgSc6Xp4kU",
       authDataFields: ["id", "email"],
       initial: () => "",
       authHeaders: (token: string, additional?: Record<string, any>) =>
@@ -193,5 +196,30 @@ export default defineAppConfig({
   },
   date: {
     ISO_FORMAT: "YYYY-MM-DD HH:mm:ss.SSSSSS",
+  },
+  firebase: {
+    firestore: {
+      DEFAULT_DOCS_COLLECTION: "docs:8lyrg8edl53",
+    },
+    messaging: {
+      // Web Push certificates
+      // Firebase Cloud Messaging can use Application Identity key pairs to connect with external push services.
+      // #https://developers.google.com/web/updates/2016/07/web-push-interop-wins#introducing_vapid_for_server_identification
+      VAPID_KEY:
+        "BA5afVljVVDNRB2hf-lwSFwzAZcgVW1mYFsT65Oszp9qZIWOfZ9HTX_OXZfErx7iMXXZXv37CW8kS2H4xBJ-naE",
+      // FCM_TOKEN: "EdVEeoDfdOK1",
+      KEY_FCM_DEVICE_TOKENS: "bd4AsY9rIBwAxF:",
+    },
+  },
+  //
+  // #https://github.com/nuxt/icon/tree/main?tab=readme-ov-file#icon-customization
+  icon: {
+    // size: "24px", // default <Icon> size applied
+    // class: 'icon', // default <Icon> class applied
+    // mode: 'css', // default <Icon> mode applied
+    aliases: {
+      nuxt: "logos:nuxt-icon",
+      github: "tabler:brand-github-filled",
+    },
   },
 });

@@ -11,7 +11,8 @@
     "postinstall": "nuxt prepare",
     "start": "node .output/server/index.mjs ",
     "demo": "node ./demo.mjs ",
-    "deploy:dev": "firebase deploy --only hosting:qdeiymppite "
+    "deploy:dev": "firebase deploy --only hosting:qdeiymppite ",
+    "reinstall": "rm -rf ./node_modules package-lock.json yarn.lock && yarn && yarn run postinstall "
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
@@ -26,8 +27,9 @@
     "chart.js": "^4.4.3",
     "chroma-js": "^2.4.2",
     "dayjs": "^1.11.11",
+    "eventemitter3": "^5.0.1",
     "file-saver": "^2.0.5",
-    "firebase": "^10.12.2",
+    "firebase": "^10.12.4",
     "form-data": "^4.0.0",
     "graphql-tag": "^2.12.6",
     "lodash": "^4.17.21",
@@ -36,6 +38,8 @@
     "nuxt": "^3.11.2",
     "print-js": "^1.6.0",
     "socket.io-client": "^4.7.5",
+    "ufo": "^1.5.4",
+    "uuid": "^10.0.0",
     "validator": "^13.12.0",
     "video.js": "^8.12.0",
     "vue": "^3.4.27",
@@ -43,6 +47,7 @@
     "vue-router": "^4.3.2",
     "vue-spinner": "^1.0.4",
     "vue3-popper": "^1.5.0",
+    "vuefire": "^3.1.24",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -60,6 +65,7 @@
     "@types/axios": "^0.14.0",
     "@types/chartjs": "^0.0.31",
     "@types/chroma-js": "^2.4.4",
+    "@types/eventemitter3": "^2.0.2",
     "@types/file-saver": "^2.0.7",
     "@types/firebase": "^3.2.1",
     "@types/form-data": "^2.5.0",
@@ -67,6 +73,7 @@
     "@types/md5": "^2.3.5",
     "@types/node": "^20.14.2",
     "@types/socket.io-client": "^3.0.0",
+    "@types/uuid": "^10.0.0",
     "@types/validator": "^13.12.0",
     "@vueuse/core": "^10.10.0",
     "@vueuse/nuxt": "^10.10.0",

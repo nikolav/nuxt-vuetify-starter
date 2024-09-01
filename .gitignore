@@ -183,3 +183,4 @@ yarn-debug.log*
 yarn-error.log*
 .firebase
 assets/prototype-app/www
+assets/prototype-app/index.wpp

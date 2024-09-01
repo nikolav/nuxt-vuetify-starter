@@ -1,4 +1,4 @@
-import { CLOUD_TRANSLATION_API_KEY as API_KEY } from "@/config";
+import { CLOUD_TRANSLATION_API_KEY } from "@/config";
 import type { ITranslationQuery } from "@/types";
 // #https://cloud.google.com/translate/docs/reference/rest/v2/translate#http-request
 export const useFetchTranslationApi = (QUERY?: any) => {
@@ -25,7 +25,7 @@ export const useFetchTranslationApi = (QUERY?: any) => {
       "Content-Type": "application/json",
     },
     params: {
-      key: API_KEY,
+      key: CLOUD_TRANSLATION_API_KEY,
     },
     body,
     lazy: true,
@@ -37,7 +37,7 @@ export const useFetchTranslationApi = (QUERY?: any) => {
       ? get(data.value, "data.translations[0].translatedText")
       : q.value
   );
-  onceMountedOn(enabled, async () => await execute());
+  useOnceMountedOn(enabled, async () => await execute());
 
   return {
     query,

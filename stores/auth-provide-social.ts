@@ -11,7 +11,7 @@ export const useStoreApiAuthProvideSocial = defineStore(
   "auth-provide-social",
   () => {
     const authApi = useStoreApiAuth();
-    let addAuthData$ = ref();
+    const addAuthData$ = ref();
 
     onAuthStateChanged(firebaseAuth, async (authData) => {
       if (!authData) return;

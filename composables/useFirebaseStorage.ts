@@ -9,14 +9,9 @@ import {
 import { storage } from "@/services/firebase";
 import type { IInputFileUpload } from "@/types";
 
-export const useFirebaseStorage = (STORE?: any) => {
-  const store$ = ref();
-  watchEffect(() => {
-    store$.value = toValue(STORE);
-  });
-
+export const useFirebaseStorage = (STORE_PATH: string) => {
   // ref:store
-  const refStore = fbRef(storage, store$.value);
+  const refStore = fbRef(storage, STORE_PATH);
   // https://firebase.google.com/docs/storage/web/upload-files?hl=en&authuser=0
   const upload = async (files: IInputFileUpload) =>
     await Promise.all(
@@ -25,8 +20,8 @@ export const useFirebaseStorage = (STORE?: any) => {
         (node, title) =>
           new Promise((resolve, reject) => {
             if (!node?.file) return reject(null);
-            const path = node?.name || node.file.name;
-            const refStorageNode = fbRef(refStore, path);
+            const filename = node?.name || node.file.name;
+            const refStorageNode = fbRef(refStore, filename);
             const uploadTask = uploadBytesResumable(refStorageNode, node.file);
             uploadTask.on(
               "state_changed",
@@ -37,9 +32,7 @@ export const useFirebaseStorage = (STORE?: any) => {
                 console.debug({ [`${title} --upload-progress`]: progress });
               },
               // error
-              (error) => {
-                return reject(error);
-              },
+              reject,
               // success
               async () => {
                 const url = await getDownloadURL(uploadTask.snapshot.ref);
@@ -49,16 +42,16 @@ export const useFirebaseStorage = (STORE?: any) => {
           })
       )
     );
-  const publicUrl = async (path: string) => {
-    const refNode = fbRef(refStore, path);
+  const url = async (filename: string) => {
+    const refNode = fbRef(refStore, filename);
     return await getDownloadURL(refNode);
   };
-  const info = async (path: string) => {
-    const refNode = fbRef(refStore, path);
+  const info = async (filename: string) => {
+    const refNode = fbRef(refStore, filename);
     return await getMetadata(refNode);
   };
-  const remove = async (path: string) => {
-    const refNode = fbRef(refStore, path);
+  const rm = async (filename: string) => {
+    const refNode = fbRef(refStore, filename);
     return await deleteObject(refNode);
   };
   const ls = async () => {
@@ -67,9 +60,9 @@ export const useFirebaseStorage = (STORE?: any) => {
 
   return {
     upload,
-    publicUrl,
+    url,
     ls,
-    remove,
+    rm,
     info,
   };
 };
