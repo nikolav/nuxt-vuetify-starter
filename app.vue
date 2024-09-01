@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { SpinnerAppProcessing } from "@/components/ui";
 
-// const route = useRoute();
+const route = useRoute();
 const auth = useStoreApiAuth();
 
 // set default guest key @!auth
@@ -15,29 +15,29 @@ useOnceOn(
   }
 );
 // onAuthStatus
-// watch(
-//   [() => auth.isAuth$, () => auth.isDefault$],
-//   async ([isAuth, isDefault]) => {
-//     if (!isDefault) {
-//       if (!isAuth) {
-//         // handle logouts;
-//         //  clear cache, hard reload
-//         return reloadNuxtApp({
-//           path: "/",
-//           persistState: false,
-//         });
-//       }
-//       // handle logins
-//       // # redirect to index if auth updated at login pages
-//       if (["auth-register", "auth-login"].includes(String(route.name)))
-//         await navigateTo({ name: "index" });
+watch(
+  [() => auth.isAuth$, () => auth.isDefault$],
+  async ([isAuth, isDefault]) => {
+    if (!isDefault) {
+      if (!isAuth) {
+        // handle logouts;
+        //  clear cache, hard reload
+        return reloadNuxtApp({
+          path: "/",
+          persistState: false,
+        });
+      }
+      // handle logins
+      // # redirect to index if auth updated at login pages
+      if (["auth-register", "auth-login"].includes(String(route.name)))
+        await navigateTo({ name: "index" });
 
-//       // break
-//       return;
-//     }
-//     // default user auth status change
-//   }
-// );
+      // break
+      return;
+    }
+    // default user auth status change
+  }
+);
 
 // meta, seo --config
 useHead({
