@@ -3,7 +3,9 @@ import { SpinnerAppProcessing } from "@/components/ui";
 
 const route = useRoute();
 const auth = useStoreApiAuth();
-
+const {
+  app: { LOGOUT_RELOAD_PATH },
+} = useAppConfig();
 // set default guest key @!auth
 // onceOn(
 useOnceOn(
@@ -23,7 +25,7 @@ watch(
         // handle logouts;
         //  clear cache, hard reload
         return reloadNuxtApp({
-          path: "/",
+          path: LOGOUT_RELOAD_PATH,
           persistState: false,
         });
       }
