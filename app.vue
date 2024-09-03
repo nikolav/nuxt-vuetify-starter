@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { SpinnerAppProcessing } from "@/components/ui";
 
-const route = useRoute();
-const auth = useStoreApiAuth();
 const {
   app: { LOGOUT_RELOAD_PATH },
 } = useAppConfig();
+const auth = useStoreApiAuth();
+const route = useRoute();
 // set default guest key @!auth
 // onceOn(
 useOnceOn(
@@ -31,8 +31,13 @@ watch(
       }
       // handle logins
       // # redirect to index if auth updated at login pages
-      if (["auth-register", "auth-login"].includes(String(route.name)))
-        await navigateTo({ name: "index" });
+      // if (["auth-register", "auth-login"].includes(String(route.name)))
+      if (
+        some(["auth-register", "auth-login"], (name) =>
+          String(route.name).includes(name)
+        )
+      )
+        await navigateTo("/");
 
       // break
       return;
@@ -64,12 +69,6 @@ useSeoMeta({
   ogImage: "https://example.com/image.png",
   twitterCard: "summary_large_image",
 });
-// #seo :locale
-const localeHead = useLocaleHead({
-  addDirAttribute: true,
-  identifierAttribute: "id",
-  addSeoAttributes: true,
-});
 
 // #cloud messaging
 useFirebaseCloudMessaging({
@@ -82,21 +81,6 @@ useFirebaseCloudMessaging({
 </script>
 <template>
   <VApp :theme="theme" class="component--app-main">
-    <!-- locale seo, i18n, html, title, links, meta -->
-    <Html :lang="localeHead.htmlAttrs.lang" :dir="localeHead.htmlAttrs.dir" />
-    <!-- <Title>{{ title }}</Title> -->
-    <template v-for="link in localeHead.link" :key="link.id">
-      <Link
-        :id="link.id"
-        :rel="link.rel"
-        :href="link.href"
-        :hreflang="link.hreflang"
-      />
-    </template>
-    <template v-for="meta in localeHead.meta" :key="meta.id">
-      <Meta :id="meta.id" :property="meta.property" :content="meta.content" />
-    </template>
-
     <!-- @pages -->
     <NuxtLayout>
       <NuxtPage />

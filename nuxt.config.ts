@@ -1,11 +1,6 @@
 import vitePluginVuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import trimEnd from "lodash/trimEnd";
 import { ENDPOINT_GRAPHQL, API_URL, URL_APP_PUBLIC, SSR } from "./config";
-import {
-  langCodeEn,
-  langCodeSrLatn,
-  langCodeSrCyr,
-} from "./config/i18n.lang-codes";
 
 const BASE_DIR = process.env.BASE_DIR;
 
@@ -70,7 +65,7 @@ export default defineNuxtConfig({
   modules: [
     "@vueuse/nuxt",
     "@pinia/nuxt",
-    "@nuxtjs/i18n",
+    // "@nuxtjs/i18n",
     "@nuxtjs/google-fonts",
     "@nuxt/image",
     "@nuxtjs/color-mode",
@@ -271,44 +266,6 @@ export default defineNuxtConfig({
     options: {
       scrollBehaviorType: "smooth",
     },
-  },
-
-  i18n: {
-    vueI18n: "./config/i18n.config.ts",
-    strategy: "prefix_and_default",
-    defaultLocale: langCodeSrLatn,
-    customRoutes: "config",
-    pages: {
-      // about: {
-      //   en: "/about-us", // -> accessible at /about-us (no prefix since it's the default locale)
-      //   fr: "/a-propos", // -> accessible at /fr/a-propos
-      //   es: "/sobre", // -> accessible at /es/sobre
-      // },
-      // demo: {
-      //   en: "/demo",
-      //   "sr-Cyrl-RS": "/prikaz-cyr",
-      //   "sr-Latn-RS": "/prikaz",
-      // },
-    },
-    baseUrl: URL_APP_PUBLIC,
-    locales: [
-      {
-        code: langCodeEn,
-        iso: langCodeEn,
-        name: "English",
-      },
-      {
-        code: langCodeSrCyr,
-        iso: langCodeSrCyr,
-        name: "Српски",
-      },
-      {
-        code: langCodeSrLatn,
-        iso: langCodeSrLatn,
-        name: "Srpski",
-        isCatchallLocale: true,
-      },
-    ],
   },
 
   // #https://google-fonts.nuxtjs.org
