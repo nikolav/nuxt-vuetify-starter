@@ -354,11 +354,12 @@ export default defineNuxtConfig({
     // componentName: "NuxtIcon",
     // #https://github.com/nuxt/icon?tab=readme-ov-file#custom-local-collections
     // provider: SSR ? undefined : "server",
+    // provider: "server",
     // customCollections: [
-    //   {
-    //     prefix: "my-icon",
-    //     dir: "./assets/my-icons",
-    //   },
+    // {
+    //   prefix: "my-icon",
+    //   dir: "./assets/my-icons",
+    // },
     // ],
   },
 });

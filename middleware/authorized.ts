@@ -1,5 +1,5 @@
-export default defineNuxtRouteMiddleware(async () => {
+export default defineNuxtRouteMiddleware(() => {
   console.info("--mw-authorized");
   const auth = useStoreApiAuth();
-  if (!auth.isAuthenticated$) return await navigateTo({ name: "auth-login" });
+  if (!auth.isAuthenticated$) return navigateTo({ name: "index" });
 });

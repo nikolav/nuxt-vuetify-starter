@@ -25,7 +25,9 @@ export default defineAppConfig({
       format: "text",
       // key: CLOUD_TRANSLATION_API_KEY
     },
-    LOGOUT_RELOAD_PATH: "/auth-login",
+    LOGOUT_RELOAD_PATH: "/",
+    TOOLTIPS_OPEN_DELAY: 345,
+    MODE_DEBUG: true,
   },
   docs: {
     CHAT_ORDER_COM_USER_prefix: "e5iT1p1Mmx5HD@",

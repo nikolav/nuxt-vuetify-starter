@@ -5,7 +5,6 @@ import { Dump } from "@/components/dev";
 </script>
 <template>
   <section class="page--demo">
-    <p>@demo</p>
     <NuxtImg :width="320" src="/gallery/sample/Koala.jpg" />
   </section>
 </template>

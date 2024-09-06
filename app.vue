@@ -3,7 +3,7 @@ import { SpinnerAppProcessing } from "@/components/ui";
 import { Dump } from "@/components/dev";
 
 const {
-  app: { LOGOUT_RELOAD_PATH },
+  app: { LOGOUT_RELOAD_PATH, MODE_DEBUG },
 } = useAppConfig();
 const auth = useStoreApiAuth();
 const route = useRoute();
@@ -31,15 +31,14 @@ watch(
         });
       }
       // handle logins
-      // # redirect to index if auth updated at login pages
-      if (
-        some(["auth-register", "auth-login"], (name) =>
-          String(route.name).includes(name)
-        )
-      )
-        await navigateTo({ name: "index" });
+      // # redirect to /app if auth updated at login pages
+      // if (
+      //   some(["index", "auth", "auth-register", "auth-login"], (name) =>
+      //     String(route.name).includes(name)
+      //   )
+      // )
+      await navigateTo({ name: "app" });
 
-      // break
       return;
     }
     // default user auth status change
@@ -89,6 +88,9 @@ useFirebaseCloudMessaging({
     <!-- @ui:status -->
     <NuxtLoadingIndicator color="red" />
     <SpinnerAppProcessing :opacity="0.81" />
+
+    <!-- @debug:auth -->
+    <Dump v-if="MODE_DEBUG" :data="{ user: auth.user$ }" />
   </VApp>
 </template>
 <style>

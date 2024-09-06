@@ -7,6 +7,7 @@ import { md2 } from "vuetify/blueprints";
 import { aliases, mdi } from "vuetify/iconsets/mdi-svg";
 import { light, dark } from "@/assets/themes";
 import { SSR } from "@/config";
+import { IconFrikomLogo } from "@/components/icons";
 
 // import { srLatn } from "vuetify/locale";
 
@@ -105,6 +106,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         // menu: IconMenu,
         // # add: <VIcon icon="$other">
         // iconCustom: IconCustom,
+        iconFrikomLogo: IconFrikomLogo,
       },
       sets: {
         mdi,
