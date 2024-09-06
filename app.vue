@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { SpinnerAppProcessing } from "@/components/ui";
+import { Dump } from "@/components/dev";
 
 const {
   app: { LOGOUT_RELOAD_PATH },
@@ -31,13 +32,12 @@ watch(
       }
       // handle logins
       // # redirect to index if auth updated at login pages
-      // if (["auth-register", "auth-login"].includes(String(route.name)))
       if (
         some(["auth-register", "auth-login"], (name) =>
           String(route.name).includes(name)
         )
       )
-        await navigateTo("/");
+        await navigateTo({ name: "index" });
 
       // break
       return;
@@ -62,7 +62,7 @@ const {
 } = useNuxtApp();
 
 useSeoMeta({
-  title: "nuxtapp",
+  title: "NuxtApp",
   ogTitle: "nuxtapp",
   description: "nuxtapp",
   ogDescription: "nuxtapp",

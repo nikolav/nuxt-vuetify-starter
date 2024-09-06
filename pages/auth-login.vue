@@ -15,7 +15,6 @@ const authAdmin = async () =>
 </script>
 <template>
   <section class="page--auth-login">
-    <p>@auth:login</p>
     <VResponsive max-width="550" class="mx-auto overflow-visible">
       <VBtn @click="authAdmin">login:admin</VBtn>
       <VBtn @click="auth.logout()">logout</VBtn>

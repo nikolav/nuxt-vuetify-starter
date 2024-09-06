@@ -8,6 +8,7 @@
       <div class="d-flex items-center gap-5 justify-center me-4">
         <NuxtLink :to="{ name: 'index' }">index</NuxtLink>
         <NuxtLink :to="{ name: 'demo' }">demo</NuxtLink>
+        <NuxtLink :to="{ name: 'auth-login' }">auth</NuxtLink>
       </div>
     </VAppBar>
     <VMain>
