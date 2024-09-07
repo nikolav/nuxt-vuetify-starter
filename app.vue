@@ -6,7 +6,7 @@ const {
   app: { LOGOUT_RELOAD_PATH, MODE_DEBUG },
 } = useAppConfig();
 const auth = useStoreApiAuth();
-const route = useRoute();
+// const route = useRoute();
 // set default guest key @!auth
 // onceOn(
 useOnceOn(
@@ -22,15 +22,15 @@ watch(
   [() => auth.isAuth$, () => auth.isDefault$],
   async ([isAuth, isDefault]) => {
     if (!isDefault) {
+      // handle @logout
       if (!isAuth) {
-        // handle logouts;
         //  clear cache, hard reload
         return reloadNuxtApp({
           path: LOGOUT_RELOAD_PATH,
           persistState: false,
         });
       }
-      // handle logins
+      // handle @login
       // # redirect to /app if auth updated at login pages
       // if (
       //   some(["index", "auth", "auth-register", "auth-login"], (name) =>
@@ -88,9 +88,6 @@ useFirebaseCloudMessaging({
     <!-- @ui:status -->
     <NuxtLoadingIndicator color="red" />
     <SpinnerAppProcessing :opacity="0.81" />
-
-    <!-- @debug:auth -->
-    <Dump v-if="MODE_DEBUG" :data="{ user: auth.user$ }" />
   </VApp>
 </template>
 <style>

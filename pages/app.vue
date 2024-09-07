@@ -1,7 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
+  layout: "app-default",
   middleware: "authorized",
 });
+
 // @@eos
 </script>
 <template>
