@@ -1,4 +1,4 @@
-import ld from "lodash";
+import lodash from "lodash";
 const {
   assign,
   at,
@@ -15,7 +15,7 @@ const {
   findIndex,
   first,
   forEach,
-  // get,
+  get: getPath,
   has: hasPath,
   indexOf,
   invoke,
@@ -53,7 +53,7 @@ const {
   values,
   words,
   zipObject,
-} = ld;
+} = lodash;
 export {
   assign,
   at,
@@ -70,7 +70,7 @@ export {
   findIndex,
   first,
   forEach,
-  // get as getPath,
+  getPath,
   // get,
   hasPath,
   indexOf,

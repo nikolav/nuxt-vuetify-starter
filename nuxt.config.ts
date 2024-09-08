@@ -150,10 +150,6 @@ export default defineNuxtConfig({
             name: "default",
             as: "get",
           },
-          {
-            name: "default",
-            as: "getPath",
-          },
         ],
       },
       {

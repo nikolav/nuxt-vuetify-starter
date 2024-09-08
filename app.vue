@@ -4,6 +4,7 @@ import { Dump } from "@/components/dev";
 
 const {
   app: { LOGOUT_RELOAD_PATH, MODE_DEBUG },
+  vars: { FLAG_SHOW_AUTH_BACKGROUND },
 } = useAppConfig();
 const auth = useStoreApiAuth();
 // const route = useRoute();
@@ -76,10 +77,18 @@ useFirebaseCloudMessaging({
   },
 });
 
+const authBgActive = useState(FLAG_SHOW_AUTH_BACKGROUND);
+
 // #eos
 </script>
 <template>
-  <VApp :theme="theme" class="component--app-main">
+  <VApp
+    :theme="theme"
+    :class="[
+      'component--appMain',
+      authBgActive ? 'v-app--authBgActive' : undefined,
+    ]"
+  >
     <!-- @pages -->
     <NuxtLayout>
       <NuxtPage />
@@ -106,5 +115,12 @@ useFirebaseCloudMessaging({
   position: absolute;
   z-index: -1;
   width: 100%;
+}
+
+.v-app--authBgActive {
+  background-image: url("~/assets/images/svg/frikom-logo--auth-login.svg") !important;
+  background-repeat: no-repeat !important;
+  background-size: 105% !important;
+  background-position: center 22% !important;
 }
 </style>

@@ -1,21 +1,103 @@
 <script setup lang="ts">
-import { Redirect } from "@/components/ui";
+import { authLoginCreds } from "@/schemas";
 const auth = useStoreApiAuth();
-const loginAdmin = async () => {
-  await auth.login({
-    email: "admin@nikolav.rs",
-    password: "5ba8de29-93bb-5bc2-9e03-b1a8c7c6737b",
-  });
-};
+const toggleIsHiddenPassword = useToggleFlag(true);
+const iconNameShowHidePassword = computed(() =>
+  toggleIsHiddenPassword.isActive.value
+    ? "icon-park-outline:preview-open"
+    : "icon-park-outline:preview-close-one"
+);
 
+const {
+  form,
+  submit: authSubmit,
+  valid: authValid,
+} = useFormDataFields(
+  "MwPg4rGKHOPOSK",
+  {
+    creds: (value) => authLoginCreds.safeParse(value).success,
+  },
+  {
+    onSubmit: async (data) => {
+      const [email, password] = String(data.creds).split(":");
+      await auth.login({ email, password });
+    },
+  }
+);
+
+const {
+  vars: { FLAG_SHOW_AUTH_BACKGROUND },
+} = useAppConfig();
+const authBgActive = useState(FLAG_SHOW_AUTH_BACKGROUND, False);
+onMounted(() => {
+  authBgActive.value = true;
+});
+onUnmounted(() => {
+  authBgActive.value = false;
+});
 // @@eos
 </script>
 <template>
-  <section class="component--AuthLogin">
-    <VResponsive class="mx-auto" max-width="550" v-if="!auth.isAuthenticated$">
-      <VBtn variant="tonal" @click="loginAdmin">login:admin</VBtn>
-    </VResponsive>
-    <Redirect v-else :to="{ name: 'app' }" />
-  </section>
+  <VForm id="ID--WtXCbXD" @submit.prevent="authSubmit" autocomplete="off">
+    <VTextField
+      autofocus
+      class="px-[2px]"
+      rounded="s-pill"
+      variant="solo-filled"
+      name="creds"
+      v-model.trim="form.creds.value"
+      placeholder="korisnik@email.com:lozinka"
+      clearable
+      :type="toggleIsHiddenPassword.isActive.value ? 'password' : 'text'"
+    >
+      <template #append>
+        <VBtn
+          :color="authValid ? 'primary' : 'seconary'"
+          :disabled="!authValid"
+          elevation="2"
+          variant="elevated"
+          size="large"
+          icon
+          type="submit"
+          class="fill-height"
+          rounded="e-pill"
+        >
+          <Icon
+            class="-translate-x-px opacity-60"
+            size="1.55rem"
+            name="material-symbols:lock-open-rounded"
+          />
+        </VBtn>
+      </template>
+      <template #prepend-inner>
+        <Icon
+          class="opacity-40 ms-1 me-2"
+          size="1.55rem"
+          name="material-symbols-light:key-rounded"
+        />
+      </template>
+      <template #append-inner>
+        <VBtn
+          density="comfortable"
+          variant="plain"
+          icon
+          class="translate-x-[.33rem]"
+          color="secondary"
+          @click.stop="toggleIsHiddenPassword"
+        >
+          <Icon
+            size="1.22rem"
+            class="*opacity-60"
+            :name="iconNameShowHidePassword"
+          />
+        </VBtn>
+      </template>
+    </VTextField>
+  </VForm>
 </template>
 <style lang="scss" scoped></style>
+<style lang="scss">
+#ID--WtXCbXD .v-input__append {
+  margin-inline-start: -1px !important;
+}
+</style>

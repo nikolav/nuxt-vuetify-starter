@@ -17,6 +17,9 @@ export default defineAppConfig({
     email: "korisnik@nikolav.rs",
     password: "korisnik@nikolav.rs",
   },
+  vars: {
+    FLAG_SHOW_AUTH_BACKGROUND: "0hrfFp7OeZWPQ7wE",
+  },
   app: {
     DEFAULT_TRANSITION: "slide-y-reverse-transition",
     DEFAULT_NO_IMAGE: "/no-image.jpg",

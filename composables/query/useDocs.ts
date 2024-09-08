@@ -40,9 +40,10 @@ export const useDocs = <TData = TDocData>(
   const data$ = computed(
     () => (enabled$.value ? get(result.value, "docsByTopic") : undefined) || []
   );
-  const length$ = computed(() => data$.value.length);
+  const length$ = computed(() => len(data$.value));
   const reload = async () => await refetch();
-  onceMountedOn(enabled$, queryStart);
+  // onceMountedOn(enabled$, queryStart);
+  useOnceMountedOn(enabled$, queryStart);
   // @auth:change reload
   watchEffect(() => {
     if (token_?.value) reload();

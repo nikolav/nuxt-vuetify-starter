@@ -15,45 +15,45 @@ const {
       <template v-if="smAndUp" #prepend>
         <NuxtLink :to="{ name: 'index' }">
           <VIcon
-            class="ms-2 -rotate-[2deg]"
+            class="ms-2 -rotate-[3deg]"
             size="4.55rem"
             icon="$iconFrikomLogo"
           />
         </NuxtLink>
       </template>
-      <div
-        class="d-flex items-center gap-5 me-3"
-        :class="smAndUp ? undefined : `mx-auto`"
+      <VSpacer v-if="!smAndUp" />
+      <VBtn
+        v-if="auth.isAuthenticated$"
+        icon
+        variant="plain"
+        @click="auth.logout()"
       >
-        <VBtn
-          v-if="auth.isAuthenticated$"
-          icon
-          variant="plain"
-          @click="auth.logout()"
-        >
-          <Icon size="1.22rem" name="ri:shut-down-line" />
-          <VTooltip
-            activator="parent"
-            location="bottom"
-            text="Odjava"
-            :open-delay="TOOLTIPS_OPEN_DELAY"
-          />
-        </VBtn>
-      </div>
+        <Icon size="1.22rem" name="ri:shut-down-line" />
+        <VTooltip
+          activator="parent"
+          location="bottom"
+          text="Odjava"
+          :open-delay="TOOLTIPS_OPEN_DELAY"
+        />
+      </VBtn>
     </VAppBar>
     <!-- app:links -->
     <VNavigationDrawer
-      location="end"
+      :location="smAndUp ? 'end' : 'bottom'"
       rail
       permanent
-      :rail-width="undefined"
       elevation="1"
-      class="pt-1"
+      :class="[
+        smAndUp ? 'pt-2' : undefined,
+        smAndUp ? undefined : '*:flex *:justify-evenly',
+      ]"
     >
       <VBtn
         v-for="n in 5"
-        class="d-block mx-auto"
-        :class="n < 5 ? `mb-2` : undefined"
+        :class="[
+          smAndUp && n < 5 ? `mb-2` : undefined,
+          smAndUp ? 'd-block mx-auto' : undefined,
+        ]"
         icon
         variant="text"
         :key="n"
