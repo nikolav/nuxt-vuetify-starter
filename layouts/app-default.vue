@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
+import { AppNavigationButtons } from "@/components/app";
 
 const auth = useStoreApiAuth();
 const { smAndUp } = useDisplay();
@@ -48,18 +49,7 @@ const {
         smAndUp ? undefined : '*:flex *:justify-evenly',
       ]"
     >
-      <VBtn
-        v-for="n in 5"
-        :class="[
-          smAndUp && n < 5 ? `mb-2` : undefined,
-          smAndUp ? 'd-block mx-auto' : undefined,
-        ]"
-        icon
-        variant="text"
-        :key="n"
-        color="secondary-darken-2"
-        >{{ n }}</VBtn
-      >
+      <AppNavigationButtons />
     </VNavigationDrawer>
     <VMain>
       <slot />

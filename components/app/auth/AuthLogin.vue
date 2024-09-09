@@ -28,7 +28,7 @@ const {
 const {
   vars: { FLAG_SHOW_AUTH_BACKGROUND },
 } = useAppConfig();
-const authBgActive = useState(FLAG_SHOW_AUTH_BACKGROUND, False);
+const authBgActive = useState(FLAG_SHOW_AUTH_BACKGROUND);
 onMounted(() => {
   authBgActive.value = true;
 });

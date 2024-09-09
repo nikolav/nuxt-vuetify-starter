@@ -1,0 +1,20 @@
+[
+  {
+    "icon": "material-symbols:space-dashboard-rounded",
+    "title": "🏠 Početak",
+    "size": "1.75rem",
+    "to": "app"
+  },
+  {
+    "icon": "mdi:account-multiple",
+    "title": "Ljudi",
+    "size": "1.92rem",
+    "to": "people"
+  },
+  {
+    "icon": "ion:ios-cube",
+    "title": "Aktiva",
+    "size": "1.81rem",
+    "to": "assets"
+  }
+]

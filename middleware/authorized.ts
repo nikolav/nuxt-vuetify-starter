@@ -1,5 +1,9 @@
 export default defineNuxtRouteMiddleware(() => {
   console.info("--mw-authorized");
   const auth = useStoreApiAuth();
-  if (!auth.isAuthenticated$) return navigateTo({ name: "index" });
+  const {
+    app: { REDIRECT_UNAUTHORIZED_ROUTE_NAME },
+  } = useAppConfig();
+  if (!auth.isAuthenticated$)
+    return navigateTo({ name: REDIRECT_UNAUTHORIZED_ROUTE_NAME });
 });

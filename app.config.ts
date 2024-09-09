@@ -31,6 +31,7 @@ export default defineAppConfig({
     LOGOUT_RELOAD_PATH: "/",
     TOOLTIPS_OPEN_DELAY: 345,
     MODE_DEBUG: true,
+    REDIRECT_UNAUTHORIZED_ROUTE_NAME: "index",
   },
   docs: {
     CHAT_ORDER_COM_USER_prefix: "e5iT1p1Mmx5HD@",

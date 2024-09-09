@@ -3,7 +3,7 @@ import { SpinnerAppProcessing } from "@/components/ui";
 import { Dump } from "@/components/dev";
 
 const {
-  app: { LOGOUT_RELOAD_PATH, MODE_DEBUG },
+  app: { LOGOUT_RELOAD_PATH },
   vars: { FLAG_SHOW_AUTH_BACKGROUND },
 } = useAppConfig();
 const auth = useStoreApiAuth();
@@ -20,29 +20,16 @@ useOnceOn(
 );
 // onAuthStatus
 watch(
-  [() => auth.isAuth$, () => auth.isDefault$],
-  async ([isAuth, isDefault]) => {
-    if (!isDefault) {
-      // handle @logout
-      if (!isAuth) {
-        //  clear cache, hard reload
-        return reloadNuxtApp({
+  () => auth.isAuthenticated$,
+  async (isAuthenticated) => {
+    isAuthenticated
+      ? await navigateTo({ name: "app" })
+      : reloadNuxtApp({
           path: LOGOUT_RELOAD_PATH,
           persistState: false,
+          ttl: 1,
+          // force: true,
         });
-      }
-      // handle @login
-      // # redirect to /app if auth updated at login pages
-      // if (
-      //   some(["index", "auth", "auth-register", "auth-login"], (name) =>
-      //     String(route.name).includes(name)
-      //   )
-      // )
-      await navigateTo({ name: "app" });
-
-      return;
-    }
-    // default user auth status change
   }
 );
 
@@ -120,7 +107,7 @@ const authBgActive = useState(FLAG_SHOW_AUTH_BACKGROUND);
 .v-app--authBgActive {
   background-image: url("~/assets/images/svg/frikom-logo--auth-login.svg") !important;
   background-repeat: no-repeat !important;
-  background-size: 105% !important;
-  background-position: center 22% !important;
+  background-size: 102% !important;
+  background-position: center 9% !important;
 }
 </style>
