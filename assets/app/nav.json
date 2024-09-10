@@ -7,14 +7,14 @@
   },
   {
     "icon": "mdi:account-multiple",
-    "title": "Ljudi",
+    "title": "Tim",
     "size": "1.92rem",
-    "to": "people"
+    "to": "tim"
   },
   {
     "icon": "ion:ios-cube",
     "title": "Aktiva",
     "size": "1.81rem",
-    "to": "assets"
+    "to": "aktiva"
   }
 ]
