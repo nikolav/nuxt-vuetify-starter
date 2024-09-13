@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { SpinnerAppProcessing } from "@/components/ui";
-import { Dump } from "@/components/dev";
 
 const {
   app: { LOGOUT_RELOAD_PATH },
@@ -35,7 +34,7 @@ watch(
 
 // meta, seo --config
 useHead({
-  titleTemplate: (ttl) => (ttl ? `🌍 ${ttl} | nikolav.rs` : "nikolav.rs"),
+  titleTemplate: (ttl) => (ttl ? `${ttl} | nikolav.rs` : "nikolav.rs"),
 });
 
 // provide current user data

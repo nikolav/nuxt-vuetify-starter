@@ -40,6 +40,7 @@ onUnmounted(() => {
 <template>
   <VForm id="ID--WtXCbXD" @submit.prevent="authSubmit" autocomplete="off">
     <VTextField
+      center-affix
       autofocus
       class="px-[2px]"
       rounded="s-pill"
