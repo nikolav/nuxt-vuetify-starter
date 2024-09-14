@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
+    "@formkit/auto-animate": "^0.8.2",
     "@mdi/font": "^7.4.47",
     "@nuxt/image": "^1.7.0",
     "@pinia/nuxt": "^0.5.1",
