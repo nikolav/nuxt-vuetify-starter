@@ -93,6 +93,8 @@ export default defineNuxtConfig({
     },
     // https://apollo.nuxtjs.org/getting-started/quick-start
     "@nuxtjs/apollo",
+    // https://auto-animate.formkit.com/#usage-vue
+    "@formkit/auto-animate/nuxt",
   ],
 
   build: {
