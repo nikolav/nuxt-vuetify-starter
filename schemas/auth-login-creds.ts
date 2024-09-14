@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { isEmail } from "validator";
+// import { isEmail } from "validator";
 
 export const authLoginCreds = z.string().refine((s) => {
   try {

@@ -160,6 +160,14 @@ export default defineNuxtConfig({
         from: "lodash/range",
         imports: [{ name: "default", as: "range" }],
       },
+      {
+        from: "lodash/pullAll",
+        imports: [{ name: "default", as: "pullAll" }],
+      },
+      {
+        from: "validator/lib/isEmail",
+        imports: [{ name: "default", as: "isEmail" }],
+      },
     ],
     //
     // presets: [
