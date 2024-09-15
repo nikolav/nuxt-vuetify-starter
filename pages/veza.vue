@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { Dump } from "@/components/dev";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
 
-const { users } = useQueryUsers();
-
 // @@eos
 </script>
 <template>
-  <section class="page--people">
-    <h1>page:people</h1>
-    <Dump :data="{ users }" />
+  <section class="page--veza">
+    <h1>veza</h1>
   </section>
 </template>
 <style lang="scss" scoped></style>

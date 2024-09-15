@@ -10,15 +10,15 @@ const auth = useStoreApiAuth();
 </script>
 <template>
   <section class="page--index">
+    <Redirect v-if="auth.isAuthenticated$" :to="{ name: 'app' }" />
     <VResponsive
-      v-if="!auth.isAuthenticated$"
+      v-else
       max-width="598"
       class="mx-auto -translate-y-[50%]"
       :style="`margin-top: ${wh / 2}px;`"
     >
       <AuthLogin />
     </VResponsive>
-    <Redirect v-else :to="{ name: 'app' }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

@@ -5,7 +5,7 @@ import { AppNavigationButtons } from "@/components/app";
 const auth = useStoreApiAuth();
 const { smAndUp } = useDisplay();
 const {
-  app: { TOOLTIPS_OPEN_DELAY },
+  app: { TOOLTIPS_OPEN_DELAY, MODE_DEBUG },
 } = useAppConfig();
 
 // @@eos
@@ -23,6 +23,14 @@ const {
         </NuxtLink>
       </template>
       <VSpacer v-if="!smAndUp" />
+      <VBtn
+        v-if="MODE_DEBUG"
+        size="small"
+        rounded="pill"
+        :to="{ name: 'demo' }"
+        variant="plain"
+        >demo</VBtn
+      >
       <VBtn
         v-if="auth.isAuthenticated$"
         icon

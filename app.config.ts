@@ -3,6 +3,7 @@ import assign from "lodash/assign";
 import {
   PRODUCTION$,
   URL_APP_PUBLIC,
+  MODE_DEBUG,
   // CLOUD_TRANSLATION_API_KEY,
 } from "@/config";
 
@@ -30,7 +31,8 @@ export default defineAppConfig({
     },
     LOGOUT_RELOAD_PATH: "/",
     TOOLTIPS_OPEN_DELAY: 345,
-    MODE_DEBUG: true,
+    MODE_DEBUG,
+    // MODE_DEBUG: true,
     REDIRECT_UNAUTHORIZED_ROUTE_NAME: "index",
   },
   docs: {

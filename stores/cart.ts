@@ -34,9 +34,9 @@ export const useStoreCart = defineStore("cart", () => {
     )
   );
   // @length
-  const cartLength_ = computed(() => products_.value.length);
+  const cartLength_ = computed(() => len(products_.value));
   // @isEmpty
-  const cartIsEmpty_ = computed(() => 0 === products_.value.length);
+  const cartIsEmpty_ = computed(() => isEmpty(products_.value));
   // @drop
   const cartDrop = (id: number) => {
     delete store$.value.items[id];
