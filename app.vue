@@ -104,7 +104,8 @@ const authBgActive = useState(FLAG_SHOW_AUTH_BACKGROUND);
 }
 
 .v-app--authBgActive {
-  background-image: url("~/assets/images/svg/frikom-logo--auth-login.svg") !important;
+  /* background-image: url("~/assets/images/svg/frikom-logo--auth-login.svg") !important; */
+  background-image: url("~/assets/images/svg/frikom-logo--teren.svg") !important;
   background-repeat: no-repeat !important;
   background-size: 102% !important;
   background-position: center 9% !important;

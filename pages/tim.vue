@@ -10,8 +10,8 @@ const { users } = useQueryUsers();
 // @@eos
 </script>
 <template>
-  <section class="page--people">
-    <h1>page:people</h1>
+  <section class="page--tim">
+    <h1>tim</h1>
     <Dump :data="{ users }" />
   </section>
 </template>

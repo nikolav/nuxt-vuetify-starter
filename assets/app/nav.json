@@ -1,8 +1,8 @@
 [
   {
-    "icon": "material-symbols:space-dashboard-rounded",
+    "icon": "$iconFactory",
     "title": "🏠 Početak",
-    "size": "1.75rem",
+    "size": "1.44rem",
     "to": "app"
   },
   {
@@ -26,7 +26,7 @@
   {
     "icon": "basil:headset-solid",
     "title": "Veza",
-    "size": "1.75rem",
+    "size": "1.78rem",
     "to": "veza"
   }
 ]

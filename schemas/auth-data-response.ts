@@ -5,6 +5,7 @@ export const schemaAuthData = z.object({
   admin: z.boolean(),
   approved: z.boolean(),
   email_verified: z.boolean(),
+  manager: z.boolean(),
   created_at: z.string(),
   updated_at: z.string(),
 });

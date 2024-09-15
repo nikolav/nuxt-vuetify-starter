@@ -7,8 +7,8 @@ definePageMeta({
 // @@eos
 </script>
 <template>
-  <section class="page--assets">
-    <h1>page:assets</h1>
+  <section class="page--aktiva">
+    <h1>aktiva</h1>
   </section>
 </template>
 <style lang="scss" scoped></style>

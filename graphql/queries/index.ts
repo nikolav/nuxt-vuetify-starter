@@ -214,6 +214,10 @@ export const Q_users = gql`
     users {
       id
       email
+      is_approved
+      is_manager
+      is_admin
+      is_external
       created_at
       updated_at
     }

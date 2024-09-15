@@ -16,9 +16,13 @@ const { smAndUp } = useDisplay();
       variant="plain"
       color="secondary"
     >
-      <Icon :size="node?.size || '1rem'" :name="node.icon" />
+      <VIcon
+        v-if="node.icon.startsWith('$')"
+        :icon="node.icon"
+        :size="node?.size || '1em'"
+      />
+      <Icon v-else :size="node?.size || '1rem'" :name="node.icon" />
     </VBtn>
   </NuxtLink>
 </template>
 <style lang="scss" scoped></style>
-
