@@ -2,7 +2,7 @@ import md5 from "md5";
 import type { TGravatars } from "@/types";
 
 export const useStoreGravatars = defineStore("gravatars", () => {
-  const id = inject(key_UID)!;
+  const auth = useStoreApiAuth();
   const {
     stores: {
       gravatars: { BASE_URL, GRAVATARS_CACHE, MODE, SIZE },
@@ -24,28 +24,32 @@ export const useStoreGravatars = defineStore("gravatars", () => {
   const url_ = () =>
     `${trimEnd(BASE_URL, "/")}/${md5(email_())}?d=${gmode()}&size=${SIZE}`;
   // data: TGravatars
-  const { data: g$, put: cache } = useDoc<TGravatars>(GRAVATARS_CACHE);
+  const { data: g$, commit } = useDoc<TGravatars>(GRAVATARS_CACHE);
   const store = computed(() =>
     transform(
-      g$.value?.data,
+      get(g$.value, "data", {}),
       (res, node, id) => {
-        res[id] = (false !== node.enabled ? node.src : undefined) || "";
+        res[String(id)] = (false !== node.enabled ? node.src : undefined) || "";
       },
       <Record<string, string>>{}
     )
   );
+  const extended = (values: any) => batchSet(get(g$.value, "data", {}), values);
   const enabled = computed(
-    () => false !== get(g$.value, `data["${id.value}"].enabled`)
+    () => false !== get(g$.value, `data[${auth.uid}].enabled`)
   );
   const src = computed(
     () =>
-      (enabled.value ? get(g$.value, `data["${id.value}"].src`) : undefined) ||
-      ""
+      (enabled.value ? get(g$.value, `data[${auth.uid}].src`) : undefined) || ""
   );
   const refresh = async () =>
-    enabled.value ? await cache({ [`${id.value}.src`]: url_() }) : undefined;
-  const enable = async () => await cache({ [`${id.value}.enabled`]: true });
-  const disable = async () => await cache({ [`${id.value}.enabled`]: false });
+    enabled.value
+      ? await commit(extended({ [`[${auth.uid}].src`]: url_() }), false)
+      : undefined;
+  const enable = async () =>
+    await commit(extended({ [`[${auth.uid}].enabled`]: true }), false);
+  const disable = async () =>
+    await commit(extended({ [`[${auth.uid}].enabled`]: false }), false);
 
   //#
   return {

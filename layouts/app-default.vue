@@ -41,7 +41,7 @@ const {
         <VTooltip
           activator="parent"
           location="bottom"
-          text="Odjava"
+          text="Kraj"
           :open-delay="TOOLTIPS_OPEN_DELAY"
         />
       </VBtn>
