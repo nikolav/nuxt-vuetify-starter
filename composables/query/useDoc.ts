@@ -32,23 +32,18 @@ export const useDoc = <TDoc = Record<string, any>>(
   );
   const data$ = computed(
     () =>
-      (enabled$.value ? get(result.value, "docByDocId") : undefined) ||
-      <IDoc<TDoc>>{}
+      (enabled$.value ? result.value?.docByDocId : undefined) || <IDoc<TDoc>>{}
   );
   const reload = async () => await refetch();
   useOnceMountedOn(enabled$, load);
 
   const { mutate: mutateDocUpsert } = useMutation<IDoc<TDoc>>(M_docUpsert);
 
-  const commit = async (
-    putData: Record<string, any>,
-    // shallow-merge putData{}
-    merge = true
-  ) => {
+  const commit = async (putData: Record<string, any>, merge = true) => {
     if (!enabled$.value) return;
     await mutateDocUpsert({
       doc_id: doc_id$.value,
-      data: putData,
+      data: merge ? batchSet(undefined, putData) : putData,
       merge,
     });
   };

@@ -1,6 +1,6 @@
 import type { IDataRating } from "@/types";
-const RATING_LOCAL = "4D7uIqeA1";
-export const useTopicRating = (topic: any, _default = 1) => {
+const RATING_LOCAL = "F0hBduJgNto3UfXEo";
+export const useTopicRating = (topic: any, _default = 0) => {
   const {
     key: { TOPIC_RATINGS },
   } = useAppConfig();
@@ -9,18 +9,14 @@ export const useTopicRating = (topic: any, _default = 1) => {
     topic$.value = toValue(topic);
   });
 
-  // local cache; user key, values of topics rated
-  const rid$ = useLocalStorage(RATING_LOCAL, () => ({
-    key: idGen(),
-    val: { [topic$.value]: _default },
-  }));
-  // cache rated value
-  const val_ = computed(() => get(rid$.value, `val.${topic$.value}`));
-  // ratings cache by topic
-  const { data, put } = useDoc<IDataRating>(TOPIC_RATINGS);
+  // user:key@local:cache
+  const rid$ = useLocalStorage(RATING_LOCAL, () => idGen());
+  const { data, commit } = useDoc<IDataRating>(TOPIC_RATINGS);
   const store = computed(() => get(data.value, "data"));
-  const storeExtended = (values: any) => batchSet(store.value, values);
-  // topic ratings cache
+  const val_ = computed(() =>
+    get(data.value, `data.${topic$.value}.${rid$.value}`)
+  );
+  // ratings cache by topic
   const d = computed(() => get(data.value, `data.${topic$.value}`));
 
   const ratingsCount = computed(() =>
@@ -36,28 +32,24 @@ export const useTopicRating = (topic: any, _default = 1) => {
   );
 
   const rate = async (r: any) => {
+    // skip out of range and equal ratings
     if (!(0 <= r)) return;
+    if (r == val_.value) return;
+    // update
     try {
-      await put(
-        storeExtended({ [`${topic$.value}.${rid$.value.key}`]: r }),
-        false
-      );
-      set(rid$.value, `val.${topic$.value}`, r);
+      await commit({ [`${topic$.value}.${rid$.value}`]: r });
     } catch (error) {
       // pass
     }
   };
 
   const clear = async () => {
-    try {
-      await put(
-        storeExtended({ [`${topic$.value}.${rid$.value.key}`]: 0 }),
-        false
-      );
-      set(rid$.value, `val.${topic$.value}`, 0);
-    } catch (error) {
-      // pass
-    }
+    if (val_.value)
+      try {
+        await commit({ [`${topic$.value}.${rid$.value}`]: 0 });
+      } catch (error) {
+        // pass
+      }
   };
 
   return {
