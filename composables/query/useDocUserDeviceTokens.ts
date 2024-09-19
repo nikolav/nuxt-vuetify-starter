@@ -5,10 +5,10 @@ export const useDocUserDeviceTokens = (UID?: any) => {
   watchEffect(() => {
     uid.value = toValue(UID) || auth.uid;
   });
-  const enabled = computed(() => !!uid.value);
   const client = useDoc<Record<string, boolean>>(() =>
     userDeviceTokens(uid.value)
   );
+  const enabled = computed(() => client.enabled.value && !!uid.value);
   const tokens = computed(() => get(client.data.value, "data"));
   const commit = async (TOKEN: string, value: boolean) => {
     if (!enabled.value) return;
@@ -22,6 +22,7 @@ export const useDocUserDeviceTokens = (UID?: any) => {
   };
   return {
     ...client,
+    enabled,
     tokens,
     commit,
   };

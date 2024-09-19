@@ -29,7 +29,7 @@ export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
   } = useAppConfig();
   const auth = useStoreApiAuth();
   // tokens: Ref<Record<string:token, boolean:valid> | undefined>
-  const { tokens, commit: commitTokenSet } = useDocUserDeviceTokens();
+  const { tokens, commit: commitToken } = useDocUserDeviceTokens();
 
   // subscribe when service available
   watch(
@@ -41,7 +41,7 @@ export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
         // token:cache for server:push
         const tokenClientFCM = await getToken(client, { vapidKey: VAPID_KEY });
         if (tokenClientFCM && !get(tokens.value, tokenClientFCM))
-          await commitTokenSet(tokenClientFCM, true);
+          await commitToken(tokenClientFCM, true);
         // subscribe
         onMessage(client, options.onMessage);
       } catch (error) {
