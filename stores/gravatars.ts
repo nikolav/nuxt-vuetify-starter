@@ -34,7 +34,6 @@ export const useStoreGravatars = defineStore("gravatars", () => {
       <Record<string, string>>{}
     )
   );
-  const extended = (values: any) => batchSet(get(g$.value, "data", {}), values);
   const enabled = computed(
     () => false !== get(g$.value, `data[${auth.uid}].enabled`)
   );
@@ -43,13 +42,10 @@ export const useStoreGravatars = defineStore("gravatars", () => {
       (enabled.value ? get(g$.value, `data[${auth.uid}].src`) : undefined) || ""
   );
   const refresh = async () =>
-    enabled.value
-      ? await commit(extended({ [`[${auth.uid}].src`]: url_() }), false)
-      : undefined;
-  const enable = async () =>
-    await commit(extended({ [`[${auth.uid}].enabled`]: true }), false);
+    enabled.value ? await commit({ [`[${auth.uid}].src`]: url_() }) : undefined;
+  const enable = async () => await commit({ [`[${auth.uid}].enabled`]: true });
   const disable = async () =>
-    await commit(extended({ [`[${auth.uid}].enabled`]: false }), false);
+    await commit({ [`[${auth.uid}].enabled`]: false });
 
   //#
   return {

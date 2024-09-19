@@ -209,21 +209,6 @@ export const Q_ordersReceivedProducts = gql`
   }
 `;
 
-export const Q_users = gql`
-  query q_users {
-    users {
-      id
-      email
-      is_approved
-      is_manager
-      is_admin
-      is_external
-      created_at
-      updated_at
-    }
-  }
-`;
-
 export const Q_usersSingle = gql`
   query q_usersSingle($uid: ID!) {
     usersById(uid: $uid) {
@@ -506,3 +491,41 @@ export const Q_apiStatus = gql`
     status
   }
 `;
+
+/////////////
+/////////////
+/////////////
+
+export const Q_usersOnly = gql`
+  query q_usersOnly($uids: [ID!]!) {
+    usersOnly(uids: $uids) {
+      id
+      email
+      profile
+      is_approved
+      is_manager
+      is_admin
+      is_external
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const Q_users = gql`
+  query q_users {
+    users {
+      id
+      email
+      profile
+      is_approved
+      is_manager
+      is_admin
+      is_external
+      created_at
+      updated_at
+    }
+  }
+`;
+
+
