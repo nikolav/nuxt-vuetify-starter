@@ -72,6 +72,7 @@
     "@types/form-data": "^2.5.0",
     "@types/lodash": "^4.17.4",
     "@types/md5": "^2.3.5",
+    "@types/mime-types": "^2.1.4",
     "@types/node": "^20.14.2",
     "@types/socket.io-client": "^3.0.0",
     "@types/uuid": "^10.0.0",
