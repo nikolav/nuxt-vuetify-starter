@@ -1,4 +1,4 @@
-export const useDocTokens = (UID?: any) => {
+export const useDocUserDeviceTokens = (UID?: any) => {
   const { userDeviceTokens } = useTopics();
   const uid = ref();
   const auth = useStoreApiAuth();
@@ -6,17 +6,22 @@ export const useDocTokens = (UID?: any) => {
     uid.value = toValue(UID) || auth.uid;
   });
   const enabled = computed(() => !!uid.value);
-  const { data, commit: commit_ } = useDoc<Record<string, boolean>>(() =>
+  const client = useDoc<Record<string, boolean>>(() =>
     userDeviceTokens(uid.value)
   );
-  const tokens = computed(() => get(data.value, "data"));
+  const tokens = computed(() => get(client.data.value, "data"));
   const commit = async (TOKEN: string, value: boolean) => {
     if (!enabled.value) return;
-    await commit_({
-      [TOKEN]: value,
-    });
+    await client.commit(
+      {
+        [TOKEN]: value,
+      },
+      true,
+      true
+    );
   };
   return {
+    ...client,
     tokens,
     commit,
   };

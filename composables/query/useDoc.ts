@@ -26,7 +26,7 @@ export const useDoc = <TDoc = Record<string, any>>(
     {
       enabled: enabled$,
       pollInterval: STORAGE_QUERY_POLL_INTERVAL,
-      ...(graphqlOptions || {}),
+      ...graphqlOptions,
       // fetchPolicy: "no-cache",
     }
   );
@@ -39,28 +39,38 @@ export const useDoc = <TDoc = Record<string, any>>(
 
   const { mutate: mutateDocUpsert } = useMutation<IDoc<TDoc>>(M_docUpsert);
 
-  const commit = async (putData: Record<string, any>, merge = true) => {
+  const commit = async (
+    putData: Record<string, any>,
+    merge = true,
+    shallow = false
+  ) => {
     if (!enabled$.value) return;
     await mutateDocUpsert({
       doc_id: doc_id$.value,
-      data: merge ? batchSet(undefined, putData) : putData,
+      data: merge && !shallow ? batchSet(undefined, putData) : putData,
       merge,
+      shallow,
     });
   };
 
   const clear = async () => {
     if (!enabled$.value) return;
-    await mutateDocUpsert({ doc_id: doc_id$.value, data: {}, merge: false });
+    await mutateDocUpsert({
+      doc_id: doc_id$.value,
+      data: {},
+      merge: false,
+      shallow: false,
+    });
   };
 
   const ioevent = computed(() =>
     enabled$.value ? `${IOEVENT_DOC_CHANGE_prefix}${doc_id$.value}` : ""
   );
 
+  watchEffect(() => useIOEvent(ioevent.value, reload));
+
   const { watchProcessing } = useStoreAppProcessing();
   watchProcessing(loading);
-
-  watchEffect(() => useIOEvent(ioevent.value, reload));
 
   return {
     doc_id$,
