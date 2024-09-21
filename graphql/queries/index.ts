@@ -506,6 +506,7 @@ export const Q_usersOnly = gql`
       is_manager
       is_admin
       is_external
+      groups
       created_at
       updated_at
     }
@@ -522,6 +523,7 @@ export const Q_users = gql`
       is_manager
       is_admin
       is_external
+      groups
       created_at
       updated_at
     }

@@ -167,6 +167,10 @@ export default defineNuxtConfig({
         imports: [{ name: "default", as: "pullAll" }],
       },
       {
+        from: "lodash/size",
+        imports: [{ name: "default", as: "len" }],
+      },
+      {
         from: "validator/lib/isEmail",
         imports: [{ name: "default", as: "isEmail" }],
       },

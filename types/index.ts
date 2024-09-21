@@ -138,6 +138,7 @@ export interface IUser {
   email: string;
   products?: OrNoValue<IProduct[]>;
   posts?: OrNoValue<IPost[]>;
+  groups?: string[];
   created_at: string;
   updated_at: string;
 }

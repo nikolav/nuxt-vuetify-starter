@@ -8,7 +8,7 @@ export const usePaginatedData = <TData = any>(config: {
   const page$ = ref(1);
   const length = computed(() => {
     const d = toValue(config.data);
-    return d ? Math.ceil(d.length / config.perPage) : 0;
+    return d && !isEmpty(d) ? Math.ceil(len(d) / config.perPage) : 0;
   });
 
   return {
