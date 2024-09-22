@@ -219,7 +219,7 @@ export const M_sendMail = gql`
 `;
 
 export const M_cloudMessagingPing = gql`
-  mutation m_cloudMessagingPing($message: JsonData) {
-    cloudMessagingPing(message: $message)
+  mutation m_cloudMessagingPing($payload: JsonData) {
+    cloudMessagingPing(payload: $payload)
   }
 `;
