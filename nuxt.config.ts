@@ -20,7 +20,7 @@ if (API_URL.startsWith("https"))
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: false },
+  devtools: { enabled: true },
 
   // # client-side rendering;
   //  prerender    .true
@@ -169,6 +169,22 @@ export default defineNuxtConfig({
       {
         from: "lodash/size",
         imports: [{ name: "default", as: "len" }],
+      },
+      {
+        from: "lodash/differenceBy",
+        imports: [{ name: "default", as: "differenceBy" }],
+      },
+      {
+        from: "lodash/union",
+        imports: [{ name: "default", as: "union" }],
+      },
+      {
+        from: "lodash/sortBy",
+        imports: [{ name: "default", as: "sortBy" }],
+      },
+      {
+        from: "lodash/difference",
+        imports: [{ name: "default", as: "difference" }],
       },
       {
         from: "validator/lib/isEmail",

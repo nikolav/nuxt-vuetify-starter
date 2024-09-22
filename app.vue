@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { SpinnerAppProcessing } from "@/components/ui";
+import { type MessagePayload } from "firebase/messaging";
 
 const {
   app: { LOGOUT_RELOAD_PATH },
@@ -58,7 +59,7 @@ useSeoMeta({
 
 // #cloud messaging
 useFirebaseCloudMessaging({
-  onMessage: (payload) => {
+  onMessage: (payload: MessagePayload) => {
     console.log({ "firebaseCloudMessaging:payload --debug": payload });
   },
 });

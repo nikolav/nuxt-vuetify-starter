@@ -41,7 +41,7 @@ const {
   shuffle,
   // size: len,
   some,
-  sortBy,
+  // sortBy,
   startCase,
   sum,
   take,
@@ -98,7 +98,7 @@ export {
   set,
   shuffle,
   some,
-  sortBy,
+  // sortBy,
   startCase,
   sum,
   take,
@@ -122,3 +122,4 @@ export { idGen } from "./id-gen";
 export { hasOwn } from "./has-own";
 export { batchSet } from "./batch-set";
 export { matchEmailStart } from "./match-email-start";
+export { caseUpper } from "./case-upper";

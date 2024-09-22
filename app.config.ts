@@ -31,6 +31,7 @@ export default defineAppConfig({
     },
     LOGOUT_RELOAD_PATH: "/",
     TOOLTIPS_OPEN_DELAY: 345,
+    SEARCH_DEBOUNCE_DELAY: 567,
     MODE_DEBUG,
     // MODE_DEBUG: true,
     REDIRECT_UNAUTHORIZED_ROUTE_NAME: "index",

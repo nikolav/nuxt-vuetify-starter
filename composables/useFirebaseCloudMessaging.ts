@@ -64,6 +64,3 @@ export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
     tokens,
   };
 };
-
-// eZpHzgB-gPkyPmSpSdxbkM:APA91bGP-QPnrgvpAcDmUZpWYuhX3FChOSzcUE07nMofBojroSTiun5aRME4WmHu1-G6LoEuvJ-vyGst95PYwj8Dsa9g5ekkt4yDPKTgKss5xGkUmQ1B8Q6WwZkfQ86IkugK21mriWh3
-// duxCWVRBOd6TVpTa5Owm-x:APA91bGeavyRk4gYcs--3l9QLz3KwBxFa4CN9oJUS9pUmKHQrqOcqU6E6MOIiMHNMmNg2Oh7T2VjYrmnxiHlJeWtsmUBGz055c0-gwiE7WP1lepIZ2qFkuXfcTlQb2mtSF9hKNiO5m1v
