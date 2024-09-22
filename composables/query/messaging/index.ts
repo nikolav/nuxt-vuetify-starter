@@ -1,0 +1,1 @@
+export { useMutationCloudMessagingPing } from "./useMutationCloudMessagingPing";

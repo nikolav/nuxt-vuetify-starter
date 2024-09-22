@@ -30,30 +30,28 @@ const labels = computed(() =>
       color="warning-darken-2"
       v-bind="$attrs"
     />
-    <template v-if="1 < size">
-      <VBadge inline color="primary-darken-2">
-        <template #badge>
-          <pre class="d-inline-block">+{{ size - 1 }}</pre>
-        </template>
-        <VMenu
-          :transition="DEFAULT_TRANSITION"
-          activator="parent"
-          location="center"
-          open-on-hover
-          :open-delay="TOOLTIPS_OPEN_DELAY"
-        >
-          <VList
-            class="py-0"
-            variant="text"
-            lines="one"
-            base-color="primary-darken-2"
-            rounded="lg"
-            :items="labels"
-            density="compact"
-          />
-        </VMenu>
-      </VBadge>
-    </template>
+    <VBadge v-if="1 < size" inline color="primary-darken-2">
+      <template #badge>
+        <pre class="d-inline-block">+{{ size - 1 }}</pre>
+      </template>
+      <VMenu
+        :transition="DEFAULT_TRANSITION"
+        activator="parent"
+        location="center"
+        open-on-hover
+        :open-delay="TOOLTIPS_OPEN_DELAY"
+      >
+        <VList
+          :items="labels"
+          class="py-0"
+          variant="text"
+          lines="one"
+          base-color="primary-darken-2"
+          rounded="lg"
+          density="compact"
+        />
+      </VMenu>
+    </VBadge>
   </span>
 </template>
 <style lang="scss" scoped></style>

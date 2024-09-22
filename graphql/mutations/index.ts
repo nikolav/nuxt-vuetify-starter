@@ -25,7 +25,12 @@ export const M_docsRm = gql`
 `;
 
 export const M_docUpsert = gql`
-  mutation m_docUpsert($doc_id: String!, $data: JsonData!, $merge: Boolean!, $shallow: Boolean!) {
+  mutation m_docUpsert(
+    $doc_id: String!
+    $data: JsonData!
+    $merge: Boolean!
+    $shallow: Boolean!
+  ) {
     docUpsert(doc_id: $doc_id, data: $data, merge: $merge, shallow: $shallow)
   }
 `;
@@ -213,3 +218,8 @@ export const M_sendMail = gql`
   }
 `;
 
+export const M_cloudMessagingPing = gql`
+  mutation m_cloudMessagingPing($message: JsonData) {
+    cloudMessagingPing(message: $message)
+  }
+`;

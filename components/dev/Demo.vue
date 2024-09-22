@@ -5,7 +5,7 @@ import { Dump } from "@/components/dev";
 </script>
 <template>
   <VResponsive class="component--Demo mx-auto" :max-width="640">
-    <Dump :data="{  }" />
+    @Demo.vue
   </VResponsive>
 </template>
 <style lang="scss" scoped></style>

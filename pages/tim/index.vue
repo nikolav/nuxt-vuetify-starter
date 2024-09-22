@@ -138,7 +138,7 @@ const calcValueOf = (maybeCallableOrValue: any, node: any) =>
               <td
                 v-if="'data-table-select' === col.key"
                 style="width: 1%"
-                class="ps-1"
+                class="ps-1 pe-0"
               >
                 <VCheckboxBtn
                   class="mx-0"
@@ -152,11 +152,26 @@ const calcValueOf = (maybeCallableOrValue: any, node: any) =>
                   base-color="secondary-lighten-1"
                 ></VCheckboxBtn>
               </td>
-              <td v-else-if="col.key == 'groups'">
-                <VChipPlus :items="item.groups" />
+              <td
+                v-else-if="col.key == 'groups'"
+                :class="[smAndUp ? undefined : 'px-0 ps-1']"
+              >
+                <VChipPlus
+                  :items="item.groups"
+                  :size="smAndUp ? undefined : 'x-small'"
+                />
+              </td>
+              <td
+                v-else-if="col.key == 'fullname'"
+                :class="[smAndUp ? undefined : 'px-0']"
+              >
+                <strong
+                  :class="[item.is_manager ? 'text-primary' : undefined]"
+                  >{{ calcValueOf(col.value, item) }}</strong
+                >
               </td>
               <td v-else>
-                {{ calcValueOf(col.value, item) }}
+                <span>{{ calcValueOf(col.value, item) }}</span>
               </td>
             </template>
           </tr>

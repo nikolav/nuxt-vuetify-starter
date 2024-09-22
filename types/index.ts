@@ -139,6 +139,7 @@ export interface IUser {
   products?: OrNoValue<IProduct[]>;
   posts?: OrNoValue<IPost[]>;
   groups?: string[];
+  is_manager?: boolean;
   created_at: string;
   updated_at: string;
 }
