@@ -4,7 +4,7 @@ import { Dump } from "@/components/dev";
 // @@eos
 </script>
 <template>
-  <VResponsive class="component--Demo mx-auto" :max-width="640">
+  <VResponsive class="component--Demo mx-auto" :max-width="320">
     @Demo.vue
   </VResponsive>
 </template>

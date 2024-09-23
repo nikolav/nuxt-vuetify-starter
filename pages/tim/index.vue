@@ -1,52 +1,20 @@
 <script setup lang="ts">
+import { useDisplay } from "vuetify";
+
 import { Dump } from "@/components/dev";
 import { renderIcon } from "@/components/icons";
 import { VChipPlus } from "@/components/app";
-import { useDisplay } from "vuetify";
 
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
 
+// @config
 const { smAndUp } = useDisplay();
 const {
   app: { TOOLTIPS_OPEN_DELAY, SEARCH_DEBOUNCE_DELAY },
 } = useAppConfig();
-
-const iconCheckOff = renderIcon("mdi:checkbox-blank-circle-outline");
-const iconCheckOn = renderIcon("mdi:checkbox-marked-circle");
-const iconSearch = renderIcon("material-symbols:search", {
-  class: "opacity-50",
-});
-
-// @data
-const { users, reload: usersReload } = useQueryUsers();
-// @refs
-const groupsSelected = ref<string[]>();
-const groupSelectionMany = ref<string[]>([]);
-const isEmptyGroupsSelected = computed(() => isEmpty(groupsSelected.value));
-// @computed
-const groupsAll = computed(() =>
-  sortBy(union(...map(users.value, "groups")), caseUpper)
-);
-const usersFilteredGroups = computed(() =>
-  isEmpty(groupsSelected.value)
-    ? users.value
-    : filter(users.value, (user) =>
-        some(groupsSelected.value, (g) => user.groups?.includes(g))
-      )
-);
-
-// @utils
-const {
-  page$,
-  length: totPages,
-  perPage,
-} = usePaginatedData({
-  data: users,
-  perPage: 3,
-});
 const headers = [
   // { title: "ID", key: "id" },
   // { title: "Email", key: "email" },
@@ -71,26 +39,65 @@ const headers = [
     sortable: false,
   },
 ];
+
+// @icons
+const iconCheckOff = renderIcon("mdi:checkbox-blank-circle-outline");
+const iconCheckOn = renderIcon("mdi:checkbox-marked-circle");
+const iconSearch = renderIcon("material-symbols:search", {
+  class: "opacity-50",
+});
+
+// @data
+const { users, reload: usersReload } = useQueryUsers();
+
 // @refs
 const usersSearch = ref();
 const usersDataFilter = ref();
+const groupsSelected = ref<string[]>();
+const groupSelectionMany = ref<string[]>([]);
+const selection = ref<any[]>([]);
+
+// @computed
+const noUsers = computed(() => isEmpty(users.value));
+const sizeUsers = computed(() => len(users.value));
+const isEmptyGroupsSelected = computed(() => isEmpty(groupsSelected.value));
+const groupsAll = computed(() =>
+  sortBy(union(...map(users.value, "groups")), caseUpper)
+);
+const usersFilteredGroups = computed(() =>
+  isEmpty(groupsSelected.value)
+    ? users.value
+    : filter(users.value, (user) =>
+        some(groupsSelected.value, (g) => user.groups?.includes(g))
+      )
+);
+
+// @utils
+const toggleToolbarSecondary = useToggleFlag();
+const {
+  page$,
+  length: totPages,
+  perPage,
+} = usePaginatedData({
+  data: users,
+  perPage: 3,
+});
+
+// @watch
 watch(
   usersSearch,
   debounce((search: string) => {
     usersDataFilter.value = search || undefined;
   }, SEARCH_DEBOUNCE_DELAY)
 );
+
+// @helpers
 const filterClear = () => {
   usersSearch.value = undefined;
   groupsSelected.value = groupSelectionMany.value = [];
 };
-
-const toggleToolbarSecondary = useToggleFlag();
-const selection = ref<any[]>([]);
-
-// @helpers
 const usersSelectAll = () => {
-  selection.value = [...users.value];
+  selection.value = users.value;
 };
 const usersSelectAllOff = () => {
   selection.value = [];
@@ -100,23 +107,15 @@ const usersSelectToggle = () => {
 };
 const showUserScreen = (uid: any) =>
   navigateTo({ name: "tim-uid", params: { uid } });
-const noUsers = computed(() => isEmpty(users.value));
-const sizeUsers = computed(() => len(users.value));
 const calcValueOf = (maybeCallableOrValue: any, node: any) =>
   isFunction(maybeCallableOrValue)
     ? maybeCallableOrValue(node)
     : maybeCallableOrValue;
 
 // @forms
-const { submit } = useFormDataFields(
-  "1wT3W6ug6",
-  {},
-  {
-    onSubmit: () => {
-      groupsSelected.value = groupSelectionMany.value;
-    },
-  }
-);
+const onSubmitApplyGroupFiler = () => {
+  groupsSelected.value = groupSelectionMany.value;
+};
 // @@eos
 </script>
 <template>
@@ -138,17 +137,17 @@ const { submit } = useFormDataFields(
         id="ID--1QknrimP7"
       >
         <template #top>
+          <!-- @@toolbar:1 -->
           <VToolbar
             v-if="!toggleToolbarSecondary.isActive.value"
-            :height="32"
+            :height="41"
             color="primary"
-            class="px-0"
+            class="px-0 *:space-x-1"
           >
-            <span class="d-flex items-center gap-2 ps-2">
+            <span v-if="!noUsers" class="d-flex items-center gap-2 ps-2">
               <em class="opacity-50">{{ selection.length }}</em>
               <span>&#47;</span>
               <VBadge
-                v-if="!noUsers"
                 color="primary-lighten-2"
                 inline
                 :content="sizeUsers"
@@ -157,12 +156,12 @@ const { submit } = useFormDataFields(
             </span>
             <VBtn
               @click="usersSelectAll"
-              density="compact"
+              density="comfortable"
               icon
               variant="plain"
               color="on-primary"
             >
-              <Icon name="fluent:select-all-on-24-regular" size="1.33rem" />
+              <Icon name="fluent:select-all-on-24-regular" size="1.55rem" />
               <VTooltip
                 activator="parent"
                 text="Svi"
@@ -172,12 +171,12 @@ const { submit } = useFormDataFields(
             </VBtn>
             <VBtn
               @click="usersSelectAllOff"
-              density="compact"
+              density="comfortable"
               icon
               variant="plain"
               color="on-primary"
             >
-              <Icon name="fluent:select-all-off-24-regular" size="1.33rem" />
+              <Icon name="fluent:select-all-off-24-regular" size="1.55rem" />
               <VTooltip
                 activator="parent"
                 text="Poništi"
@@ -187,12 +186,12 @@ const { submit } = useFormDataFields(
             </VBtn>
             <VBtn
               @click="usersSelectToggle"
-              density="compact"
+              density="comfortable"
               icon
               variant="plain"
               color="warning-lighten-1"
             >
-              <Icon name="fluent:select-all-on-24-regular" size="1.33rem" />
+              <Icon name="fluent:select-all-on-24-regular" size="1.55rem" />
               <VTooltip
                 activator="parent"
                 text="Suprotno"
@@ -202,11 +201,11 @@ const { submit } = useFormDataFields(
             </VBtn>
             <VBtn
               @click="toggleToolbarSecondary"
-              density="compact"
+              density="comfortable"
               icon
               variant="plain"
             >
-              <Icon name="material-symbols:search" size="1.33rem" />
+              <Icon name="material-symbols:search" size="1.55rem" />
               <VTooltip
                 activator="parent"
                 text="Traži"
@@ -214,6 +213,7 @@ const { submit } = useFormDataFields(
                 :open-delay="TOOLTIPS_OPEN_DELAY"
               />
             </VBtn>
+            <VSpacer />
             <VBtn
               size="small"
               @click="usersReload"
@@ -224,35 +224,18 @@ const { submit } = useFormDataFields(
             >
               <VIcon icon="$loading" />
             </VBtn>
-            <VSpacer />
-            <VPagination
-              v-if="1 < totPages"
-              v-model="page$"
-              :length="totPages"
-              :total-visible="smAndUp ? 1 : 0"
-              variant="text"
-              color="on-primary"
-              rounded="circle"
-              density="comfortable"
-              size="small"
-            >
-              <template #item>
-                <small class="opacity-50 pt-[6px] d-inline-block">{{
-                  `${page$} / ${totPages}`
-                }}</small>
-              </template>
-            </VPagination>
           </VToolbar>
-          <VToolbar v-else :height="32" color="primary-lighten-2" floating>
+          <!-- @@toolbar:2 -->
+          <VToolbar v-else :height="41" color="primary-lighten-2" floating>
             <template #prepend>
               <VBtn
                 @click="toggleToolbarSecondary"
                 variant="text"
                 icon="$prev"
-                density="compact"
+                density="comfortable"
               />
             </template>
-            <VToolbarItems class="min-w-[13rem]" id="ID--JnatwQ3c">
+            <VToolbarItems class="min-w-[13.55rem]" id="ID--JnatwQ3c">
               <!-- @@search:users -->
               <VTextField
                 v-model="usersSearch"
@@ -261,7 +244,7 @@ const { submit } = useFormDataFields(
                 density="compact"
                 placeholder="Pretraga"
                 single-line
-                class="scale-[70%] -translate-y-[3px] -translate-x-7"
+                class="scale-[82%] -translate-x-3"
                 variant="solo"
                 rounded="pill"
                 :append-inner-icon="iconSearch"
@@ -274,26 +257,23 @@ const { submit } = useFormDataFields(
                 @click="filterClear"
                 icon
                 variant="plain"
-                size="small"
                 density="comfortable"
               >
                 <Icon
-                  size="1rem"
+                  size="1.11rem"
                   name="material-symbols:filter-alt-off-outline"
                 />
               </VBtn>
             </template>
             <!-- @@groups:select -->
-            <VBtn
-              v-if="0 < groupsAll?.length"
-              icon
-              size="small"
-              density="comfortable"
-            >
-              <Icon size="1.22rem" name="material-symbols:filter-list" />
+            <VBtn v-if="0 < groupsAll?.length" icon density="comfortable">
+              <Icon size="1.33rem" name="material-symbols:filter-list" />
               <VMenu activator="parent" location="bottom end">
                 <VSheet density="compact">
-                  <VForm @submit.prevent="submit" autocomplete="off">
+                  <VForm
+                    @submit.prevent="onSubmitApplyGroupFiler"
+                    autocomplete="off"
+                  >
                     <VList class="py-0" variant="flat" density="compact">
                       <VListItem
                         v-for="groupName in groupsAll"
@@ -389,10 +369,13 @@ const { submit } = useFormDataFields(
               </td>
               <td
                 v-else-if="col.key == 'fullname'"
-                :class="[smAndUp ? undefined : 'px-0']"
+                :class="[smAndUp ? undefined : 'ps-2']"
               >
                 <strong
-                  :class="[item.is_manager ? 'text-primary' : undefined]"
+                  :class="[
+                    'text-body-1',
+                    item.is_manager ? 'text-primary' : undefined,
+                  ]"
                   >{{ calcValueOf(col.value, item) }}</strong
                 >
               </td>
@@ -403,6 +386,25 @@ const { submit } = useFormDataFields(
           </tr>
         </template>
       </VDataTable>
+      <template #actions>
+        <VSpacer />
+        <VPagination
+          v-if="1 < totPages"
+          v-model="page$"
+          :length="totPages"
+          :total-visible="1"
+          variant="text"
+          color="primary-darken-1"
+          rounded="circle"
+          density="comfortable"
+        >
+          <template #item>
+            <small class="opacity-50 pt-2 d-inline-block">{{
+              `${page$} / ${totPages}`
+            }}</small>
+          </template>
+        </VPagination>
+      </template>
     </VCard>
     <VFab
       absolute
@@ -419,10 +421,8 @@ const { submit } = useFormDataFields(
 #ID--1QknrimP7 table {
   table-layout: auto;
 }
-</style>
-<style lang="scss" scoped></style>
-<style lang="scss">
 #ID--JnatwQ3c .v-input__append {
   margin-inline-start: 8px !important;
 }
 </style>
+<style lang="scss" scoped></style>
