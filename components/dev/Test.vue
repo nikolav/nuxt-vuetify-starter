@@ -28,10 +28,6 @@ const props = withDefaults(
   grid-template-areas: "prepend default append";
   grid-auto-columns: auto 1fr auto;
   gap: 0;
-  > div {
-    margin: 0;
-    padding: 0;
-  }
 }
 .__prepend {
   grid-area: prepend;

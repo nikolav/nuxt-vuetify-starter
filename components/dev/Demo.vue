@@ -1,25 +1,20 @@
 <script setup lang="ts">
 import { Test } from "@/components/dev";
 
-const foo = ref("");
-const fooupdate = () => {
-  foo.value = idGen();
+const ok = () => {
+  throw createError({
+    statusCode: 403,
+    statusMessage: "error:test",
+    fatal: true
+  });
 };
 
 // @@eos
 </script>
 <template>
-  <VResponsive class="component--Demo mx-auto" :max-width="320">
-    <VBtn @click="fooupdate">ok</VBtn>
-    <Test :foo="foo">
-      <template #prepend>
-        1
-      </template>
-      <template #append>
-        2
-      </template>
-      bar
-    </Test>
+  <VResponsive :max-width="320" class="mx-auto">
+    <VBtn @click="ok">ok</VBtn>
+    <Test />
   </VResponsive>
 </template>
 <style lang="scss" scoped></style>
