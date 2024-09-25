@@ -7,6 +7,16 @@ definePageMeta({
 });
 
 const { status: FCMStatus, ping: FCMPing } = useMutationCloudMessagingPing();
+const { send: viberSend } = useViberChannels();
+const viberSendText = async () => {
+  const content = `foo@${idGen()}`;
+  console.log(`sending viber message: [${content}]`);
+  console.log(
+    await viberSend.text({
+      "nikolav:default": content,
+    })
+  );
+};
 
 // @@eos
 </script>
@@ -14,6 +24,7 @@ const { status: FCMStatus, ping: FCMPing } = useMutationCloudMessagingPing();
   <section class="page--dashboard">
     <h1>app</h1>
     <VBtn @click="FCMPing">FCM:ping</VBtn>
+    <VBtn @click="viberSendText">viberSendText</VBtn>
     <Dump :data="{ FCMStatus }" />
   </section>
 </template>
