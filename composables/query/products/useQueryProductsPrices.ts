@@ -17,7 +17,8 @@ export const useQueryProductsPrices = () => {
   });
   const products$ = computed(() => get(result.value, "productsListAll") || []);
   const reload = async () => await refetch();
-  onceMountedOn(true, async () => await queryStart());
+  useOnceMountedOn(true, queryStart);
+  // onceMountedOn(true, async () => await queryStart());
   // const { runSetup: queryStart } = useRunSetupOnce(async () => await load());
   // onMounted(async () => {
   //   queryStart();

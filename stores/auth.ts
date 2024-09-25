@@ -116,7 +116,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
   // track api activity
   const pc = useProcessMonitor();
   const { watchProcessing } = useStoreAppProcessing();
-  watchProcessing(() => pc.processing.value);
+  watchProcessing(pc.processing);
 
   const authentication$ =
     (authEndpoint: string = URL_AUTH_login) =>

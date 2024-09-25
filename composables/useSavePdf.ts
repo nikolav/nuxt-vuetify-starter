@@ -22,7 +22,7 @@ export const useSavePdf = () => {
   } = useAppConfig();
   const { watchProcessing } = useStoreAppProcessing();
   const procSavePdf = useProcessMonitor();
-  watchProcessing(() => procSavePdf.processing.value);
+  watchProcessing(procSavePdf.processing);
   const pdf = async (options: IPdfDataInput) => {
     let d;
     try {
