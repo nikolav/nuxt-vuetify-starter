@@ -5,9 +5,10 @@ import { type MessagePayload } from "firebase/messaging";
 const {
   app: { LOGOUT_RELOAD_PATH },
   vars: { FLAG_SHOW_AUTH_BACKGROUND },
+  re: { ROUTE_NAMES_SKIP_REDIRECT_APP_ON_AUTHENTICATED },
 } = useAppConfig();
 const auth = useStoreApiAuth();
-// const route = useRoute();
+const route = useRoute();
 // set default guest key @!auth
 // onceOn(
 useOnceOn(
@@ -18,12 +19,19 @@ useOnceOn(
     });
   }
 );
+
+const skipRedirectToAppOnAuthenticated = (routeName: any) =>
+  some(ROUTE_NAMES_SKIP_REDIRECT_APP_ON_AUTHENTICATED, (re) =>
+    String(routeName).match(re)
+  );
 // onAuthStatus
 watch(
   () => auth.isAuthenticated$,
   async (isAuthenticated) => {
     isAuthenticated
-      ? await navigateTo({ name: "app" })
+      ? skipRedirectToAppOnAuthenticated(route.name)
+        ? undefined
+        : await navigateTo({ name: "app" })
       : reloadNuxtApp({
           path: LOGOUT_RELOAD_PATH,
           persistState: false,

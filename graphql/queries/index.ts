@@ -507,6 +507,7 @@ export const Q_usersOnly = gql`
       is_admin
       is_external
       groups
+      email_verified
       created_at
       updated_at
     }
@@ -524,6 +525,7 @@ export const Q_users = gql`
       is_admin
       is_external
       groups
+      email_verified
       created_at
       updated_at
     }

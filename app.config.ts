@@ -5,11 +5,11 @@ import {
   URL_APP_PUBLIC,
   MODE_DEBUG,
   // CLOUD_TRANSLATION_API_KEY,
+  URL_VERIFY_EMAIL,
 } from "@/config";
 
 const themeDark = "dark";
 const themeLight = "light";
-const TAG_USER_PROFILE_prefix = "@user:profile:w175I1JG:";
 
 export default defineAppConfig({
   ADMIN_EMAIL: "admin@nikolav.rs",
@@ -42,7 +42,6 @@ export default defineAppConfig({
     LIKEDISLIKE_CACHE_ID: "4OpsEOLNYG1wuF64OhBr",
     LIKES_preix: "@likes:",
     PRODUCT_IMAGES: "@images:product:",
-    TAG_USER_PROFILE_prefix,
     TAG_USERS: "@users",
     USER_PHOTOS_prefix: "@user:photos:",
   },
@@ -138,6 +137,9 @@ export default defineAppConfig({
   },
   //
   io: {
+    // flag single account updated
+    IOEVENT_ACCOUNTS_UPDATED_prefix: "@accounts:updated:sk9wx016CJOUaKZVX:",
+    // flag account added/removed
     IOEVENT_ACCOUNTS_UPDATED: "@accounts:updated:1mivIIYL",
     IOEVENT_AUTH_NEWUSER: "@auth:newuser",
     IOEVENT_COM_PHOTOS_CHANGE_prefix: "change:com-photos:",
@@ -175,6 +177,7 @@ export default defineAppConfig({
     duration: 890,
   },
   urls: {
+    URL_VERIFY_EMAIL,
     appPublic: URL_APP_PUBLIC,
     github: "https://github.com/nikolav/nuxtflask",
     QUERY: "q",
@@ -194,7 +197,9 @@ export default defineAppConfig({
         "https://calendar.google.com/calendar/embed?height=480&wkst=2&ctz=Europe%2FBelgrade&bgcolor=%23ffffff&showTitle=0&showTabs=0&showCalendars=0&hl=sr&src=ZW4ucnMjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&src=ZW4uaXNsYW1pYyNob2xpZGF5QGdyb3VwLnYuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23D50000&color=%237CB342",
     },
   },
-  re: {},
+  re: {
+    ROUTE_NAMES_SKIP_REDIRECT_APP_ON_AUTHENTICATED: [/^auth\-verify\-email$/],
+  },
   SEO: {
     title: "app.rs",
     ogTitle: "app.rs",

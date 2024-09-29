@@ -179,18 +179,6 @@ export const M_accountsArchive = gql`
   }
 `;
 
-export const M_accountsSendVerifyEmailLink = gql`
-  mutation m_accountsSendVerifyEmailLink($uid: ID!, $url: String!) {
-    accountsSendVerifyEmailLink(uid: $uid, url: $url)
-  }
-`;
-
-export const M_accountsVeifyEmail = gql`
-  mutation m_accountsVeifyEmail($data: JsonData!) {
-    accountsVeifyEmail(data: $data)
-  }
-`;
-
 export const M_accountsUpgradeUserCompany = gql`
   mutation m_accountsUpgradeUserCompany($uid: ID!) {
     accountsUpgradeUserCompany(uid: $uid)
@@ -238,3 +226,24 @@ export const M_accountsDrop = gql`
   }
 `;
 
+// accountsProfilePatch(uid: ID!, patch: JsonData!): JsonData!
+export const M_accountsProfilePatch = gql`
+  mutation m_accountsProfilePatch($uid: ID!, $patch: JsonData!) {
+    accountsProfilePatch(uid: $uid, patch: $patch)
+  }
+`;
+
+// accountsSendVerifyEmailLink(uid: ID!, url: String!): JsonData!
+export const M_accountsSendVerifyEmailLink = gql`
+  mutation m_accountsSendVerifyEmailLink($uid: ID!, $url: String!) {
+    accountsSendVerifyEmailLink(uid: $uid, url: $url)
+  }
+`;
+
+// accountsVeifyEmail(data: JsonData!): JsonData!
+//  data: { key: string:jwt }
+export const M_accountsVeifyEmail = gql`
+  mutation m_accountsVeifyEmail($data: JsonData!) {
+    accountsVeifyEmail(data: $data)
+  }
+`;

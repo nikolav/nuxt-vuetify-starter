@@ -2,12 +2,7 @@
 // calc keys for data fetching
 export const useTopics = () => {
   const {
-    docs: {
-      CHAT_ORDER_COM_USER_prefix,
-      COM_PHOTOS_prefix,
-      PRODUCT_IMAGES,
-      TAG_USER_PROFILE_prefix,
-    },
+    docs: { CHAT_ORDER_COM_USER_prefix, COM_PHOTOS_prefix, PRODUCT_IMAGES },
     key: {
       CHAT_MAIN,
       COM_LIKES_prefix,
@@ -33,8 +28,6 @@ export const useTopics = () => {
     pid ? `${TOPIC_CHAT_PRODUCTS_prefix}${pid}` : "";
   const productImages = (pid: number | undefined) =>
     pid ? `${PRODUCT_IMAGES}${pid}` : "";
-  const authProfile = (uid: number | undefined) =>
-    uid ? `${TAG_USER_PROFILE_prefix}${uid}` : "";
   const ratingProduct = (pid: number | undefined) =>
     pid ? `${PRODUCT_RATING_prefix}${pid}` : "";
   const likesProduct = (pid: number | undefined) =>
@@ -70,7 +63,6 @@ export const useTopics = () => {
     CHAT_MAIN,
     MAILING_LIST,
     //
-    authProfile,
     chatOrder,
     comChat,
     likesProduct,

@@ -121,6 +121,7 @@ export type TBaseAuthProfile = Record<string, any>;
 export interface IAuthProfile extends TBaseAuthProfile {
   firstName?: string | undefined;
   lastName?: string | undefined;
+  displayName?: string | undefined;
   phone?: string | undefined;
   address?: string | undefined;
   avatar?: IStorageFileDataSaved;
