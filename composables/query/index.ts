@@ -1,6 +1,6 @@
-export * from "./products";
 export * from "./accounts";
 export * from "./messaging";
+export * from "./products";
 //
 export { useDocs } from "./useDocs";
 export { useDoc } from "./useDoc";

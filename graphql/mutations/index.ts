@@ -179,12 +179,6 @@ export const M_accountsArchive = gql`
   }
 `;
 
-export const M_accountsDrop = gql`
-  mutation m_accountsDrop($uid: ID!) {
-    accountsDrop(uid: $uid)
-  }
-`;
-
 export const M_accountsSendVerifyEmailLink = gql`
   mutation m_accountsSendVerifyEmailLink($uid: ID!, $url: String!) {
     accountsSendVerifyEmailLink(uid: $uid, url: $url)
@@ -221,6 +215,26 @@ export const M_sendMail = gql`
 export const M_cloudMessagingPing = gql`
   mutation m_cloudMessagingPing($payload: JsonData) {
     cloudMessagingPing(payload: $payload)
+  }
+`;
+
+// accounts
+export const M_accountsAdd = gql`
+  mutation m_accountsAdd($payload: JsonData!) {
+    accountsAdd(payload: $payload)
+  }
+`;
+
+export const M_accountsPoliciesManage = gql`
+  mutation m_accountsPoliciesManage($policies: JsonData!) {
+    accountsPoliciesManage(policies: $policies)
+  }
+`;
+
+// accountsDrop(uid: ID!): JsonData!
+export const M_accountsDrop = gql`
+  mutation m_accountsDrop($uid: ID!) {
+    accountsDrop(uid: $uid)
   }
 `;
 

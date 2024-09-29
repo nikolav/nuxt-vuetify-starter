@@ -138,6 +138,7 @@ export default defineAppConfig({
   },
   //
   io: {
+    IOEVENT_ACCOUNTS_UPDATED: "@accounts:updated:1mivIIYL",
     IOEVENT_AUTH_NEWUSER: "@auth:newuser",
     IOEVENT_COM_PHOTOS_CHANGE_prefix: "change:com-photos:",
     IOEVENT_DOC_CHANGE_prefix: "change://doc@",

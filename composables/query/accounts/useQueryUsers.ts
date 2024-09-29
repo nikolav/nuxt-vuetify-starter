@@ -3,7 +3,7 @@ import { Q_users, Q_usersOnly } from "@/graphql";
 export const useQueryUsers = (UIDS?: any) => {
   const {
     graphql: { STORAGE_QUERY_POLL_INTERVAL },
-    io: { IOEVENT_AUTH_NEWUSER },
+    io: { IOEVENT_AUTH_NEWUSER, IOEVENT_ACCOUNTS_UPDATED },
   } = useAppConfig();
   const uids = ref();
   const isAll_ = computed(() => isEmpty(uids.value));
@@ -22,13 +22,17 @@ export const useQueryUsers = (UIDS?: any) => {
       pollInterval: STORAGE_QUERY_POLL_INTERVAL,
     }
   );
-  const reload = async () => await refetch();
   const users = computed(
     () => (isAll_.value ? result.value?.users : result.value?.usersOnly) || []
   );
+  const reload = async () => await refetch();
   useOnceMountedOn(true, queryStart);
-  watchEffect(() => useIOEvent(IOEVENT_AUTH_NEWUSER, reload));
+
   const { watchProcessing } = useStoreAppProcessing();
   watchProcessing(loading);
+
+  useIOEvent(IOEVENT_AUTH_NEWUSER, reload);
+  useIOEvent(IOEVENT_ACCOUNTS_UPDATED, reload);
+
   return { uids, users, reload };
 };

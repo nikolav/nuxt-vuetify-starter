@@ -3,7 +3,7 @@ import { useDisplay } from "vuetify";
 
 import { Dump } from "@/components/dev";
 import { renderIcon } from "@/components/icons";
-import { VChipPlus } from "@/components/app";
+import { VChipPlus, VBtnFilterClear } from "@/components/app";
 
 definePageMeta({
   layout: "app-default",
@@ -13,7 +13,7 @@ definePageMeta({
 // @config
 const { smAndUp } = useDisplay();
 const {
-  app: { TOOLTIPS_OPEN_DELAY, SEARCH_DEBOUNCE_DELAY },
+  app: { TOOLTIPS_OPEN_DELAY, SEARCH_DEBOUNCE_DELAY, DEFAULT_TRANSITION },
 } = useAppConfig();
 const headers = [
   // { title: "ID", key: "id" },
@@ -214,6 +214,11 @@ const onSubmitApplyGroupFiler = () => {
               />
             </VBtn>
             <VSpacer />
+            <!-- @@filter:clear -->
+            <VBtnFilterClear
+              v-if="usersDataFilter || !isEmptyGroupsSelected"
+              @click="filterClear"
+            />
             <VBtn
               size="small"
               @click="usersReload"
@@ -223,6 +228,23 @@ const onSubmitApplyGroupFiler = () => {
               class="-ms-[4px]"
             >
               <VIcon icon="$loading" />
+            </VBtn>
+            <!-- @@dots coommands:rest -->
+            <VBtn density="comfortable" icon variant="text">
+              <Icon name="mdi:dots-vertical" size="1.35rem" />
+              <VMenu
+                activator="parent"
+                location="bottom end"
+                max-width="422"
+                :transition="DEFAULT_TRANSITION"
+              >
+                <VSheet>
+                  <p>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Magnam unde temporibus earum?
+                  </p>
+                </VSheet>
+              </VMenu>
             </VBtn>
           </VToolbar>
           <!-- @@toolbar:2 -->
@@ -252,19 +274,10 @@ const onSubmitApplyGroupFiler = () => {
             </VToolbarItems>
             <VSpacer />
             <!-- @@filter:clear -->
-            <template v-if="usersDataFilter || !isEmptyGroupsSelected">
-              <VBtn
-                @click="filterClear"
-                icon
-                variant="plain"
-                density="comfortable"
-              >
-                <Icon
-                  size="1.11rem"
-                  name="material-symbols:filter-alt-off-outline"
-                />
-              </VBtn>
-            </template>
+            <VBtnFilterClear
+              v-if="usersDataFilter || !isEmptyGroupsSelected"
+              @click="filterClear"
+            />
             <!-- @@groups:select -->
             <VBtn v-if="0 < groupsAll?.length" icon density="comfortable">
               <Icon size="1.33rem" name="material-symbols:filter-list" />
@@ -274,7 +287,12 @@ const onSubmitApplyGroupFiler = () => {
                     @submit.prevent="onSubmitApplyGroupFiler"
                     autocomplete="off"
                   >
-                    <VList class="py-0" variant="flat" density="compact">
+                    <VList
+                      min-width="192"
+                      class="py-0"
+                      variant="flat"
+                      density="compact"
+                    >
                       <VListItem
                         v-for="groupName in groupsAll"
                         lines="one"
@@ -312,6 +330,7 @@ const onSubmitApplyGroupFiler = () => {
             </VBtn>
           </VToolbar>
         </template>
+
         <template #headers="{ columns, isSorted, getSortIcon, toggleSort }">
           <tr class="text-body-2">
             <template v-for="column in columns" :key="column.key">
@@ -386,6 +405,7 @@ const onSubmitApplyGroupFiler = () => {
           </tr>
         </template>
       </VDataTable>
+
       <template #actions>
         <VSpacer />
         <VPagination
@@ -406,6 +426,7 @@ const onSubmitApplyGroupFiler = () => {
         </VPagination>
       </template>
     </VCard>
+
     <VFab
       absolute
       appear

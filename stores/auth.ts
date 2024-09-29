@@ -92,17 +92,22 @@ export const useStoreApiAuth = defineStore("auth", () => {
     onLogout: onLogoutApollo,
   } = useApollo();
 
+  // token.apollo --sync
+  watchEffect(async () => {
+    if (token$.value) await onLoginApollo(token$.value);
+  });
+
   // sync apollo:auth
   watch(isAuth$, async (isAuth) => {
     if (isAuth) {
       // #cache apollo token
-      await onLoginApollo(token$.value);
+      // await onLoginApollo(token$.value);
 
       // cache auto `chatName`
       if (chatName$.value) return;
       const chatName = matchEmailStart(get(user$.value, "email"));
       const chatNameDefault = matchEmailStart(APP_USER_DEFAULT_email);
-      if (chatNameDefault === chatName) return;
+      if (chatNameDefault == chatName) return;
       chatName$.value = startCase(chatName);
     } else {
       // #signal logout to apollo

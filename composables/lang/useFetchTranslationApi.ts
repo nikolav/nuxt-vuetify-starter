@@ -1,5 +1,7 @@
 import { CLOUD_TRANSLATION_API_KEY } from "@/config";
 import type { ITranslationQuery } from "@/types";
+
+const PATH_TRANSLATED_TEXT = "data.translations[0].translatedText";
 // #https://cloud.google.com/translate/docs/reference/rest/v2/translate#http-request
 export const useFetchTranslationApi = (QUERY?: any) => {
   const {
@@ -7,7 +9,7 @@ export const useFetchTranslationApi = (QUERY?: any) => {
     urls: { TRANSLATION_ENDPOINT },
   } = useAppConfig();
   const query = ref<ITranslationQuery>();
-  const q = computed(() => String(get(query.value, "q") || "").trim());
+  const q = computed(() => String(query.value?.q || "").trim());
   const enabled = computed(
     () =>
       TRANSLATION_ENABLED &&
@@ -19,7 +21,7 @@ export const useFetchTranslationApi = (QUERY?: any) => {
     query.value = toValue(QUERY);
   });
   const { data, refresh, execute } = useFetch(TRANSLATION_ENDPOINT, {
-    // key: `useFetchTranslationApi:${query.value?.q}`,
+    key: `useFetchTranslationApi::query--${q.value}::lang--${query.value?.target}`,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -33,9 +35,7 @@ export const useFetchTranslationApi = (QUERY?: any) => {
   });
   const reload = async () => (enabled.value ? await refresh() : undefined);
   const translation = computed(() =>
-    enabled.value
-      ? get(data.value, "data.translations[0].translatedText")
-      : q.value
+    enabled.value ? get(data.value, PATH_TRANSLATED_TEXT) : q.value
   );
   useOnceMountedOn(enabled, async () => await execute());
 
