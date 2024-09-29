@@ -6,6 +6,9 @@ import {
   MODE_DEBUG,
   // CLOUD_TRANSLATION_API_KEY,
   URL_VERIFY_EMAIL,
+  URL_PASSWORD_RESET_REQUEST,
+  URL_PASSWORD_RESET_FORM_LINK,
+  URL_PASSWORD_RESET_ACTION,
 } from "@/config";
 
 const themeDark = "dark";
@@ -177,6 +180,9 @@ export default defineAppConfig({
     duration: 890,
   },
   urls: {
+    URL_PASSWORD_RESET_ACTION,
+    URL_PASSWORD_RESET_FORM_LINK,
+    URL_PASSWORD_RESET_REQUEST,
     URL_VERIFY_EMAIL,
     appPublic: URL_APP_PUBLIC,
     github: "https://github.com/nikolav/nuxtflask",
@@ -198,7 +204,10 @@ export default defineAppConfig({
     },
   },
   re: {
-    ROUTE_NAMES_SKIP_REDIRECT_APP_ON_AUTHENTICATED: [/^auth\-verify\-email$/],
+    ROUTE_NAMES_SKIP_REDIRECT_APP_ON_AUTHENTICATED: [
+      /^auth\-verify\-email$/,
+      /^auth\-password\-reset\-form$/,
+    ],
   },
   SEO: {
     title: "app.rs",
@@ -227,7 +236,6 @@ export default defineAppConfig({
       KEY_FCM_DEVICE_TOKENS: "bd4AsY9rIBwAxF:",
     },
   },
-  //
   // #https://github.com/nuxt/icon/tree/main?tab=readme-ov-file#icon-customization
   icon: {
     // size: "24px", // default <Icon> size applied

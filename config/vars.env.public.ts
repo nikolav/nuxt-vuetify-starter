@@ -14,7 +14,7 @@ export const URL_APP_PUBLIC = PRODUCTION$
 export const URL_PASSWORD_RESET_FORM_LINK = `${trimEnd(
   URL_APP_PUBLIC,
   "/"
-)}/auth-obnova-lozinke`;
+)}/auth-password-reset-form`;
 
 export const URL_VERIFY_EMAIL = `${trimEnd(
   URL_APP_PUBLIC,

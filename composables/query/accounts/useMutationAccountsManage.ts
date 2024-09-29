@@ -12,7 +12,12 @@ interface IPoliciesPatch {
 }
 export const useMutationAccountsManage = () => {
   const {
-    urls: { URL_VERIFY_EMAIL },
+    urls: {
+      URL_VERIFY_EMAIL,
+      URL_PASSWORD_RESET_REQUEST,
+      URL_PASSWORD_RESET_FORM_LINK,
+      URL_PASSWORD_RESET_ACTION,
+    },
   } = useAppConfig();
   const auth = useStoreApiAuth();
   const { mutate: mutateAccountsAdd, loading: accountsAddLoading } =
@@ -35,29 +40,50 @@ export const useMutationAccountsManage = () => {
     mutate: mutateAccountsVeifyEmail,
     loading: accountsVeifyEmailLoading,
   } = useMutation(M_accountsVeifyEmail);
-  // add users
+  // add account
   const add = async (payload: IAuthCreds) =>
     await mutateAccountsAdd({ payload });
   // drop account
   const drop = async (uid: any) => await mutateAccountsDrop({ uid });
   // batch manage user policies
-  const policies_patch = async (policies: IPoliciesPatch) =>
+  const policiesPatch = async (policies: IPoliciesPatch) =>
     await mutateAccountsPoliciesManage({ policies });
   // merge/patch account profile
-  const profile_patch = async (uid: any, patch: Record<string, any>) =>
+  const profilePatch = async (uid: any, patch: Record<string, any>) =>
     await mutateAccountsProfilePatch({
       uid,
       patch: batchSet(undefined, patch),
     });
-  //
-  const send_verify_email_link = async () =>
+  const emailSendVerifyLink = async () =>
     await mutateAccountsSendVerifyEmailLink({
       uid: auth.uid,
       url: URL_VERIFY_EMAIL,
     });
-  const verify_email = async (key: any) =>
+  const emailVerify = async (key: any) =>
     await mutateAccountsVeifyEmail({ data: { key } });
-  // 
+  const passwordSendResetLink = async () =>
+    await $fetch(URL_PASSWORD_RESET_REQUEST, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        email: get(auth.user$, "email"),
+        url: URL_PASSWORD_RESET_FORM_LINK,
+      },
+    });
+  const passwordReset = async (key: string, new_password: string) =>
+    await $fetch(URL_PASSWORD_RESET_ACTION, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        key,
+        password: new_password,
+      },
+    });
+  //
   const { watchProcessing } = useStoreAppProcessing();
   const processing = computed(() =>
     some([
@@ -75,9 +101,11 @@ export const useMutationAccountsManage = () => {
     processing,
     add,
     drop,
-    policies_patch,
-    profile_patch,
-    send_verify_email_link,
-    verify_email,
+    policiesPatch,
+    profilePatch,
+    emailSendVerifyLink,
+    emailVerify,
+    passwordSendResetLink,
+    passwordReset,
   };
 };
