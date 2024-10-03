@@ -3,10 +3,13 @@ import { useDisplay } from "vuetify";
 import { AppNavigationButtons } from "@/components/app";
 
 const auth = useStoreApiAuth();
+const route = useRoute();
 const { smAndUp } = useDisplay();
 const {
   app: { TOOLTIPS_OPEN_DELAY, MODE_DEBUG },
 } = useAppConfig();
+
+const { ID_subnav, hasNavSecondary, sidebarMainHeight } = useSidebarMenu();
 
 // @@eos
 </script>
@@ -46,18 +49,40 @@ const {
         />
       </VBtn>
     </VAppBar>
+    <!-- nav primary -->
     <!-- app:links -->
     <VNavigationDrawer
+      :id="ID_subnav"
       :location="smAndUp ? 'end' : 'bottom'"
+      :floating="hasNavSecondary"
+      :border="hasNavSecondary ? 0 : undefined"
+      elevation="0"
       rail
       permanent
-      elevation="1"
       :class="[
         smAndUp ? 'pt-2' : undefined,
         smAndUp ? undefined : '*:flex *:justify-evenly',
       ]"
     >
       <AppNavigationButtons />
+    </VNavigationDrawer>
+    <!-- nav secondary -->
+    <VNavigationDrawer
+      v-if="hasNavSecondary"
+      :location="smAndUp ? 'end' : 'bottom'"
+      :style="
+        smAndUp ? undefined : `bottom: ${sidebarMainHeight}px !important;`
+      "
+      elevation="0"
+      rail
+      permanent
+      :class="[
+        'opacity-90',
+        smAndUp ? 'pt-2' : undefined,
+        smAndUp ? undefined : '*:flex *:justify-evenly',
+      ]"
+    >
+      <AppNavigationButtons :key="route.fullPath" subnav />
     </VNavigationDrawer>
     <VMain>
       <slot />

@@ -18,8 +18,7 @@ export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
   } = useAppConfig();
   const auth = useStoreApiAuth();
   const service = ref();
-  // tokens: Ref<Record<string:token, boolean:valid> | undefined>
-  const { tokens, commit: commitToken } = useDocUserDeviceTokens();
+  const notificationsGranted = useRequestNotificationsPermission();
   messagingIsSupported().then((isSupported) => {
     if (isSupported) {
       try {
@@ -30,12 +29,14 @@ export const useFirebaseCloudMessaging = (options: IFCMOptions) => {
       }
     }
   });
+  // tokens: Ref<Record<string:token, boolean:valid> | undefined>
+  const { tokens, commit: commitToken } = useDocUserDeviceTokens();
   // subscribe when service available
   watch(
-    [() => auth.isAuthenticated$, () => service.value],
-    async ([isAuthenticated, client]) => {
-      if (!isAuthenticated) return;
-      if (!client) return;
+    [notificationsGranted, () => auth.isAuthenticated$, () => service.value],
+    async ([notificationsGranted, isAuthenticated, client]) => {
+      if (some([notificationsGranted, isAuthenticated, client], boolNot))
+        return;
       try {
         // token:cache for server:push
         const tokenClientFCM = await getToken(client, { vapidKey: VAPID_KEY });

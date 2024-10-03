@@ -4,13 +4,13 @@ import type { OrNull, IDoc, TDocData, OrNoValue } from "@/types";
 // .useDocs
 export const useDocs = <TData = TDocData>(
   initialTopic: any = "",
-  initialEnabled = true
+  initialEnabled = true,
+  order?: number
 ) => {
   const {
     graphql: { STORAGE_QUERY_POLL_INTERVAL },
     io: { IOEVENT_DOCS_CHANGE_JsonData },
   } = useAppConfig();
-  const token_ = inject(key_TOKEN);
   const topic$ = ref();
   watchEffect(() => {
     topic$.value = toValue(initialTopic);
@@ -19,6 +19,7 @@ export const useDocs = <TData = TDocData>(
   const enabled$ = computed(
     () => !!(toggleEnabled.isActive.value && topic$.value)
   );
+  const token_ = inject(key_TOKEN);
 
   const {
     result,
@@ -30,7 +31,10 @@ export const useDocs = <TData = TDocData>(
     docsByTopic: IDoc<TData>[];
   }>(
     Q_docsByTopic,
-    { topic: topic$ },
+    {
+      topic: topic$,
+      order,
+    },
     {
       enabled: enabled$,
       pollInterval: STORAGE_QUERY_POLL_INTERVAL,

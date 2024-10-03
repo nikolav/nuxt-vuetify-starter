@@ -3,6 +3,7 @@ import type { OrNoValue } from "@/types";
 defineOptions({
   inheritAttrs: false,
 });
+const LIST_MIN_WIDTH = 192;
 const props = withDefaults(
   defineProps<{ items: OrNoValue<any[]>; showIndex?: number }>(),
   {
@@ -43,6 +44,7 @@ const labels = computed(() =>
       >
         <VList
           :items="labels"
+          :min-width="LIST_MIN_WIDTH"
           class="py-0"
           variant="text"
           lines="one"

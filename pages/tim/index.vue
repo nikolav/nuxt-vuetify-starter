@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
-
-import { Dump } from "@/components/dev";
 import { renderIcon } from "@/components/icons";
 import { VChipPlus, VBtnFilterClear } from "@/components/app";
 
@@ -336,13 +334,12 @@ const onSubmitApplyGroupFiler = () => {
             <template v-for="column in columns" :key="column.key">
               <td>
                 <span class="d-flex items-center">
-                  <template v-if="isSorted(column)">
-                    <VIcon
-                      :size="14"
-                      :icon="getSortIcon(column)"
-                      class="-translate-y-px"
-                    />
-                  </template>
+                  <VIcon
+                    v-if="isSorted(column)"
+                    :size="14"
+                    :icon="getSortIcon(column)"
+                    class="-translate-y-px"
+                  />
                   <small
                     class="ms-1 opacity-50"
                     :class="[column.sortable ? 'cursor-pointer' : undefined]"
@@ -434,7 +431,6 @@ const onSubmitApplyGroupFiler = () => {
       icon="$plus"
       class="!fixed !z-[9999]"
       :class="[smAndUp ? 'end-20 bottom-6' : 'end-6 bottom-20']"
-      :size="smAndUp ? undefined : 'small'"
     />
   </section>
 </template>

@@ -75,10 +75,14 @@ useFirebaseCloudMessaging({
 
 const authBgActive = useState(FLAG_SHOW_AUTH_BACKGROUND);
 
+const ref_appMain = ref();
+provide(key_REF_APPMAIN, ref_appMain);
+
 // #eos
 </script>
 <template>
   <VApp
+    ref="ref_appMain"
     :theme="theme"
     :class="[
       'component--appMain',

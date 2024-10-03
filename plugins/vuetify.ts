@@ -11,6 +11,7 @@ import {
   IconFrikomLogo,
   IconFactory,
   IconAppCogFill,
+  IconUsersGroup,
 } from "@/components/icons";
 
 // import { srLatn } from "vuetify/locale";
@@ -112,6 +113,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         iconFrikomLogo: IconFrikomLogo,
         iconFactory: IconFactory,
         iconAppCogFill: IconAppCogFill,
+        iconUsersGroup: IconUsersGroup,
       },
       sets: {
         mdi,

@@ -2,6 +2,7 @@
 // calc keys for data fetching
 export const useTopics = () => {
   const {
+    app: { COOKIE_ANONYMOS_USER },
     docs: { CHAT_ORDER_COM_USER_prefix, COM_PHOTOS_prefix, PRODUCT_IMAGES },
     key: {
       CHAT_MAIN,
@@ -58,6 +59,7 @@ export const useTopics = () => {
     uid ? `${USER_CONFIG_PREFERENCES}${uid}` : "";
   const userDeviceTokens = (uid: number | undefined) =>
     uid ? `${KEY_FCM_DEVICE_TOKENS}${uid}` : "";
+  const userAnonymous = (key: string) => `${COOKIE_ANONYMOS_USER}:${key}`;
 
   return {
     CHAT_MAIN,
@@ -78,5 +80,6 @@ export const useTopics = () => {
     chatPosts,
     userConfig,
     userDeviceTokens,
+    userAnonymous,
   };
 };

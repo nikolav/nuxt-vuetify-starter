@@ -25,6 +25,7 @@ export default defineAppConfig({
     FLAG_SHOW_AUTH_BACKGROUND: "0hrfFp7OeZWPQ7wE",
   },
   app: {
+    COOKIE_ANONYMOS_USER: "ANONYMOS_USER:XFwrJOC6a",
     DEFAULT_TRANSITION: "slide-y-reverse-transition",
     DEFAULT_NO_IMAGE: "/no-image.jpg",
     TRANSLATION_ENABLED: true,
@@ -54,7 +55,7 @@ export default defineAppConfig({
     FLAG_CART_OPEN: "OBNwu3k37w3a6H",
     APP_MOUNTED: "Zkcmk4BnXHU",
     APP_PROCESSING: "FlaelfhZddK",
-    CHAT_MAIN: "cLgtZdZLXHNdstzt",
+    CHAT_MAIN: "5OLr9wMVacqa",
     CHAT_NAME: "QOPnfTw9",
     COM_LIKES_prefix: "Y9tqzJgln0B::",
     COM_RATING_prefix: "rating:com:SiOobaXI2QXJgHs::",
@@ -234,6 +235,7 @@ export default defineAppConfig({
         "BA5afVljVVDNRB2hf-lwSFwzAZcgVW1mYFsT65Oszp9qZIWOfZ9HTX_OXZfErx7iMXXZXv37CW8kS2H4xBJ-naE",
       // FCM_TOKEN: "EdVEeoDfdOK1",
       KEY_FCM_DEVICE_TOKENS: "bd4AsY9rIBwAxF:",
+      FCM_ONMESSAGE: "FCM_ONMESSAGE:BQAmVfmWSvb",
     },
   },
   // #https://github.com/nuxt/icon/tree/main?tab=readme-ov-file#icon-customization

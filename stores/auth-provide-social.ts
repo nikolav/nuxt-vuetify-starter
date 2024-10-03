@@ -25,7 +25,7 @@ export const useStoreApiAuthProvideSocial = defineStore(
         get(
           await $fetch(URL_AUTH_social, {
             method: "POST",
-            body: { ...(addAuthData$.value || {}), auth: authData },
+            body: { ...addAuthData$.value, auth: authData },
           }),
           "token"
         ) || ""

@@ -51,8 +51,8 @@ export const Q_storageListAll = gql`
 `;
 
 export const Q_docsByTopic = gql`
-  query q_docsByTopic($topic: String!) {
-    docsByTopic(topic: $topic)
+  query q_docsByTopic($topic: String!, $order: Int) {
+    docsByTopic(topic: $topic, order: $order)
   }
 `;
 
@@ -531,5 +531,3 @@ export const Q_users = gql`
     }
   }
 `;
-
-
