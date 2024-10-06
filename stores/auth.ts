@@ -60,7 +60,7 @@ export const useStoreApiAuth = defineStore("auth", () => {
       try {
         return schemaAuthData.parse(responseAuth);
       } catch (error) {
-        // pass
+        console.error({ "useStoreApiAuth:error": error });
       }
       return null;
     },
@@ -68,7 +68,11 @@ export const useStoreApiAuth = defineStore("auth", () => {
     lazy: true,
     immediate: false,
   });
+  const reload = async () => await authDataReload();
+
   const uid = computed(() => get(user$.value, "id"));
+  const profile = computed(() => get(user$.value, "profile") || {});
+
   const initialized$ = useOnceMountedOn(true, authDataStart);
   const isAuth$ = computed(() => schemaAuthData.safeParse(user$.value).success);
   const isUser$ = computed(
@@ -122,6 +126,11 @@ export const useStoreApiAuth = defineStore("auth", () => {
   const pc = useProcessMonitor();
   const { watchProcessing } = useStoreAppProcessing();
   watchProcessing(pc.processing);
+
+  // update store @account:update
+  const { ioeventAccountUpdated } = useTopics();
+  const IO_accountUpdated = computed(() => ioeventAccountUpdated(uid.value));
+  watchEffect(() => useIOEvent(IO_accountUpdated.value, reload));
 
   const authentication$ =
     (authEndpoint: string = URL_AUTH_login) =>
@@ -188,14 +197,16 @@ export const useStoreApiAuth = defineStore("auth", () => {
   return {
     token$,
     user$,
+    //
     uid,
+    profile,
     //
     login,
     register,
     logout,
-    authDataReload,
+    reload,
     // alias
-    reload: authDataReload,
+    authDataReload: reload,
     //
     initialized$,
     isAuth$,

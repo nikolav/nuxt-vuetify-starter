@@ -20,7 +20,7 @@ if (API_URL.startsWith("https"))
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   // # client-side rendering;
   //  prerender    .true
@@ -185,6 +185,14 @@ export default defineNuxtConfig({
       {
         from: "lodash/difference",
         imports: [{ name: "default", as: "difference" }],
+      },
+      {
+        from: "lodash/sampleSize",
+        imports: [{ name: "default", as: "sampleSize" }],
+      },
+      {
+        from: "lodash/findKey",
+        imports: [{ name: "default", as: "findKey" }],
       },
       {
         from: "validator/lib/isEmail",

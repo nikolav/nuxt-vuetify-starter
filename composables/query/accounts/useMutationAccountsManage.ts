@@ -61,28 +61,53 @@ export const useMutationAccountsManage = () => {
     });
   const emailVerify = async (key: any) =>
     await mutateAccountsVeifyEmail({ data: { key } });
-  const passwordSendResetLink = async () =>
-    await $fetch(URL_PASSWORD_RESET_REQUEST, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: {
-        email: get(auth.user$, "email"),
-        url: URL_PASSWORD_RESET_FORM_LINK,
-      },
-    });
-  const passwordReset = async (key: string, new_password: string) =>
-    await $fetch(URL_PASSWORD_RESET_ACTION, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: {
-        key,
-        password: new_password,
-      },
-    });
+  //
+  const pc = useProcessMonitor();
+  const passwordSendResetLink = async () => {
+    let res;
+    try {
+      pc.begin();
+      res = await $fetch(URL_PASSWORD_RESET_REQUEST, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
+          email: get(auth.user$, "email"),
+          url: URL_PASSWORD_RESET_FORM_LINK,
+        },
+      });
+    } catch (error) {
+      pc.setError(error);
+    } finally {
+      pc.done();
+    }
+    if (!pc.error.value) pc.successful();
+    return res;
+  };
+  const passwordReset = async (key: string, new_password: string) => {
+    let res;
+    try {
+      pc.begin();
+      res = await $fetch(URL_PASSWORD_RESET_ACTION, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
+          key,
+          password: new_password,
+        },
+      });
+    } catch (error) {
+      pc.setError(error);
+    } finally {
+      pc.done();
+    }
+    if (!pc.error.value) pc.successful();
+    return res;
+  };
+
   //
   const { watchProcessing } = useStoreAppProcessing();
   const processing = computed(() =>
@@ -93,6 +118,7 @@ export const useMutationAccountsManage = () => {
       accountsProfilePatchLoading.value,
       accountsSendVerifyEmailLinkLoading.value,
       accountsVeifyEmailLoading.value,
+      pc.processing.value,
     ])
   );
   watchProcessing(processing);
@@ -107,5 +133,7 @@ export const useMutationAccountsManage = () => {
     emailVerify,
     passwordSendResetLink,
     passwordReset,
+    //
+    userStatusCommit: noop,
   };
 };

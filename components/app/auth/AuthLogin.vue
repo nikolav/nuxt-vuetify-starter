@@ -3,7 +3,7 @@ import { authLoginCreds } from "@/schemas";
 const auth = useStoreApiAuth();
 const toggleIsHiddenPassword = useToggleFlag(true);
 const iconNameShowHidePassword = computed(() =>
-  toggleIsHiddenPassword.isActive.value
+  !toggleIsHiddenPassword.isActive.value
     ? "icon-park-outline:preview-open"
     : "icon-park-outline:preview-close-one"
 );

@@ -1,5 +1,7 @@
 import lodash from "lodash";
 //
+export { isEmail, isMobilePhone } from "validator";
+//
 const {
   assign,
   at,
@@ -36,7 +38,6 @@ const {
   random,
   reduce,
   sample,
-  sampleSize,
   set,
   shuffle,
   // size: len,
@@ -94,7 +95,6 @@ export {
   random,
   reduce,
   sample,
-  sampleSize,
   set,
   shuffle,
   some,

@@ -1,1 +1,2 @@
-export { useQueryProductsPrices } from "./useQueryProductsPrices"
+export { useQueryProductsPrices } from "./useQueryProductsPrices";
+export { useQueryProductsList } from "./useQueryProductsList";

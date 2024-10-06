@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
 import { renderIcon } from "@/components/icons";
-import { VChipPlus, VBtnFilterClear } from "@/components/app";
+import { VChipPlus, VBtnFilterClear, VFabMain } from "@/components/app";
 
 definePageMeta({
   layout: "app-default",
@@ -12,6 +12,7 @@ definePageMeta({
 const { smAndUp } = useDisplay();
 const {
   app: { TOOLTIPS_OPEN_DELAY, SEARCH_DEBOUNCE_DELAY, DEFAULT_TRANSITION },
+  layout: { toolbarMainHeight },
 } = useAppConfig();
 const headers = [
   // { title: "ID", key: "id" },
@@ -78,7 +79,7 @@ const {
   perPage,
 } = usePaginatedData({
   data: users,
-  perPage: 3,
+  perPage: 8,
 });
 
 // @watch
@@ -138,7 +139,7 @@ const onSubmitApplyGroupFiler = () => {
           <!-- @@toolbar:1 -->
           <VToolbar
             v-if="!toggleToolbarSecondary.isActive.value"
-            :height="41"
+            :height="toolbarMainHeight"
             color="primary"
             class="px-0 *:space-x-1"
           >
@@ -246,7 +247,12 @@ const onSubmitApplyGroupFiler = () => {
             </VBtn>
           </VToolbar>
           <!-- @@toolbar:2 -->
-          <VToolbar v-else :height="41" color="primary-lighten-2" floating>
+          <VToolbar
+            v-else
+            :height="toolbarMainHeight"
+            color="primary-lighten-2"
+            floating
+          >
             <template #prepend>
               <VBtn
                 @click="toggleToolbarSecondary"
@@ -423,15 +429,8 @@ const onSubmitApplyGroupFiler = () => {
         </VPagination>
       </template>
     </VCard>
-
-    <VFab
-      absolute
-      appear
-      :to="{ name: 'tim-dodaj-osobu' }"
-      icon="$plus"
-      class="!fixed !z-[9999]"
-      :class="[smAndUp ? 'end-20 bottom-6' : 'end-6 bottom-20']"
-    />
+    <!-- fab:action -->
+    <VFabMain :to="{ name: 'nalog-nov' }" />
   </section>
 </template>
 <style lang="scss">

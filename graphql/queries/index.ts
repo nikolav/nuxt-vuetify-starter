@@ -506,6 +506,8 @@ export const Q_usersOnly = gql`
       is_manager
       is_admin
       is_external
+      is_available
+      tags
       groups
       email_verified
       created_at
@@ -524,8 +526,57 @@ export const Q_users = gql`
       is_manager
       is_admin
       is_external
+      is_available
+      tags
       groups
       email_verified
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const Q_productsList = gql`
+  query q_productsList($pids: [ID!]) {
+    productsList(pids: $pids) {
+      id
+      name
+      code
+      type
+      location
+      status
+      condition
+      data
+      notes
+      tags
+      users {
+        id
+        email
+        profile
+        is_approved
+        is_manager
+        is_admin
+        is_external
+        is_available
+        tags
+        groups
+        created_at
+        updated_at        
+      }
+      author {
+        id
+        email
+        profile
+        is_approved
+        is_manager
+        is_admin
+        is_external
+        is_available
+        tags
+        groups
+        created_at
+        updated_at        
+      }
       created_at
       updated_at
     }

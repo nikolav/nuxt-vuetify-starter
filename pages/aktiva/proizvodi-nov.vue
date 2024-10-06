@@ -1,13 +1,13 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: "authorized",
   layout: "app-default",
+  middleware: "authorized",
 });
 // @@eos
 </script>
 <template>
-  <section class="page--tim-dodaj-osobu">
-    <h1>tim:dodaj-osobu</h1>
+  <section class="page--prodizvodi-nov">
+    <p>:prodizvodi-nov</p>
   </section>
 </template>
 <style lang="scss" scoped></style>

@@ -3,7 +3,12 @@
 export const useTopics = () => {
   const {
     app: { COOKIE_ANONYMOS_USER },
-    docs: { CHAT_ORDER_COM_USER_prefix, COM_PHOTOS_prefix, PRODUCT_IMAGES },
+    docs: {
+      CHAT_ORDER_COM_USER_prefix,
+      COM_PHOTOS_prefix,
+      PRODUCT_IMAGES,
+      USER_AVAILABILITY_STATUS,
+    },
     key: {
       CHAT_MAIN,
       COM_LIKES_prefix,
@@ -21,7 +26,9 @@ export const useTopics = () => {
     },
     firebase: {
       messaging: { KEY_FCM_DEVICE_TOKENS },
+      storage: { PATH_PROFILE_AVATARS },
     },
+    io: { IOEVENT_ACCOUNTS_UPDATED_prefix },
   } = useAppConfig();
   const comChat = (comid: number | undefined) =>
     comid ? `${TOPIC_CHAT_COM_prefix}${comid}` : "";
@@ -60,6 +67,11 @@ export const useTopics = () => {
   const userDeviceTokens = (uid: number | undefined) =>
     uid ? `${KEY_FCM_DEVICE_TOKENS}${uid}` : "";
   const userAnonymous = (key: string) => `${COOKIE_ANONYMOS_USER}:${key}`;
+  const ioeventAccountUpdated = (uid: any) =>
+    uid ? `${IOEVENT_ACCOUNTS_UPDATED_prefix}${uid}` : "";
+  const firebasePathAvatars = (uid: any) =>
+    uid ? `${trimEnd(PATH_PROFILE_AVATARS, "/")}/${uid}` : "";
+  const userAvailabilityStatus = () => USER_AVAILABILITY_STATUS;
 
   return {
     CHAT_MAIN,
@@ -81,5 +93,9 @@ export const useTopics = () => {
     userConfig,
     userDeviceTokens,
     userAnonymous,
+    firebasePathAvatars,
+    userAvailabilityStatus,
+    //
+    ioeventAccountUpdated,
   };
 };

@@ -25,9 +25,9 @@ export default defineAppConfig({
     FLAG_SHOW_AUTH_BACKGROUND: "0hrfFp7OeZWPQ7wE",
   },
   app: {
+    DEFAULT_NO_IMAGE_AVAILABLE: "/no-image.jpg",
     COOKIE_ANONYMOS_USER: "ANONYMOS_USER:XFwrJOC6a",
     DEFAULT_TRANSITION: "slide-y-reverse-transition",
-    DEFAULT_NO_IMAGE: "/no-image.jpg",
     TRANSLATION_ENABLED: true,
     TRANSLATION_DEFAULTS: {
       format: "text",
@@ -41,6 +41,7 @@ export default defineAppConfig({
     REDIRECT_UNAUTHORIZED_ROUTE_NAME: "index",
   },
   docs: {
+    USER_AVAILABILITY_STATUS: "USER_AVAILABILITY_STATUS:TOy5MSh9d7xmo94vvMED",
     CHAT_ORDER_COM_USER_prefix: "e5iT1p1Mmx5HD@",
     COM_PHOTOS_prefix: "@com:photos:",
     LIKEDISLIKE_CACHE_ID: "4OpsEOLNYG1wuF64OhBr",
@@ -173,6 +174,8 @@ export default defineAppConfig({
     LIGHT: themeLight,
   },
   layout: {
+    // toolbar.height@VDataTable.VCard...
+    toolbarMainHeight: 41,
     appBarHeight: 52,
     offsetTop: "1.22rem",
   },
@@ -224,6 +227,9 @@ export default defineAppConfig({
     ISO_FORMAT: "YYYY-MM-DD HH:mm:ss.SSSSSS",
   },
   firebase: {
+    storage: {
+      PATH_PROFILE_AVATARS: "/media/AVATARS:yenDhzULhtZohA9yo",
+    },
     firestore: {
       DEFAULT_DOCS_COLLECTION: "docs:8lyrg8edl53",
     },
@@ -246,6 +252,57 @@ export default defineAppConfig({
     aliases: {
       nuxt: "logos:nuxt-icon",
       github: "tabler:brand-github-filled",
+    },
+  },
+  acconts: {
+    availabilityStatus: <{ [type: string]: string }>{
+      available: "AVAILABLE:vmWsUhVctBpu1BAp",
+      away: "AWAY:p2oLyHH",
+      busy: "BUSY:woxs5B8Slw",
+      do_not_disturb: "DO_NOT_DISTURB:eb6Y5nXzlK",
+      invisible: "INVISIBLE:EDjVu",
+    },
+    availabilityUI: <Record<string, any>>{
+      available: {
+        icon: {
+          name: "$delimiter",
+          size: "1.22rem",
+          color: "green-darken-3",
+        },
+        title: "Prisutan",
+      },
+      busy: {
+        icon: {
+          name: "$delimiter",
+          size: "1.22rem",
+          color: "red-darken-3",
+        },
+        title: "Zauzet",
+      },
+      away: {
+        icon: {
+          name: "$delimiter",
+          size: "1.22rem",
+          color: "yellow-darken-4",
+        },
+        title: "Odsutan",
+      },
+      do_not_disturb: {
+        icon: {
+          name: "$iconBellOffOutline",
+          size: "1.22rem",
+          color: "red",
+        },
+        title: "Ne uznemiravaj",
+      },
+      invisible: {
+        icon: {
+          name: "$delimiter",
+          size: "1.22rem",
+          color: "grey",
+        },
+        title: "Nepoznato",
+      },
     },
   },
 });

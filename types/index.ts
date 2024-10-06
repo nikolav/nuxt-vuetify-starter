@@ -1,6 +1,12 @@
 import { type Ref } from "vue";
 // import { Interaction, type ChartData } from "chart.js";
+import type {
+  JsonDataRecord as RecordJson,
+  TJson,
+  TJsonLiteral,
+} from "~/schemas/json";
 
+export type { TJson, RecordJson, TJsonLiteral };
 export type OrNull<T = any> = T | null;
 export type OrNoValue<T = any> = OrNull<T> | undefined;
 export type TStoreMain<T = any> = Record<string, T>;
@@ -137,10 +143,17 @@ export interface IAuthProfile extends TBaseAuthProfile {
 export interface IUser {
   id: number;
   email: string;
+  profile?: RecordJson;
+  is_approved?: boolean;
+  is_manager?: boolean;
+  is_admin?: boolean;
+  is_external?: boolean;
+  is_available?: boolean;
+  email_verified?: boolean;
+  tags?: string[];
+  groups?: string[];
   products?: OrNoValue<IProduct[]>;
   posts?: OrNoValue<IPost[]>;
-  groups?: string[];
-  is_manager?: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -263,4 +276,23 @@ export interface ITranslationQuery {
   format?: "html" | "text";
   model?: string;
   key?: string;
+}
+
+export interface IAsset {
+  id: number;
+  name: string;
+  code?: string | undefined;
+  type?: string | undefined;
+  location?: string | undefined;
+  status?: string | undefined;
+  condition?: string | undefined;
+  data?: Record<string, any> | undefined;
+  notes?: string | undefined;
+
+  tags?: string[] | undefined;
+  users?: IUser[] | undefined;
+  author?: IUser | undefined;
+
+  created_at?: string | undefined;
+  updated_at?: string | undefined;
 }
