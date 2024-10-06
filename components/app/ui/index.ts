@@ -10,3 +10,4 @@ export * from "./accounts";
 export { default as VChipPlus } from "./v-chip-plus.vue";
 export { default as VBtnFilterClear } from "./vbtn-filter-clear.vue";
 export { default as VFabMain } from "./VFabMain.vue";
+export { default as VBtnToggleVisible } from "./VBtnToggleVisible.vue";

@@ -14,6 +14,7 @@ import {
   IconUsersGroup,
   IconBellOffOutline,
   IconKeyWriteFill,
+  IconAccountKey,
 } from "@/components/icons";
 
 // import { srLatn } from "vuetify/locale";
@@ -118,6 +119,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         iconUsersGroup: IconUsersGroup,
         iconBellOffOutline: IconBellOffOutline,
         iconKeyWriteFill: IconKeyWriteFill,
+        iconAccountKey: IconAccountKey
       },
       sets: {
         mdi,
