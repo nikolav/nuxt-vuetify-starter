@@ -396,7 +396,7 @@ const onSubmitApplyGroupFiler = () => {
                 <strong
                   :class="[
                     'text-body-1',
-                    item.is_manager ? 'text-primary' : undefined,
+                    item.is_manager ? 'text-primary-darken-1' : undefined,
                   ]"
                   >{{ calcValueOf(col.value, item) }}</strong
                 >

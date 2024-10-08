@@ -133,7 +133,5 @@ export const useMutationAccountsManage = () => {
     emailVerify,
     passwordSendResetLink,
     passwordReset,
-    //
-    userStatusCommit: noop,
   };
 };

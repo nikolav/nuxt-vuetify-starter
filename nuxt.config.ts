@@ -307,8 +307,15 @@ export default defineNuxtConfig({
   // #https://google-fonts.nuxtjs.org
   googleFonts: {
     families: {
-      "Open+Sans": true,
-      Roboto: true,
+      // "Open+Sans": true,
+      "Open+Sans": {
+        wght: [100, 300, 400, 500, 700, 900],
+        ital: [100, 300, 400, 500, 700, 900],
+      },
+      Roboto: {
+        wght: [100, 300, 400, 500, 700, 900],
+        ital: [100, 300, 400, 500, 700, 900],
+      },
     },
     useStylesheet: true,
     download: false,

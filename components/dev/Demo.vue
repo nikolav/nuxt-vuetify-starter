@@ -38,12 +38,6 @@ const ICONS_DEFAULT = [
   "warning",
 ];
 
-const { data, availability_commit } = useDocUsersAvailabilityStatus();
-
-const setavailability = async () => {
-  await availability_commit(2, "do_not_disturb");
-};
-
 // @@eos
 </script>
 <template>
@@ -56,7 +50,5 @@ const setavailability = async () => {
     />
   </VResponsive>
   <VDivider class="mt-4" />
-  <VBtn @click="setavailability">ok</VBtn>
-  <Dump :data="{ data }" />
 </template>
 <style lang="scss" scoped></style>

@@ -17,7 +17,7 @@ import {
   IconAccountKey,
 } from "@/components/icons";
 
-// import { srLatn } from "vuetify/locale";
+import { srLatn } from "vuetify/locale";
 
 // # --default-light-theme
 // const demoLightTheme: ThemeDefinition = {
@@ -119,19 +119,24 @@ export default defineNuxtPlugin((nuxtApp) => {
         iconUsersGroup: IconUsersGroup,
         iconBellOffOutline: IconBellOffOutline,
         iconKeyWriteFill: IconKeyWriteFill,
-        iconAccountKey: IconAccountKey
+        iconAccountKey: IconAccountKey,
       },
       sets: {
         mdi,
       },
     },
-    // locale: {
-    //   locale: "srLatn",
-    //   messages: { srLatn },
-    //   // fallback: "en",
-    //   // locale: 'zhHans',
-    //   // messages: { zhHans, pl, sv }
-    // },
+    locale: {
+      locale: "srLatn",
+      messages: { srLatn },
+      // fallback: "en",
+      // locale: 'zhHans',
+      // messages: { zhHans, pl, sv }
+    },
+    date: {
+      locale: {
+        srLatn: "sr-Latn-RS",
+      },
+    },
   });
 
   nuxtApp.vueApp.use(vuetify);

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// PPd6JYIA2KvsC3ZsBVpd
+// AtyD9HxHrAb0Yu0
 
 // config, utils
 const availability = defineModel<any>();
@@ -66,7 +66,7 @@ useOnceMountedOn(store, () => {
       />
     </template>
     <template #selection="{ item }">
-      <span class="ms-4 text-h6">
+      <span class="ms-3 text-h6">
         {{ item.title }}
       </span>
     </template>

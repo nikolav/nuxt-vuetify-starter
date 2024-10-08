@@ -11,6 +11,7 @@ import type {
   IStorageFileInfo,
   IFilesUpload,
   IStorageStatusFileSaved,
+  RecordJson,
 } from "@/types";
 import { schemaStorageMeta } from "@/schemas";
 
@@ -24,7 +25,6 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
 
   const auth = useStoreApiAuth();
   const toggleEnabled = useToggleFlag(initialEnabled);
-  const uid$ = computed(() => get(auth.user$, "id"));
 
   // @@enabled
   const enabled$ = computed(
@@ -32,7 +32,7 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
   );
   const { watchProcessing } = useStoreAppProcessing();
   const {
-    load: loadStorage,
+    load: storageStart,
     result,
     refetch,
     loading,
@@ -52,14 +52,14 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
         : undefined) || []
   );
   const reloadFiles = async () => await refetch();
-  onceMountedOn(enabled$, loadStorage);
+  useOnceMountedOn(enabled$, storageStart);
 
   watch([() => auth.isAuth$, enabled$], ([isAuth, enabled]) => {
     if (isAuth && enabled) reloadFiles();
   });
 
   const ioevent_ = computed(() =>
-    enabled$.value ? `${IOEVENT_STORAGE_CHANGE}${uid$.value}` : ""
+    enabled$.value ? `${IOEVENT_STORAGE_CHANGE}${auth.uid}` : ""
   );
 
   // upload({
@@ -88,35 +88,30 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
     });
     if (!numfiles) return;
 
+    let data;
+
     try {
       uploadStatus.begin();
-      const { data } = await axios<Record<string, TFileData>>({
-        url: URL_STORAGE,
-        method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${auth.token$}`,
-        },
-        data: fdata,
-      });
-      if (!isEmpty(data)) {
-        uploadStatus.successful();
-        return data;
-      }
+      data = get(
+        await axios<Record<string, TFileData>>({
+          url: URL_STORAGE,
+          method: "POST",
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${auth.token$}`,
+          },
+          data: fdata,
+        }),
+        "data"
+      );
     } catch (error) {
       uploadStatus.setError(error);
     } finally {
       uploadStatus.done();
     }
-    if (!uploadStatus.error.value) uploadStatus.successful();
+    if (!(uploadStatus.error.value || isEmpty(data))) uploadStatus.successful();
+    return data;
   };
-
-  // @@publicUrl,
-  //   (@usage own files)
-  const publicUrl = (file_id: string = "") =>
-    file_id && find(files$.value, { file_id, public: true })
-      ? `${URL_STORAGE}/${file_id}`
-      : "";
 
   // @@download
   const download = async (file_id: string = "") => {
@@ -133,47 +128,49 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
   const { mutate: mutateRemoveFile, loading: rmLoading } = useMutation(
     M_STORAGE_FILE_REMOVE
   );
-  const remove = async (fileID: string = "") => {
-    if (fileID && enabled$.value) return await mutateRemoveFile({ fileID });
-  };
+  const remove = async (fileID = "") =>
+    enabled$.value && fileID ? await mutateRemoveFile({ fileID }) : undefined;
 
   // @@meta
   const topicStorageMeta_ = computed(() =>
-    enabled$.value ? `${TAG_STORAGE}${uid$.value}` : ""
+    enabled$.value ? `${TAG_STORAGE}${auth.uid}` : ""
   );
   const {
-    upsert: metaPut,
+    commit,
     IOEVENT: IOEVENT_STORAGE_META_CHANGE,
     loading: metaLoading,
   } = useDocs(topicStorageMeta_);
-  const meta = async (values: Record<string, any>, file_id: string) => {
+  const meta = async (metas: RecordJson, file_id: string) => {
     if (!enabled$.value) return;
 
     const doc = find(files$.value, { file_id });
     if (!doc?.id) return;
 
-    let values_;
+    let metas_;
     try {
-      values_ = schemaStorageMeta.parse(values);
+      // pass schema
+      metas_ = schemaStorageMeta.parse(metas);
     } catch (error) {
       // skip
       return;
     }
-    if (!(values_ || len(values_))) return;
+    if (!len(Object(metas_))) return;
 
-    return await metaPut(
-      omit(assign({}, doc, values_), FIELDS_OMIT_STORAGE_META),
+    return await commit(
+      omit(assign({}, doc, metas_), FIELDS_OMIT_STORAGE_META),
       doc.id
     );
   };
 
-  watchProcessing(
+  const processing = computed(
     () =>
       loading.value ||
       uploadStatus.processing.value ||
       rmLoading.value ||
       metaLoading.value
   );
+  watchProcessing(processing);
+
   // @io/listen
   watchEffect(() => useIOEvent(ioevent_.value, reloadFiles));
   watchEffect(() => useIOEvent(IOEVENT_STORAGE_META_CHANGE.value, reloadFiles));
@@ -187,11 +184,10 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
     remove,
     download,
     meta,
-    publicUrl,
     reload: reloadFiles,
 
     // # flags
-    loading,
+    processing,
     uploadStatus,
 
     // @toggle
@@ -200,5 +196,8 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
 
     // @io-event
     IO: ioevent_,
+
+    // alias
+    loading: processing,
   };
 };

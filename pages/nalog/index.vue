@@ -18,7 +18,7 @@ const {
 const auth = useStoreApiAuth();
 const emailVerified = computed(() => get(auth.user$, "email_verified"));
 
-const FIELDS = ["firstName", "lastName", "phone", "displayName"];
+const FIELDS = ["firstName", "lastName", "phone", "address", "displayName"];
 
 const {
   profilePatch,
@@ -114,6 +114,12 @@ onMounted(() => {
               v-model.trim="form.phone.value"
               density="comfortable"
               label="Telefon"
+              variant="underlined"
+            />
+            <VTextField
+              v-model.trim="form.address.value"
+              density="comfortable"
+              label="Adresa stanovanja"
               variant="underlined"
             />
             <VTextField
