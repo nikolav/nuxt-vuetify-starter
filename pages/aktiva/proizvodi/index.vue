@@ -12,6 +12,9 @@ const { products } = useQueryProductsList();
 <template>
   <section class="page--proizvodi">
     <p>:proizvodi</p>
+    <NuxtLink :to="{ name: 'aktiva-proizvodi-pid', params: { pid: 1 } }"
+      >p:1</NuxtLink
+    >
     <VFabMain :to="{ name: 'aktiva-proizvodi-nov' }" />
     <Dump :data="{ products }" />
   </section>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// 8rWqBKIKsWZ4pbf1
 import { Test, Dump } from "@/components/dev";
 const ICONS_DEFAULT = [
   "calendar",
@@ -38,6 +39,12 @@ const ICONS_DEFAULT = [
   "warning",
 ];
 
+const { update } = useQueryGroupsManage();
+const codeUpdate = async () => {
+  const res = await update(46, { data: { a: `a:${idGen()}` } });
+  console.log({ res });
+};
+
 // @@eos
 </script>
 <template>
@@ -50,5 +57,6 @@ const ICONS_DEFAULT = [
     />
   </VResponsive>
   <VDivider class="mt-4" />
+  <VBtn @click="codeUpdate">ok</VBtn>
 </template>
 <style lang="scss" scoped></style>

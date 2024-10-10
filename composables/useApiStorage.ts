@@ -94,8 +94,8 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
       uploadStatus.begin();
       data = get(
         await axios<Record<string, TFileData>>({
-          url: URL_STORAGE,
           method: "POST",
+          url: URL_STORAGE,
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${auth.token$}`,
@@ -135,6 +135,7 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
   const topicStorageMeta_ = computed(() =>
     enabled$.value ? `${TAG_STORAGE}${auth.uid}` : ""
   );
+  // file db-records
   const {
     commit,
     IOEVENT: IOEVENT_STORAGE_META_CHANGE,
@@ -176,28 +177,28 @@ export const useApiStorage = (initialEnabled = true, __list_all = false) => {
   watchEffect(() => useIOEvent(IOEVENT_STORAGE_META_CHANGE.value, reloadFiles));
 
   return {
-    // # ls
+    // @crud
     files: files$,
-
-    // # crud
     upload,
     remove,
     download,
     meta,
     reload: reloadFiles,
 
-    // # flags
+    // @flags
+    enabled: enabled$,
     processing,
+
+    // @status:upload
     uploadStatus,
 
-    // @toggle
-    enabled: enabled$,
+    // @toggle:api-enabled
     toggleEnabled,
 
-    // @io-event
+    // @io
     IO: ioevent_,
 
-    // alias
+    // @alias
     loading: processing,
   };
 };

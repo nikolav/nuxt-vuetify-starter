@@ -247,3 +247,72 @@ export const M_accountsVeifyEmail = gql`
     accountsVeifyEmail(data: $data)
   }
 `;
+
+export const M_groupsGUConfigure = gql`
+  mutation m_groupsGUConfigure($guConfig: JsonData!) {
+    groupsGUConfigure(guConfig: $guConfig)
+  }
+`;
+
+// groupsAdd(name: String!, fields: JsonData): Asset
+export const M_groupsAdd = gql`
+  mutation m_groupsAdd($name: String!, $fields: JsonData) {
+    groupsAdd(name: $name, fields: $fields) {
+      id
+      name
+      code
+      type
+      location
+      status
+      condition
+      data
+      notes
+      users {
+        id
+        email
+        profile
+        is_approved
+        is_manager
+        is_admin
+        is_external
+        is_available
+        tags
+        groups
+        created_at
+        updated_at
+      }
+      author {
+        id
+        email
+        profile
+        is_approved
+        is_manager
+        is_admin
+        is_external
+        is_available
+        tags
+        groups
+        created_at
+        updated_at
+      }
+      tags
+      docs
+      created_at
+      updated_at
+    }
+  }
+`;
+
+// assetsRemove(aids: [ID!]!): JsonData!
+export const M_assetsRemove = gql`
+  mutation m_assetsRemove($aids: [ID!]!) {
+    assetsRemove(aids: $aids)
+  }
+`;
+
+// assetsUpdate(aid: ID!, fields: JsonData): JsonData!
+export const M_assetsUpdate = gql`
+  mutation m_assetsUpdate($aid: ID!, $fields: JsonData) {
+    assetsUpdate(aid: $aid, fields: $fields)
+  }
+`;

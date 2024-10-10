@@ -6,7 +6,7 @@ definePageMeta({
 // @@eos
 </script>
 <template>
-  <section class="page--prodizvodi-nov">
+  <section class="page--aktiva-prodizvodi-nov">
     <p>:prodizvodi-nov</p>
   </section>
 </template>

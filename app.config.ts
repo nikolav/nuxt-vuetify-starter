@@ -142,6 +142,9 @@ export default defineAppConfig({
   },
   //
   io: {
+    AssetsIOEvents: {
+      GROUPS_CHANGE: "GROUPS_CHANGE:nOvrgoYvY9lEtYW",
+    },
     // flag single account updated
     IOEVENT_ACCOUNTS_UPDATED_prefix: "@accounts:updated:sk9wx016CJOUaKZVX:",
     // flag account added/removed

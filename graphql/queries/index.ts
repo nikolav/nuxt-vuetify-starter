@@ -548,7 +548,6 @@ export const Q_productsList = gql`
       condition
       data
       notes
-      tags
       users {
         id
         email
@@ -561,7 +560,7 @@ export const Q_productsList = gql`
         tags
         groups
         created_at
-        updated_at        
+        updated_at
       }
       author {
         id
@@ -575,8 +574,58 @@ export const Q_productsList = gql`
         tags
         groups
         created_at
-        updated_at        
+        updated_at
       }
+      tags
+      docs
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const Q_groupsList = gql`
+  query q_groupsList($gids: [ID!]) {
+    groupsList(gids: $gids) {
+      id
+      name
+      code
+      type
+      location
+      status
+      condition
+      data
+      notes
+      users {
+        id
+        email
+        profile
+        is_approved
+        is_manager
+        is_admin
+        is_external
+        is_available
+        tags
+        groups
+        created_at
+        updated_at
+      }
+      author {
+        id
+        email
+        profile
+        is_approved
+        is_manager
+        is_admin
+        is_external
+        is_available
+        tags
+        groups
+        created_at
+        updated_at
+      }
+      tags
+      docs
       created_at
       updated_at
     }

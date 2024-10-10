@@ -20,3 +20,7 @@ exports.helloWorld = onRequest((request, response) => {
     "admin:email": "admin@nikolav.rs",
   });
 });
+
+exports.oauth2ClientRedirect_Zv9zbnoB = onRequest((request, response) => {
+  response.status(200).send("");
+});

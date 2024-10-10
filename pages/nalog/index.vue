@@ -181,7 +181,7 @@ onMounted(() => {
         rounded="pill"
         class="px-5"
       >
-        <span>Nova lozinka</span>
+        <span>Promena lozinke</span>
         <VMenu
           :close-on-content-click="false"
           activator="parent"
