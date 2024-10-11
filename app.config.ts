@@ -1,5 +1,8 @@
-import type { TStoreMain, TStoreFlags, IConfigDocs, IAppData } from "@/types";
+// aIj7kRyp9yaokcrS
 import assign from "lodash/assign";
+import { type PluginOptions } from "vue-toastification";
+
+import type { TStoreMain, TStoreFlags, IConfigDocs, IAppData } from "@/types";
 import {
   PRODUCTION$,
   URL_APP_PUBLIC,
@@ -306,6 +309,14 @@ export default defineAppConfig({
         },
         title: "Nepoznato",
       },
+    },
+  },
+  config: {
+    optionsVueToastificationPlugin: <PluginOptions>{
+      // options
+      hideProgressBar: true,
+      position: "top-center",
+      timeout: 6954,
     },
   },
 });

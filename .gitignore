@@ -108,7 +108,6 @@ $RECYCLE.BIN/
 bower_components
 build/
 build/Release
-cat-config.sh
 celerybeat-schedule
 celerybeat.pid
 client.http

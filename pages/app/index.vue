@@ -18,6 +18,8 @@ const viberSendText = async () => {
   );
 };
 
+const { $toast } = useNuxtApp();
+
 // @@eos
 </script>
 <template>
@@ -25,6 +27,7 @@ const viberSendText = async () => {
     <h1>app</h1>
     <VBtn @click="FCMPing">FCM:ping</VBtn>
     <VBtn @click="viberSendText">viberSendText</VBtn>
+    <VBtn @click="$toast('ok')">$toast</VBtn>
     <Dump :data="{ FCMStatus }" />
   </section>
 </template>

@@ -277,6 +277,10 @@ export default defineNuxtConfig({
 
     // https://github.com/surmon-china/videojs-player
     "video.js/dist/video-js.css",
+
+    // https://github.com/Maronato/vue-toastification
+    // "vue-toastification/dist/index.css",
+    "~/assets/styles/vue-toastification/settings.scss",
   ],
 
   // https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
