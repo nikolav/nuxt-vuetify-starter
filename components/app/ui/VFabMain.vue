@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// daVORcblZd8JD
 import { useDisplay } from "vuetify";
 const { smAndUp } = useDisplay();
 
@@ -11,7 +12,6 @@ const { smAndUp } = useDisplay();
     icon="$plus"
     class="!fixed !z-[9999]"
     :class="[smAndUp ? 'end-20 bottom-6' : 'end-6 bottom-20']"
-    v-bind="$attrs"
   />
 </template>
 <style lang="scss" scoped></style>

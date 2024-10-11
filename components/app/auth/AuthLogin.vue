@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// HxDahsVMgyWA8
 import { authLoginCreds } from "@/schemas";
 const auth = useStoreApiAuth();
 const toggleIsHiddenPassword = useToggleFlag(true);

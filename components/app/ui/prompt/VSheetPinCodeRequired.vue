@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 8HEFwy9
+// lYnRSjqINePwkYZaP4z
 const pin = defineModel();
 const props = withDefaults(
   defineProps<{

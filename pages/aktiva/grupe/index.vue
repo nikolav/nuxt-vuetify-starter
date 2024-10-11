@@ -1,24 +1,38 @@
 <script setup lang="ts">
-import { VFabMain } from "@/components/app";
-import { Dump } from "@/components/dev";
+// mGboFLwXJpbrJ1T
+import { VFabMain, VCardDataIterator } from "@/components/app";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
 
-const { ls } = useQueryGroupsManage();
+// @data @auth
+const { groups, reload, processing } = useQueryGroupsManage();
+const itemTo = (item: any) => ({
+  name: "aktiva-grupe-gid",
+  params: { gid: item.raw.id },
+});
+const lsItemGroups = (d: any) => [last(d.name.split(":"))];
 
 // @@eos
 </script>
 <template>
-  <section class="page--grupe">
-    <p>:grupe</p>
-    <NuxtLink :to="{ name: `aktiva-grupe-gid`, params: { gid: 46 } }">
-      <a>gid:goto</a>
-    </NuxtLink>
-
+  <section class="page--aktiva-grupe">
+    <VCardDataIterator
+      :items="groups"
+      item-title="name"
+      :reload="reload"
+      :card-props="{ disabled: processing }"
+      :menu-props="{ 'max-height': 255 }"
+      :item-to="itemTo"
+      :item-groups="lsItemGroups"
+      :per-page="3"
+    >
+      <template #menu="{ selection }">
+        <p>{{ selection.length }}</p>
+      </template>
+    </VCardDataIterator>
     <VFabMain :to="{ name: 'aktiva-grupe-nova' }" />
-    <Dump :data="{ ls }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

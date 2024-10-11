@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// igvjucMGiTAgjPi
 import { useDisplay } from "vuetify";
 import NAV from "~/assets/app/nav.json";
 import SUBNAV from "~/assets/app/subnav.json";

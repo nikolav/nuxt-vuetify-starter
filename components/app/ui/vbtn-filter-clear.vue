@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// ihBaMrh7Bf6
 // @@eos
 </script>
 <template>
@@ -7,7 +8,6 @@
     icon
     variant="plain"
     density="comfortable"
-    v-bind="$attrs"
   >
     <Icon size="1.11rem" name="material-symbols:filter-alt-off-outline" />
   </VBtn>

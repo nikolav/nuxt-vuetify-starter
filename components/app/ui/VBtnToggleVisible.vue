@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// vz2gq2o9AGK4U2l
 const isActive = defineModel<boolean>();
 const icon = computed(() =>
   isActive.value

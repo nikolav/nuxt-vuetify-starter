@@ -8,13 +8,13 @@ import { aliases, mdi } from "vuetify/iconsets/mdi-svg";
 import { light, dark } from "@/assets/themes";
 import { SSR } from "@/config";
 import {
-  IconFrikomLogo,
-  IconFactory,
-  IconAppCogFill,
-  IconUsersGroup,
-  IconBellOffOutline,
-  IconKeyWriteFill,
   IconAccountKey,
+  IconAppCogFill,
+  IconBellOffOutline,
+  IconFactory,
+  IconFrikomLogo,
+  IconKeyWriteFill,
+  IconUsersGroup,
 } from "@/components/icons";
 
 import { srLatn } from "vuetify/locale";

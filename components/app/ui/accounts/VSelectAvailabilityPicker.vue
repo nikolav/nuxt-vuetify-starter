@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// AtyD9HxHrAb0Yu0
+// CULzxE
 
 // config, utils
 const availability = defineModel<any>();

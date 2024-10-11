@@ -1,3 +1,5 @@
+
+// Q7ZG9LDBt8uArmvK
 import {
   Q_groupsList,
   M_groupsGUConfigure,
@@ -31,6 +33,7 @@ export const useQueryGroupsManage = (GIDS?: any) => {
     }
   );
   const ls = computed(() => result.value?.groupsList || []);
+  const length = computed(() => len(ls.value || []));
   const reload = async () => await refetch();
   useOnceMountedOn(true, queryStart);
 
@@ -72,6 +75,7 @@ export const useQueryGroupsManage = (GIDS?: any) => {
 
     // @crud
     ls,
+    length,
     add,
     drop,
     update,

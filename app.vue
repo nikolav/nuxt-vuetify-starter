@@ -82,12 +82,10 @@ provide(key_REF_APPMAIN, ref_appMain);
 </script>
 <template>
   <VApp
+    class="component--appMain"
     ref="ref_appMain"
     :theme="theme"
-    :class="[
-      'component--appMain',
-      authBgActive ? 'v-app--authBgActive' : undefined,
-    ]"
+    :class="[authBgActive ? 'v-app--authBgActive' : undefined]"
   >
     <!-- @pages -->
     <NuxtLayout>

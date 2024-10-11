@@ -56,19 +56,20 @@ const groupsSelected = ref<string[]>();
 const groupSelectionMany = ref<string[]>([]);
 const selection = ref<any[]>([]);
 
-// @computed
-const noUsers = computed(() => isEmpty(users.value));
-const sizeUsers = computed(() => len(users.value));
-const isEmptyGroupsSelected = computed(() => isEmpty(groupsSelected.value));
-const groupsAll = computed(() =>
-  sortBy(union(...map(users.value, "groups")), caseUpper)
-);
 const usersFilteredGroups = computed(() =>
   isEmpty(groupsSelected.value)
     ? users.value
     : filter(users.value, (user) =>
         some(groupsSelected.value, (g) => user.groups?.includes(g))
       )
+);
+
+// @computed
+const noUsers = computed(() => isEmpty(usersFilteredGroups.value));
+const sizeUsers = computed(() => len(usersFilteredGroups.value));
+const isEmptyGroupsSelected = computed(() => isEmpty(groupsSelected.value));
+const groupsAll = computed(() =>
+  sortBy(union(...map(users.value, "groups")), caseUpper)
 );
 
 // @utils
@@ -96,13 +97,17 @@ const filterClear = () => {
   groupsSelected.value = groupSelectionMany.value = [];
 };
 const usersSelectAll = () => {
-  selection.value = users.value;
+  selection.value = usersFilteredGroups.value;
 };
 const usersSelectAllOff = () => {
   selection.value = [];
 };
 const usersSelectToggle = () => {
-  selection.value = differenceBy(users.value, selection.value, "id");
+  selection.value = differenceBy(
+    usersFilteredGroups.value,
+    selection.value,
+    "id"
+  );
 };
 const showUserScreen = (uid: any) =>
   navigateTo({ name: "tim-uid", params: { uid } });
@@ -134,6 +139,7 @@ const onSubmitApplyGroupFiler = () => {
         return-object
         show-select
         id="ID--1QknrimP7"
+        class="CLASS--VDataTable--no-row-divider"
       >
         <template #top>
           <!-- @@toolbar:1 -->
@@ -154,21 +160,6 @@ const onSubmitApplyGroupFiler = () => {
               />
             </span>
             <VBtn
-              @click="usersSelectAll"
-              density="comfortable"
-              icon
-              variant="plain"
-              color="on-primary"
-            >
-              <Icon name="fluent:select-all-on-24-regular" size="1.55rem" />
-              <VTooltip
-                activator="parent"
-                text="Svi"
-                location="bottom"
-                :open-delay="TOOLTIPS_OPEN_DELAY"
-              />
-            </VBtn>
-            <VBtn
               @click="usersSelectAllOff"
               density="comfortable"
               icon
@@ -179,6 +170,21 @@ const onSubmitApplyGroupFiler = () => {
               <VTooltip
                 activator="parent"
                 text="Poništi"
+                location="bottom"
+                :open-delay="TOOLTIPS_OPEN_DELAY"
+              />
+            </VBtn>
+            <VBtn
+              @click="usersSelectAll"
+              density="comfortable"
+              icon
+              variant="plain"
+              color="on-primary"
+            >
+              <Icon name="fluent:select-all-on-24-regular" size="1.55rem" />
+              <VTooltip
+                activator="parent"
+                text="Svi"
                 location="bottom"
                 :open-delay="TOOLTIPS_OPEN_DELAY"
               />
@@ -261,7 +267,7 @@ const onSubmitApplyGroupFiler = () => {
                 density="comfortable"
               />
             </template>
-            <VToolbarItems class="min-w-[13.55rem]" id="ID--JnatwQ3c">
+            <VToolbarItems class="min-w-[13.55rem] CLASS--eGTtZYfHxr4Epde9o">
               <!-- @@search:users -->
               <VTextField
                 v-model="usersSearch"
@@ -366,10 +372,10 @@ const onSubmitApplyGroupFiler = () => {
               <td
                 v-if="'data-table-select' === col.key"
                 style="width: 1%"
-                class="ps-1 pe-0"
+                class="ps-2 pe-0"
               >
                 <VCheckboxBtn
-                  class="mx-0"
+                  class="mx-0 scale-[109%]"
                   @click.stop
                   :model-value="isSelected(internalItem)"
                   @update:model-value="toggleSelect(internalItem)"
@@ -394,8 +400,8 @@ const onSubmitApplyGroupFiler = () => {
                 :class="[smAndUp ? undefined : 'ps-2']"
               >
                 <strong
+                  class="text-body-1 ps-2"
                   :class="[
-                    'text-body-1',
                     item.is_manager ? 'text-primary-darken-1' : undefined,
                   ]"
                   >{{ calcValueOf(col.value, item) }}</strong
@@ -437,8 +443,11 @@ const onSubmitApplyGroupFiler = () => {
 #ID--1QknrimP7 table {
   table-layout: auto;
 }
-#ID--JnatwQ3c .v-input__append {
+.CLASS--eGTtZYfHxr4Epde9o .v-input__append {
   margin-inline-start: 8px !important;
+}
+.CLASS--VDataTable--no-row-divider .v-table__wrapper tr > td {
+  border-bottom: unset !important;
 }
 </style>
 <style lang="scss" scoped></style>
