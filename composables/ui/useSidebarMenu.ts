@@ -9,10 +9,23 @@ export const useSidebarMenu = (
   );
   const refSubnav = useQuerySelector(`#${config.ID_subnav}`);
   const { height: sidebarMainHeight } = useElementSize(refSubnav);
+  const appBarTitle = computed(() =>
+    get(
+      SUBNAV["aktiva"][
+        findIndex(SUBNAV["aktiva"], (node) =>
+          String(route.name).startsWith(node.to)
+        )
+      ],
+      "title",
+      ""
+    )
+  );
 
   return {
+    SUBNAV,
     ID_subnav: config.ID_subnav,
     hasNavSecondary,
     sidebarMainHeight,
+    appBarTitle,
   };
 };

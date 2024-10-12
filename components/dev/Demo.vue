@@ -39,9 +39,6 @@ const ICONS_DEFAULT = [
   "warning",
 ];
 
-
-const { $toast } = useNuxtApp()
-
 // @@eos
 </script>
 <template>
@@ -54,6 +51,6 @@ const { $toast } = useNuxtApp()
     />
   </VResponsive>
   <VDivider class="mt-4" />
-  <VBtn @click="$toast('ok')">ok</VBtn>
+
 </template>
 <style lang="scss" scoped></style>

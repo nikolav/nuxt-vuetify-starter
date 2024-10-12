@@ -11,3 +11,4 @@ export { schemaTask } from "./task";
 export { schemaUsersIsDefault } from "./user-is-default";
 export { schemaUsersNotReserved } from "./users-is-user";
 export { schemaJsonData, schemaJsonDataRecord } from "./json";
+export { schemaHasFieldName } from "./input";

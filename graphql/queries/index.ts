@@ -631,3 +631,52 @@ export const Q_groupsList = gql`
     }
   }
 `;
+
+// assetsList(aids: [ID!], type: String): [Asset!]!
+export const Q_assetsList = gql`
+  query q_assetsList($aids: [ID!], $type: String) {
+    assetsList(aids: $aids, type: $type) {
+      id
+      name
+      code
+      type
+      location
+      status
+      condition
+      data
+      notes
+      tags
+      author {
+        id
+        email
+        profile
+        is_approved
+        is_manager
+        is_admin
+        is_external
+        is_available
+        tags
+        groups
+        created_at
+        updated_at
+      }
+      users {
+        id
+        email
+        profile
+        is_approved
+        is_manager
+        is_admin
+        is_external
+        is_available
+        tags
+        groups
+        created_at
+        updated_at
+      }
+      docs
+      created_at
+      updated_at
+    }
+  }
+`;

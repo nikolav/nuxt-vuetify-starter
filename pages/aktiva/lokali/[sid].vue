@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Dump } from "@/components/dev";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
@@ -7,11 +8,14 @@ definePageMeta({
 const route = useRoute();
 const sid = computed(() => get(route.params, "sid"));
 
+const { assets } = useQueryManageAssets(undefined, () => [sid.value]);
+const site = computed(() => first(assets.value));
+
 // @@eos
 </script>
 <template>
   <section class="component--aktiva-lokali-sid">
-    <h1>:lokali-{{ sid }}</h1>
+    <Dump :data="{ site }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

@@ -7,7 +7,7 @@ import { renderIcon } from "@/components/icons";
 defineOptions({
   inheritAttrs: false,
 });
-const itemsSelected = defineModel();
+const itemsSelected = defineModel<any[] | undefined>();
 const props = withDefaults(
   defineProps<{
     items: any[];
@@ -347,6 +347,9 @@ const onSubmitApplyGroupFiler = () => {
               :to="itemTo(node)"
               class="ps-2"
             >
+              <template #append="props_" v-if="$slots['list-item-append']">
+                <slot name="list-item-append" v-bind="props_" />
+              </template>
               <template #prepend>
                 <VCheckboxBtn
                   base-color="secondary-lighten-1"

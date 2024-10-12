@@ -1,3 +1,2 @@
 // FHmaKRAWTyJYDuEK
-export { useQueryGroupsManage } from "./useQueryGroupsManage";
-
+export {};

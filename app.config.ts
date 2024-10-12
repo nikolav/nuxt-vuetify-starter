@@ -145,9 +145,6 @@ export default defineAppConfig({
   },
   //
   io: {
-    AssetsIOEvents: {
-      GROUPS_CHANGE: "GROUPS_CHANGE:nOvrgoYvY9lEtYW",
-    },
     // flag single account updated
     IOEVENT_ACCOUNTS_UPDATED_prefix: "@accounts:updated:sk9wx016CJOUaKZVX:",
     // flag account added/removed
@@ -317,6 +314,18 @@ export default defineAppConfig({
       hideProgressBar: true,
       position: "top-center",
       timeout: 6954,
+    },
+  },
+  db: {
+    Assets: {
+      type: {
+        DIGITAL_CHANNEL: "DIGITAL_CHANNEL:YqmefT",
+        DIGITAL_CHAT: "DIGITAL_CHAT:4nASbEj8pFvqm",
+        DIGITAL_FORM: "DIGITAL_FORM:TzZJs5PZqcWc",
+        PEOPLE_GROUP_TEAM: "PEOPLE_GROUP_TEAM:sEdkj9r",
+        PHYSICAL_PRODUCT: "PHYSICAL_PRODUCT:u1zDoNxQnYLnHHbp",
+        PHYSICAL_STORE: "PHYSICAL_STORE:5btoy9I8IKgT0RJO",
+      },
     },
   },
 });

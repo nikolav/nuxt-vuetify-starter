@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { VFabMain } from "@/components/app";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
@@ -7,9 +6,9 @@ definePageMeta({
 // @@eos
 </script>
 <template>
-  <section class="page--obrasci">
-    <p>:obrasci</p>
-    <VFabMain />
+  <section class="page--teren-izvestaj">
+    <h1>teren-izvestaj</h1>
   </section>
 </template>
 <style lang="scss" scoped></style>
+<style lang="scss"></style>

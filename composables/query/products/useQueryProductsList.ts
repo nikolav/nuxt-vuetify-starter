@@ -28,12 +28,14 @@ export const useQueryProductsList = (PIDS: any = undefined) => {
   const reload = async () => await refetch();
   useOnceMountedOn(true, queryStart);
 
+  const processing = computed(() => loading.value);
   const { watchProcessing } = useStoreAppProcessing();
-  watchProcessing(loading);
+  watchProcessing(processing);
 
   return {
     pids,
     products,
     reload,
+    processing,
   };
 };

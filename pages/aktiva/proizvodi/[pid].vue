@@ -7,7 +7,7 @@ definePageMeta({
 
 const route = useRoute();
 const pid = computed(() => get(route.params, "pid"));
-const { products } = useQueryProductsList(() => [pid.value]);
+const { assets: products } = useQueryManageAssets(undefined, () => [pid.value]);
 const p = computed(() => first(products.value));
 // @@eos
 </script>

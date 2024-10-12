@@ -2,25 +2,25 @@
   "aktiva": [
     {
       "icon": "game-icons:cardboard-box-closed",
-      "title": "a1",
+      "title": "Proizvodi",
       "size": "1.85rem",
       "to": "aktiva-proizvodi"
     },
     {
       "icon": "$iconUsersGroup",
-      "title": "a2",
+      "title": "Grupe",
       "size": "1.66rem",
       "to": "aktiva-grupe"
     },
     {
       "icon": "ic:round-storefront",
-      "title": "a3",
+      "title": "Lokali",
       "size": "1.67rem",
       "to": "aktiva-lokali"
     },
     {
       "icon": "$iconAppCogFill",
-      "title": "a3",
+      "title": "Obrasci",
       "size": "1.44rem",
       "to": "aktiva-obrasci"
     }

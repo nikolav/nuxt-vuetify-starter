@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { VFabMain } from "@/components/app";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
+
 // @@eos
 </script>
 <template>
-  <section class="page--lokali">
-    <p>:lokali</p>
-    <VFabMain />
+  <section class="page--aktiva-obrasci-nov">
+    <h1>aktiva-obrasci-nov</h1>
   </section>
 </template>
 <style lang="scss" scoped></style>
+<style lang="scss"></style>

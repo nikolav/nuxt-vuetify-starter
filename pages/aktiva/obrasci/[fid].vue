@@ -6,16 +6,16 @@ definePageMeta({
 });
 
 const route = useRoute();
-const gid = computed(() => get(route.params, "gid"));
-const { assets: ls } = useQueryManageAssets(undefined, () => [gid.value]);
-const g = computed(() => first(ls.value));
+const fid = computed(() => get(route.params, "fid"));
+
+const { assets } = useQueryManageAssets(undefined, () => [fid.value]);
+const form = computed(() => first(assets.value));
 
 // @@eos
 </script>
 <template>
-  <section class="page--aktiva-grupe-gid">
-    <h1>aktiva-grupe-gid</h1>
-    <Dump :data="{ group: g }" />
+  <section class="component--aktiva-obrasci-fid">
+    <Dump :data="{ form }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

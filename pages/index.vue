@@ -3,7 +3,7 @@ import { useDisplay } from "vuetify";
 import { AuthLogin } from "@/components/app/auth";
 import { Redirect } from "@/components/utils";
 
-const { height: wh } = useDisplay();
+const { height: WH } = useDisplay();
 // @@ss
 const auth = useStoreApiAuth();
 // @@eos
@@ -15,7 +15,7 @@ const auth = useStoreApiAuth();
       v-else
       max-width="598"
       class="mx-auto -translate-y-[50%]"
-      :style="`margin-top: ${wh / 2}px;`"
+      :style="`margin-top: ${WH / 2}px;`"
     >
       <AuthLogin />
     </VResponsive>

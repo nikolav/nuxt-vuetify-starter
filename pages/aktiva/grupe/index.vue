@@ -7,7 +7,19 @@ definePageMeta({
 });
 
 // @data @auth
-const { groups, reload, processing } = useQueryGroupsManage();
+
+const {
+  db: {
+    Assets: {
+      type: { PEOPLE_GROUP_TEAM },
+    },
+  },
+} = useAppConfig();
+const {
+  assets: groups,
+  reload,
+  processing,
+} = useQueryManageAssets(PEOPLE_GROUP_TEAM);
 const itemTo = (item: any) => ({
   name: "aktiva-grupe-gid",
   params: { gid: item.raw.id },
@@ -29,7 +41,7 @@ const lsItemGroups = (d: any) => [last(d.name.split(":"))];
       :per-page="3"
     >
       <template #menu="{ selection }">
-        <p>{{ selection.length }}</p>
+        <p>{{ selection?.length }}</p>
       </template>
     </VCardDataIterator>
     <VFabMain :to="{ name: 'aktiva-grupe-nova' }" />

@@ -290,8 +290,10 @@ export interface IAsset {
   notes?: string | undefined;
 
   tags?: string[] | undefined;
-  users?: IUser[] | undefined;
   author?: IUser | undefined;
+  users?: IUser[] | undefined;
+  docs?: RecordJson[] | undefined;
+  assets_has?: IAsset[] | undefined;
 
   created_at?: string | undefined;
   updated_at?: string | undefined;

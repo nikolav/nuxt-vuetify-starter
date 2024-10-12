@@ -1,0 +1,1 @@
+export { useQueryManageAssets } from "./useQueryManageAssets";

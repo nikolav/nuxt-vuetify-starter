@@ -9,13 +9,15 @@ const {
   app: { TOOLTIPS_OPEN_DELAY, MODE_DEBUG, DEFAULT_TRANSITION },
 } = useAppConfig();
 
-const { ID_subnav, hasNavSecondary, sidebarMainHeight } = useSidebarMenu();
+const { ID_subnav, hasNavSecondary, sidebarMainHeight, appBarTitle } =
+  useSidebarMenu();
 
 // @@eos
 </script>
 <template>
   <section class="layout--appDefault">
     <VAppBar elevation="1" density="comfortable">
+      <!-- @@logo -->
       <template #prepend>
         <NuxtLink :to="{ name: 'index' }">
           <VIcon
@@ -26,6 +28,11 @@ const { ID_subnav, hasNavSecondary, sidebarMainHeight } = useSidebarMenu();
           />
         </NuxtLink>
       </template>
+      <VAppBarTitle
+        v-if="appBarTitle"
+        class="ms-1 font-italic font-weight-thin text-body-1 text-primary"
+        >{{ appBarTitle }}</VAppBarTitle
+      >
       <VSpacer v-if="!smAndUp" />
       <VBtn
         v-if="MODE_DEBUG"
