@@ -9,7 +9,7 @@ definePageMeta({
 <template>
   <section class="page--teren">
     <h1>teren</h1>
-    <VFabMain :to="{ name: 'teren-izvestaj' }" />
+    <VFabMain :to="{ name: 'teren-izvestaji' }" />
   </section>
 </template>
 <style lang="scss" scoped></style>

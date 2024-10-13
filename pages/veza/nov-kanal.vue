@@ -6,8 +6,8 @@ definePageMeta({
 // @@eos
 </script>
 <template>
-  <section class="page--teren-izvestaj">
-    <h1>teren-izvestaj</h1>
+  <section class="page--veza-nov-kanal">
+    <h1>:veza-nov-kanal</h1>
   </section>
 </template>
 <style lang="scss" scoped></style>

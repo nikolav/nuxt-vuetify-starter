@@ -1,7 +1,7 @@
 [
   {
     "icon": "$iconFactory",
-    "title": "🏠 Početak",
+    "title": "",
     "size": "1.44rem",
     "to": "app"
   },

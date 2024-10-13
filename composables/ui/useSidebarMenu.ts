@@ -1,4 +1,6 @@
+import NAV from "~/assets/app/nav.json";
 import SUBNAV from "~/assets/app/subnav.json";
+const navNodes = SUBNAV["aktiva"].concat(NAV);
 export const useSidebarMenu = (
   config: { ID_subnav: string } = { ID_subnav: "ID--Tg7d2cslOFMY4eWHljM1" }
 ) => {
@@ -11,17 +13,14 @@ export const useSidebarMenu = (
   const { height: sidebarMainHeight } = useElementSize(refSubnav);
   const appBarTitle = computed(() =>
     get(
-      SUBNAV["aktiva"][
-        findIndex(SUBNAV["aktiva"], (node) =>
-          String(route.name).startsWith(node.to)
-        )
-      ],
+      navNodes.find((node) => String(route.name).startsWith(node.to)),
       "title",
       ""
     )
   );
 
   return {
+    NAV,
     SUBNAV,
     ID_subnav: config.ID_subnav,
     hasNavSecondary,

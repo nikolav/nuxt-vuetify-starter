@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TBqxaj
 import { schemaAuthAccount } from "@/schemas";
 import { VSnackbarSuccess, VSheetPinCodeRequired } from "@/components/app";
 
@@ -33,6 +34,7 @@ const {
   {
     email: (value: any) => (value ? isEmail(String(value)) : false),
     password: (value: any) => !!value,
+    policies: True,
   },
   {
     onSubmit: async (data: any) => {
@@ -101,6 +103,7 @@ const onCancel = formClear;
           </template>
         </VToolbar>
         <VCardText class="mt-3 max-w-[492px] mx-auto">
+          <!-- @@eamil -->
           <VTextField
             rounded="pill"
             v-model.trim="form.email.value"
@@ -115,6 +118,7 @@ const onCancel = formClear;
               <span class="ps-2" />
             </template>
           </VTextField>
+          <!-- @@lozinka -->
           <VTextField
             rounded="pill"
             v-model.trim="form.password.value"
@@ -146,6 +150,43 @@ const onCancel = formClear;
               </VBtn>
             </template>
           </VTextField>
+          <VSelect
+            v-model="form.policies.value"
+            label="Tip"
+            closable-chips
+            single-line
+            chips
+            rounded="pill"
+            color="primary"
+            variant="solo-filled"
+            multiple
+            :items="[
+              {
+                title: 'Administrator',
+                value: 'admin',
+              },
+              {
+                title: 'Menadžer',
+                value: 'manager',
+              },
+              {
+                title: 'Spoljni kontakt',
+                value: 'external',
+              },
+            ]"
+          >
+            <template #prepend-inner>
+              <span class="ps-2" />
+            </template>
+            <template #chip="{ item, props: props_ }">
+              <VChip
+                color="primary-darken-2"
+                :text="item.raw.title"
+                :value="item.raw.value"
+                v-bind="props_"
+              />
+            </template>
+          </VSelect>
         </VCardText>
         <VCardActions class="justify-center">
           <VBtn

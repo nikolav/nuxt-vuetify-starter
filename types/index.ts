@@ -298,3 +298,11 @@ export interface IAsset {
   created_at?: string | undefined;
   updated_at?: string | undefined;
 }
+
+export interface ILightboxSlide {
+  src: any;
+  caption?: string | undefined;
+  thumb?: string | undefined;
+  type?: any;
+  // type?: "image" | "iframe" | "video" | "pdf" | "inline" | "html"| "ajax" | "youtube" | "vimeo" | undefined;
+}

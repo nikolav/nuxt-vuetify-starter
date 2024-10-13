@@ -1,13 +1,7 @@
 <script setup lang="ts">
-interface TLightboxSlide {
-  src: any;
-  caption?: string | undefined;
-  thumb?: string | undefined;
-  type?: any;
-  // type?: "image" | "iframe" | "video" | "pdf" | "inline" | "html"| "ajax" | "youtube" | "vimeo" | undefined;
-}
+import type { ILightboxSlide } from "@/types";
 const props = defineProps<{
-  slides: TLightboxSlide[];
+  slides: ILightboxSlide[];
   options?: Record<string, any> | undefined;
 }>();
 const { $lightbox } = useNuxtApp();

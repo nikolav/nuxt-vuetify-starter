@@ -27,6 +27,8 @@ const {
   drop: accountDrop,
   processing: formProcessing,
 } = useMutationAccountsManage();
+const accountDropHardLogout = () =>
+  accountDrop(auth.uid).then(() => reloadNuxtApp({ path: "/", ttl: 1 }));
 const { form, submit, valid } = useFormDataFields(
   "tLgA7XGp8",
 
@@ -228,15 +230,11 @@ onMounted(() => {
           location="center"
           :close-on-content-click="false"
         >
-          <template #default="{ isActive }">
+          <template #default>
             <VSheetPinCodeRequired message="Pin za brisaje naloga:">
               <template #actions="{ pin, text }">
                 <VBtn
-                  @click="
-                    accountDrop(auth.uid).then(() => {
-                      isActive.value = false;
-                    })
-                  "
+                  @click="accountDropHardLogout"
                   color="error"
                   class="px-4"
                   rounded="pill"
