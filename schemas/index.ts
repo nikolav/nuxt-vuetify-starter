@@ -12,3 +12,4 @@ export { schemaUsersIsDefault } from "./user-is-default";
 export { schemaUsersNotReserved } from "./users-is-user";
 export { schemaJsonData, schemaJsonDataRecord } from "./json";
 export { schemaHasFieldName } from "./input";
+export { schemaAssetsInput } from "./assets";

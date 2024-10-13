@@ -232,6 +232,7 @@ export default defineAppConfig({
   firebase: {
     storage: {
       PATH_PROFILE_AVATARS: "/media/AVATARS:yenDhzULhtZohA9yo",
+      PATH_ASSETS_IMAGES: "/media/ASSETS:ZJYH3/images",
     },
     firestore: {
       DEFAULT_DOCS_COLLECTION: "docs:8lyrg8edl53",

@@ -1,4 +1,3 @@
-
 // YcjTftImK
 import type { IAsset, RecordJson } from "@/types";
 import {
@@ -54,7 +53,7 @@ export const useQueryManageAssets = (ASSETS_TYPE?: any, AIDS?: any) => {
     await mutateAssetsUpsert({
       fields: assign(
         {},
-        null != aid ? fields : schemaHasFieldName.parse(fields),
+        null != aid ? fields : schemaHasFieldName.parse(fields) && fields,
         {
           type: type.value,
         }

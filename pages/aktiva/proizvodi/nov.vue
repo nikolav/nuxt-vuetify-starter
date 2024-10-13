@@ -1,12 +1,33 @@
 <script setup lang="ts">
-import { VToolbarPrimary, VImgImagesPicker } from "@/components/app";
+import {
+  VToolbarPrimary,
+  VImgImagesPicker,
+  VSnackbarSuccess,
+} from "@/components/app";
+import { schemaAssetsInput } from "@/schemas";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
 
+const toggleSuccessCommit = useToggleFlag();
 const imagesPicked = ref();
-const { form, submit, valid, clear } = useFormDataFields(
+const AID = ref();
+
+const { commit } = useQueryManageAssetsProducts();
+const { firebasePathAssets } = useTopics();
+const { upload: fbsUpload } = useFirebaseStorage(() =>
+  firebasePathAssets(AID.value)
+);
+const pc = useProcessMonitor();
+const { watchProcessing } = useStoreAppProcessing();
+watchProcessing(() => pc.processing.value);
+
+const {
+  form,
+  submit,
+  clear: formClear,
+} = useFormDataFields(
   "la8cGSaxW4",
   {
     name: True,
@@ -15,18 +36,74 @@ const { form, submit, valid, clear } = useFormDataFields(
     barcode: True,
   },
   {
-    onSubmit: noop,
+    onSubmit: async (data) => {
+      AID.value = undefined;
+      toggleSuccessCommit.off();
+      pc.begin();
+      try {
+        const d = assign(
+          schemaAssetsInput.pick({ name: true, code: true }).parse(data),
+          {
+            data: schemaAssetsInput
+              .omit({ name: true, code: true })
+              .parse(data),
+          }
+        );
+        AID.value = get(await commit(d), "data.assetsUpsert.status.asset.id");
+        if (!AID.value) throw "--no-asset-saved";
+        if (!isEmpty(imagesPicked.value)) {
+          await fbsUpload(
+            reduce(
+              imagesPicked.value,
+              (accum, item) => {
+                accum[item.file.name] = { file: item.file };
+                return accum;
+              },
+              <Record<string, any>>{}
+            )
+          );
+        }
+      } catch (error) {
+        //
+        pc.setError(error);
+      } finally {
+        pc.done();
+      }
+      if (!pc.error.value) pc.successful();
+    },
   }
 );
-const { commit } = useQueryManageAssetsProducts();
+
+const KEY_ImagesCleared = useUniqueId();
+const formReset = () => {
+  formClear();
+  KEY_ImagesCleared();
+};
+
+onMounted(() => {
+  watch(pc.success, (flag) => {
+    if (true !== flag) return;
+    toggleSuccessCommit.on();
+    formReset();
+  });
+});
+
+//
 const ref_9yvgmhpVs9DnAXGuV5Hm = ref();
 const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
 // @@eos
 </script>
 <template>
   <section class="page--aktiva-prodizvodi-nov">
+    <VSnackbarSuccess v-model="toggleSuccessCommit.isActive.value">
+      <NuxtLink :to="{ name: 'aktiva-proizvodi-pid', params: { pid: AID } }">
+        <a class="text-decoration-underline text-body-1 underline-offset-[6px]"
+          >📄 Proizvod je uspešno sačuvan.
+        </a>
+      </NuxtLink>
+    </VSnackbarSuccess>
     <VForm @submit.prevent="submit" autocomplete="off">
-      <VCard variant="text" rounded="0">
+      <VCard :disabled="pc.processing.value" variant="text" rounded="0">
         <VToolbarPrimary text="Dodaj artikle">
           <template #prepend>
             <Icon
@@ -37,12 +114,15 @@ const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
           </template>
         </VToolbarPrimary>
         <VCardText>
-          <VContainer fluid max-width="892" class="mx-auto">
+          <VContainer fluid max-width="812" class="mx-auto">
             <VRow>
               <VCol sm="6">
                 <VImgImagesPicker
                   v-model="imagesPicked"
-                  :container-props="{ height: HMAX }"
+                  :key-images-cleared="KEY_ImagesCleared.ID.value"
+                  :container-props="{
+                    height: HMAX,
+                  }"
                 />
               </VCol>
               <VCol sm="6">
@@ -73,9 +153,34 @@ const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
                     label="Link"
                   />
                 </div>
-                <VCardActions>
+                <VCardActions class="mt-6 *pa-6">
+                  <VBtn
+                    @click="formReset()"
+                    color="secondary"
+                    variant="plain"
+                    rounded="pill"
+                    class="px-3"
+                  >
+                    <VIcon size="large" icon="$close" start />
+                    <span> Poništi </span>
+                  </VBtn>
                   <VSpacer />
-                  <VBtn>ok</VBtn>
+                  <VBtn
+                    elevation="1"
+                    size="large"
+                    type="submit"
+                    variant="tonal"
+                    rounded="pill"
+                    class="px-4"
+                    :disabled="pc.processing.value"
+                  >
+                    <Icon
+                      class="opacity-50 me-2"
+                      size="1.44rem"
+                      name="material-symbols:save"
+                    />
+                    <span>Sačuvaj</span>
+                  </VBtn>
                 </VCardActions>
               </VCol>
             </VRow>

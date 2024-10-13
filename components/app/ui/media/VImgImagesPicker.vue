@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// L37CVEkpd2mQLX1I1GR8
 import { VBtnOpenGallery } from "@/components/app";
 import type { ILightboxSlide } from "@/types";
 defineOptions({
@@ -8,6 +9,8 @@ const props = withDefaults(
   defineProps<{
     defaultNoImage?: string;
     containerProps?: any;
+    // signal external form-reset
+    keyImagesCleared?: any;
   }>(),
   {
     defaultNoImage: "/no-image.jpg",
@@ -44,6 +47,12 @@ const filesClear = () => {
   reset();
   imagesPicked.value = undefined;
 };
+
+onMounted(() => {
+  watchEffect(() => {
+    if (props.keyImagesCleared) filesClear();
+  });
+});
 
 // @@eos
 </script>

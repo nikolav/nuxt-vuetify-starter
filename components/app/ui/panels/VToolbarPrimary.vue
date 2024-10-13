@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// XnWLC
+// qpmJxTcZDwE
 const props = withDefaults(
   defineProps<{ routeBackName: string; dividerStart: boolean; text?: any }>(),
   {

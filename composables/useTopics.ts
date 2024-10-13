@@ -26,7 +26,7 @@ export const useTopics = () => {
     },
     firebase: {
       messaging: { KEY_FCM_DEVICE_TOKENS },
-      storage: { PATH_PROFILE_AVATARS },
+      storage: { PATH_PROFILE_AVATARS, PATH_ASSETS_IMAGES },
     },
     io: { IOEVENT_ACCOUNTS_UPDATED_prefix },
   } = useAppConfig();
@@ -72,6 +72,8 @@ export const useTopics = () => {
   const firebasePathAvatars = (uid: any) =>
     uid ? `${trimEnd(PATH_PROFILE_AVATARS, "/")}/${uid}` : "";
   const userAvailabilityStatus = () => USER_AVAILABILITY_STATUS;
+  const firebasePathAssets = (uid: any) =>
+    uid ? `${trimEnd(PATH_ASSETS_IMAGES, "/")}/${uid}` : "";
 
   return {
     CHAT_MAIN,
@@ -93,8 +95,9 @@ export const useTopics = () => {
     userConfig,
     userDeviceTokens,
     userAnonymous,
-    firebasePathAvatars,
     userAvailabilityStatus,
+    firebasePathAvatars,
+    firebasePathAssets,
     //
     ioeventAccountUpdated,
   };
