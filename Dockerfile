@@ -1,5 +1,5 @@
 FROM node:18
-RUN apt update; apt-get update -y
+# RUN apt update; apt-get update -y
 
 # mount-path in contanier
 WORKDIR /home/app

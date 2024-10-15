@@ -1,4 +1,4 @@
-// YcjTftImK
+// UgaO7qWtC1r1Xg1vl
 import type { IAsset, RecordJson } from "@/types";
 import {
   Q_assetsList,
@@ -6,7 +6,7 @@ import {
   M_assetsRemove,
   M_groupsGUConfigure,
 } from "@/graphql";
-import { schemaHasFieldName } from "@/schemas";
+import { schemaHasFieldName as sHasName } from "@/schemas";
 // @@useQueryManageAssets
 export const useQueryManageAssets = (ASSETS_TYPE?: any, AIDS?: any) => {
   const type = ref();
@@ -53,7 +53,7 @@ export const useQueryManageAssets = (ASSETS_TYPE?: any, AIDS?: any) => {
     await mutateAssetsUpsert({
       fields: assign(
         {},
-        null != aid ? fields : schemaHasFieldName.parse(fields) && fields,
+        null != aid ? fields : sHasName.passthrough().parse(fields),
         {
           type: type.value,
         }

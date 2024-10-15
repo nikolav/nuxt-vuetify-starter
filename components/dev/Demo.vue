@@ -51,6 +51,5 @@ const ICONS_DEFAULT = [
     />
   </VResponsive>
   <VDivider class="mt-4" />
-
 </template>
 <style lang="scss" scoped></style>

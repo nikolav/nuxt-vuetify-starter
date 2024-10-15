@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// SPzQTsV3tNmN
+// G5c3pxAQijg
 const isActive = defineModel<boolean>();
 
 const {
@@ -18,22 +18,26 @@ const {
   >
     <VListItem density="comfortable" class="ps-2 pe-0">
       <template #prepend>
-        <VIcon icon="$complete" size="1.55rem" />
+        <slot name="prepend">
+          <VIcon icon="$complete" size="1.55rem" />
+        </slot>
       </template>
       <VListItemTitle class="text-body-1 ps-0 text-start">
         <slot />
       </VListItemTitle>
       <template #append>
-        <VBtn
-          density="comfortable"
-          variant="plain"
-          icon
-          @click="isActive = false"
-          class="translate-x-1"
-          color="on-success"
-        >
-          <VIcon icon="$close" size="1.55rem" />
-        </VBtn>
+        <slot name="append" :isActive="isActive">
+          <VBtn
+            density="comfortable"
+            variant="plain"
+            icon
+            @click="isActive = false"
+            class="translate-x-1"
+            color="on-success"
+          >
+            <VIcon icon="$close" size="1.55rem" />
+          </VBtn>
+        </slot>
       </template>
     </VListItem>
   </VSnackbar>

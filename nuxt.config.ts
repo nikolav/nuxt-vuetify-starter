@@ -195,6 +195,26 @@ export default defineNuxtConfig({
         imports: [{ name: "default", as: "findKey" }],
       },
       {
+        from: "lodash/unset",
+        imports: [{ name: "default", as: "unset" }],
+      },
+      {
+        from: "lodash/forEach",
+        imports: [{ name: "default", as: "forEach" }],
+      },
+      {
+        from: "lodash/each",
+        imports: [{ name: "default", as: "each" }],
+      },
+      {
+        from: "lodash/cloneDeep",
+        imports: [{ name: "default", as: "cloneDeep" }],
+      },
+      {
+        from: "lodash/clone",
+        imports: [{ name: "default", as: "clone" }],
+      },
+      {
         from: "validator/lib/isEmail",
         imports: [{ name: "default", as: "isEmail" }],
       },

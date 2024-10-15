@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 const { $lightbox } = useNuxtApp();
 
-const vbinds = {
+const vbind = {
   open: (overideOptions?: any) =>
     $lightbox.open(props.slides, assign({}, props.options, overideOptions)),
 };
@@ -14,6 +14,6 @@ const vbinds = {
 // @@eos
 </script>
 <template>
-  <slot name="activator" v-bind="{ ...vbinds, slides, options }" />
+  <slot name="activator" v-bind="{ ...vbind, slides, options }" />
 </template>
 <style lang="scss" scoped></style>

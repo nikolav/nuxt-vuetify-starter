@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { RecordJson } from "@/types";
 import {
   VSheetPinCodeRequired,
   VBtnUpdateProfileImage,
@@ -17,9 +16,19 @@ const {
 
 const auth = useStoreApiAuth();
 const emailVerified = computed(() => get(auth.user$, "email_verified"));
+const displayLocation$ = computed(() =>
+  get(auth.user$, "profile.displayLocation")
+);
 
-const FIELDS = ["firstName", "lastName", "phone", "address", "displayName"];
-
+const FIELDS = [
+  "firstName",
+  "lastName",
+  "phone",
+  "address",
+  "displayName",
+  "displayLocation",
+];
+const toggleDisplayLocation = useToggleFlag(!!displayLocation$.value);
 const {
   profilePatch,
   emailSendVerifyLink,
@@ -43,11 +52,17 @@ const { form, submit, valid } = useFormDataFields(
       const patch = transform(
         data,
         (accum, value, field) => {
-          if (value) {
-            accum[String(field)] = value;
+          if (null != value) {
+            if ("displayLocation" == field) {
+              accum["displayLocation"] = toggleDisplayLocation.isActive.value
+                ? value
+                : "";
+            } else {
+              accum[String(field)] = value;
+            }
           }
         },
-        <RecordJson>{}
+        <any>{}
       );
       if (isEmpty(patch)) return;
       await profilePatch(auth.uid, patch);
@@ -130,10 +145,27 @@ onMounted(() => {
               label="Korisničko ime"
               variant="underlined"
             />
+            <VSpacer class="mt-2" />
+            <VCheckboxBtn
+              v-model="toggleDisplayLocation.isActive.value"
+              label="Prikaži kao trenutnu lokaciju"
+              class="mx-auto"
+              color="primary-darken-1"
+            />
+            <VTextField
+              v-if="toggleDisplayLocation.isActive.value"
+              v-model.trim="form.displayLocation.value"
+              density="comfortable"
+              variant="underlined"
+              single-line
+              placeholder="Lokacija"
+              clearable
+            >
+            </VTextField>
           </div>
         </VCardText>
 
-        <VCardActions class="justify-evenly max-w-[345px] mx-auto">
+        <VCardActions class="justify-evenly max-w-[345px] mx-auto pt-5">
           <VBtn
             rounded="pill"
             variant="plain"

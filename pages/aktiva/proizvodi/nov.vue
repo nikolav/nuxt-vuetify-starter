@@ -4,7 +4,7 @@ import {
   VImgImagesPicker,
   VSnackbarSuccess,
 } from "@/components/app";
-import { schemaAssetsInput } from "@/schemas";
+import { schemaAssetsInput as si } from "@/schemas";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
@@ -14,11 +14,12 @@ const toggleSuccessCommit = useToggleFlag();
 const imagesPicked = ref();
 const AID = ref();
 
-const { commit } = useQueryManageAssetsProducts();
 const { firebasePathAssets } = useTopics();
 const { upload: fbsUpload } = useFirebaseStorage(() =>
   firebasePathAssets(AID.value)
 );
+const { commit } = useQueryManageAssetsProducts();
+
 const pc = useProcessMonitor();
 const { watchProcessing } = useStoreAppProcessing();
 watchProcessing(() => pc.processing.value);
@@ -41,14 +42,9 @@ const {
       toggleSuccessCommit.off();
       pc.begin();
       try {
-        const d = assign(
-          schemaAssetsInput.pick({ name: true, code: true }).parse(data),
-          {
-            data: schemaAssetsInput
-              .omit({ name: true, code: true })
-              .parse(data),
-          }
-        );
+        const d = assign(si.pick({ name: true, code: true }).parse(data), {
+          data: si.omit({ name: true, code: true }).parse(data),
+        });
         AID.value = get(await commit(d), "data.assetsUpsert.status.asset.id");
         if (!AID.value) throw "--no-asset-saved";
         if (!isEmpty(imagesPicked.value)) {
@@ -81,8 +77,8 @@ const formReset = () => {
 };
 
 onMounted(() => {
-  watch(pc.success, (flag) => {
-    if (true !== flag) return;
+  watch(pc.success, (success_) => {
+    if (!success_) return;
     toggleSuccessCommit.on();
     formReset();
   });
@@ -120,7 +116,7 @@ const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
                 <VImgImagesPicker
                   v-model="imagesPicked"
                   :key-images-cleared="KEY_ImagesCleared.ID.value"
-                  :container-props="{
+                  :props-container="{
                     height: HMAX,
                   }"
                 />

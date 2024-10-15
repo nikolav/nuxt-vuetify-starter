@@ -235,6 +235,7 @@ export default defineAppConfig({
       PATH_ASSETS_IMAGES: "/media/ASSETS:ZJYH3/images",
     },
     firestore: {
+      COLLECTIONS_PATH: "/app/collections",
       DEFAULT_DOCS_COLLECTION: "docs:8lyrg8edl53",
     },
     messaging: {
@@ -269,6 +270,7 @@ export default defineAppConfig({
     availabilityUI: <Record<string, any>>{
       available: {
         icon: {
+          icon: "$delimiter",
           name: "$delimiter",
           size: "1.22rem",
           color: "green-darken-3",
@@ -277,6 +279,7 @@ export default defineAppConfig({
       },
       busy: {
         icon: {
+          icon: "$delimiter",
           name: "$delimiter",
           size: "1.22rem",
           color: "red-darken-3",
@@ -285,6 +288,7 @@ export default defineAppConfig({
       },
       away: {
         icon: {
+          icon: "$delimiter",
           name: "$delimiter",
           size: "1.22rem",
           color: "yellow-darken-4",
@@ -293,6 +297,7 @@ export default defineAppConfig({
       },
       do_not_disturb: {
         icon: {
+          icon: "$iconBellOffOutline",
           name: "$iconBellOffOutline",
           size: "1.22rem",
           color: "red",
@@ -301,6 +306,7 @@ export default defineAppConfig({
       },
       invisible: {
         icon: {
+          icon: "$delimiter",
           name: "$delimiter",
           size: "1.22rem",
           color: "grey",

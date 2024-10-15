@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// L37CVEkpd2mQLX1I1GR8
+// Rn2YIcvZUR9cZtdAFd
 import { VBtnOpenGallery } from "@/components/app";
 import type { ILightboxSlide } from "@/types";
 defineOptions({
@@ -8,13 +8,13 @@ defineOptions({
 const props = withDefaults(
   defineProps<{
     defaultNoImage?: string;
-    containerProps?: any;
+    propsContainer?: any;
     // signal external form-reset
     keyImagesCleared?: any;
   }>(),
   {
     defaultNoImage: "/no-image.jpg",
-    containerProps: {},
+    propsContainer: {},
   }
 );
 // { file:File, dataurl:string }[]
@@ -48,11 +48,12 @@ const filesClear = () => {
   imagesPicked.value = undefined;
 };
 
-onMounted(() => {
-  watchEffect(() => {
-    if (props.keyImagesCleared) filesClear();
-  });
-});
+watch(
+  () => props.keyImagesCleared,
+  (key) => {
+    if (key) filesClear();
+  }
+);
 
 // @@eos
 </script>
@@ -61,7 +62,7 @@ onMounted(() => {
     elevation="2"
     rounded
     class="w-full overflow-hidden p-[2px] position-relative"
-    v-bind="containerProps"
+    v-bind="propsContainer"
   >
     <VImg
       :src="imageCurrent"

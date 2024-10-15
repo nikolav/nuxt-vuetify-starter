@@ -1,28 +1,34 @@
 import { useDocument } from "vuefire";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { db as firestoreDB } from "@/services/firebase";
-export const useFirebaseCloudFirestoreDoc = (ID: string) => {
+import type { RecordJson } from "@/types";
+export const useFirebaseCloudFirestoreDoc = (KEY: any) => {
   const {
     firebase: {
       firestore: { DEFAULT_DOCS_COLLECTION },
     },
   } = useAppConfig();
   const docs$ = collection(firestoreDB, DEFAULT_DOCS_COLLECTION);
-  const doc$ = doc(docs$, ID);
+  const doc$ = doc(docs$, KEY);
   const data = useDocument(doc$);
-  const put = async (fields: Record<string, any>, merge = true) =>
+  const commit = async (fields: RecordJson, merge = true) =>
     await setDoc(doc$, fields, { merge });
-  const clear = async () => await put({}, false);
-  const drop = async (...fields: string[]) => {
-    const newData = omit(data.value, fields);
-    await put(newData, false);
+  const clear = async (_defaultEmpty: any = {}) =>
+    await commit(_defaultEmpty, false);
+  const drop = async (...paths: string[]) => {
+    const patch_ = cloneDeep(data.value);
+    each(paths, (path: any) => {
+      unset(patch_, path);
+    });
+    await commit(patch_, false);
   };
   return {
+    KEY,
     data,
-    put,
-    clear,
+    commit,
     drop,
+    clear,
     // alias
-    commit: put,
+    put: commit,
   };
 };

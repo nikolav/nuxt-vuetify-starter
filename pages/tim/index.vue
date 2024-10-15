@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
 import { renderIcon } from "@/components/icons";
-import { VChipPlus, VBtnFilterClear, VFabMain } from "@/components/app";
+import {
+  VChipPlus,
+  VBtnFilterClear,
+  VFabMain,
+  VBadgeUserAvailability,
+} from "@/components/app";
 
 definePageMeta({
   layout: "app-default",
@@ -399,6 +404,7 @@ const onSubmitApplyGroupFiler = () => {
                 v-else-if="col.key == 'fullname'"
                 :class="[smAndUp ? undefined : 'ps-2']"
               >
+                <VBadgeUserAvailability :uid="item.id" />
                 <strong
                   class="text-body-1 ps-2"
                   :class="[
