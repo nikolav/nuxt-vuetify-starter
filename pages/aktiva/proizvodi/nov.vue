@@ -24,26 +24,29 @@ const pc = useProcessMonitor();
 const { watchProcessing } = useStoreAppProcessing();
 watchProcessing(() => pc.processing.value);
 
+const FIELDS_RECORD = ["name", "code"];
 const {
   form,
   submit,
   clear: formClear,
+  valid: formValid,
 } = useFormDataFields(
   "la8cGSaxW4",
   {
-    name: True,
-    link: True,
-    code: True,
-    barcode: True,
+    name: true,
+    link: true,
+    code: true,
+    barcode: true,
   },
   {
+    schema: si.pick({ name: true }).passthrough(),
     onSubmit: async (data) => {
       AID.value = undefined;
       toggleSuccessCommit.off();
       pc.begin();
       try {
-        const d = assign(si.pick({ name: true, code: true }).parse(data), {
-          data: si.omit({ name: true, code: true }).parse(data),
+        const d = assign(pick(data, FIELDS_RECORD), {
+          data: omit(data, FIELDS_RECORD),
         });
         AID.value = get(await commit(d), "data.assetsUpsert.status.asset.id");
         if (!AID.value) throw "--no-asset-saved";
@@ -128,8 +131,12 @@ const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
                     autofocus
                     clearable
                     variant="underlined"
-                    label="Naziv *"
-                  />
+                  >
+                    <template #label>
+                      <span>Naziv </span
+                      ><span class="text-error">*</span>
+                    </template>
+                  </VTextField>
                   <VTextField
                     v-model.trim="form.code.value"
                     clearable
@@ -168,7 +175,7 @@ const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
                     variant="tonal"
                     rounded="pill"
                     class="px-4"
-                    :disabled="pc.processing.value"
+                    :disabled="pc.processing.value || !formValid"
                   >
                     <Icon
                       class="opacity-50 me-2"

@@ -121,7 +121,8 @@ export default defineAppConfig({
     },
     main: {
       initial: <TStoreMain>{
-        "app:name": "nikolav.rs",
+        "app:name": "tereni:frikom",
+        "app:host": "frikom.nikolav.rs",
       },
     },
     flags: {
@@ -214,6 +215,7 @@ export default defineAppConfig({
     ROUTE_NAMES_SKIP_REDIRECT_APP_ON_AUTHENTICATED: [
       /^auth\-verify\-email$/,
       /^auth\-password\-reset\-form$/,
+      /^docs\-/,
     ],
   },
   SEO: {
@@ -321,6 +323,8 @@ export default defineAppConfig({
       hideProgressBar: true,
       position: "top-center",
       timeout: 6954,
+      // Access global components and plugins inside toasts
+      shareAppContext: true,
     },
   },
   db: {

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 // TBqxaj
-import { schemaAuthAccount } from "@/schemas";
+import {
+  schemaAuthAccount,
+  schemaAuthCredentialsWithPolicies,
+} from "@/schemas";
 import { VSnackbarSuccess, VSheetPinCodeRequired } from "@/components/app";
 
 definePageMeta({
@@ -32,11 +35,12 @@ const {
 } = useFormDataFields(
   "l6xX6SYHp3UZRMnuW4q5",
   {
-    email: (value: any) => (value ? isEmail(String(value)) : false),
-    password: (value: any) => !!value,
-    policies: True,
+    email: true,
+    password: true,
+    policies: true,
   },
   {
+    schema: schemaAuthCredentialsWithPolicies,
     onSubmit: async (data: any) => {
       try {
         accountsAdded.value = schemaAuthAccount.parse(

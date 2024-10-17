@@ -8,7 +8,7 @@ export const useAnonymousUserData = () => {
     default: () => ({ [`${$KEY}`]: idGen() }),
   });
   const commit = (patches: RecordJson) => {
-    each(patches, (value, path) => {
+    each(patches, (value: RecordJson, path: string) => {
       set(store_.value, path, value);
     });
   };

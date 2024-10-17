@@ -1,5 +1,10 @@
 export { authLoginCreds } from "./auth-login-creds";
-export { schemaAuthCredentials } from "./auth-credentials";
+export {
+  schemaPassword,
+  schemaAuthCredentials,
+  schemaPasswordsMatch,
+  schemaAuthCredentialsWithPolicies,
+} from "./auth-credentials";
 export { schemaAuthData } from "./auth-data-response";
 export { schemaAuthDataAdmin } from "./auth-data-admin";
 export { schemaAuthAccount } from "./auth-account";

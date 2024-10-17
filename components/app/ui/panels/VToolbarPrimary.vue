@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 1MEGCDgb23pxaFqEC
 const props = withDefaults(
-  defineProps<{ routeBackName: string; dividerStart: boolean; text?: any }>(),
+  defineProps<{ routeBackName?: string; dividerStart?: boolean; text?: any }>(),
   {
     routeBackName: "aktiva-proizvodi",
     dividerStart: true,

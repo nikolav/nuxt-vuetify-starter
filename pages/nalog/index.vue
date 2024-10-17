@@ -41,11 +41,11 @@ const accountDropHardLogout = () =>
 const { form, submit, valid } = useFormDataFields(
   "tLgA7XGp8",
 
-  // { [field: string]: callback:true }
+  // { [field: string]: active:boolean }
   FIELDS.reduce((accum, field) => {
-    accum[field] = True;
+    accum[field] = true;
     return accum;
-  }, <Record<string, any>>{}),
+  }, <Record<string, boolean>>{}),
 
   {
     onSubmit: async (data: any) => {
@@ -64,8 +64,7 @@ const { form, submit, valid } = useFormDataFields(
         },
         <any>{}
       );
-      if (isEmpty(patch)) return;
-      await profilePatch(auth.uid, patch);
+      if (!isEmpty(patch)) await profilePatch(auth.uid, patch);
     },
   }
 );
@@ -148,20 +147,22 @@ onMounted(() => {
             <VSpacer class="mt-2" />
             <VCheckboxBtn
               v-model="toggleDisplayLocation.isActive.value"
-              label="Prikaži kao trenutnu lokaciju"
+              label="Deli moju lokaciju"
               class="mx-auto"
               color="primary-darken-1"
             />
-            <VTextField
-              v-if="toggleDisplayLocation.isActive.value"
-              v-model.trim="form.displayLocation.value"
-              density="comfortable"
-              variant="underlined"
-              single-line
-              placeholder="Lokacija"
-              clearable
-            >
-            </VTextField>
+            <VSlideYReverseTransition>
+              <VTextField
+                v-if="toggleDisplayLocation.isActive.value"
+                v-model.trim="form.displayLocation.value"
+                density="comfortable"
+                variant="underlined"
+                single-line
+                placeholder="Lokacija"
+                clearable
+              >
+              </VTextField>
+            </VSlideYReverseTransition>
           </div>
         </VCardText>
 

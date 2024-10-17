@@ -12,6 +12,7 @@ export type OrNoValue<T = any> = OrNull<T> | undefined;
 export type TStoreMain<T = any> = Record<string, T>;
 export type TStoreFlags = Record<string, boolean>;
 export type TDocData<T = any> = Record<string, T>;
+export type TOrPromise<T = any> = T | Promise<T>;
 export interface IDoc<T = TDocData> {
   id?: number | undefined;
   data: T;

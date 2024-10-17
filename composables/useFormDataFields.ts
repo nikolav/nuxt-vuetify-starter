@@ -1,43 +1,52 @@
-type TFormFieldsOnSubmit = (...args: any[]) => void;
-type TFormFieldsValidator = (value: any) => boolean;
+import { type KeySchema } from "zod";
+import type { RecordJson, TOrPromise } from "@/types";
+type TFormFieldsOnSubmit = (...args: any[]) => TOrPromise<void>;
 export const useFormDataFields = (
   KEY: string,
-  FIELDS: Record<string, TFormFieldsValidator>,
-  config?: {
+  FIELDS: Record<string, boolean>,
+  config: {
     onSubmit?: TFormFieldsOnSubmit;
-  }
+    schema?: any;
+  } = {}
 ) => {
   const main$$ = useStoreMain();
   const form = reduce(
     FIELDS,
-    (formdata, _v, field) => {
-      formdata[field] = computed({
-        get: () => main$$.get(`${KEY} --${field}`),
-        set: (val) => main$$.put({ [`${KEY} --${field}`]: val }),
-      });
+    (formdata, flag, field) => {
+      if (flag) {
+        formdata[field] = computed({
+          get: () => main$$.get(`${KEY} --${field}`),
+          set: (val) => main$$.put({ [`${KEY} --${field}`]: val }),
+        });
+      }
       return formdata;
     },
     <Record<string, Ref>>{}
   );
   const valid = computed(() =>
-    every(FIELDS, (validator, field) => validator(form[field].value))
+    config.schema ? config.schema.safeParse(dump()).success : true
   );
   const dump = () =>
     reduce(
       FIELDS,
-      (node, _v, field) => {
-        node[field] = form[field].value;
-        return node;
+      (data, flag, field) => {
+        if (flag) {
+          data[field] = form[field].value;
+        }
+        return data;
       },
-      <Record<string, any>>{}
+      <RecordJson>{}
     );
   const submit = async () => {
+    if (!config.onSubmit) return;
     if (!valid.value) return;
-    (config?.onSubmit || noop)(dump());
+    await config.onSubmit(dump());
   };
   const clear = () => {
-    each(FIELDS, (_v, field) => {
-      form[field].value = undefined;
+    each(FIELDS, (flag: any, field: string) => {
+      if (flag) {
+        form[field].value = undefined;
+      }
     });
   };
 

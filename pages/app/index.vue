@@ -31,4 +31,10 @@ const { $toast } = useNuxtApp();
     <Dump :data="{ FCMStatus }" />
   </section>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.page--dashboard h1 {
+  color: $LOCAL_BLUE;
+}
+</style>
+<style lang="scss"></style>
+<style module></style>

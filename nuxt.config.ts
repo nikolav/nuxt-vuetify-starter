@@ -95,6 +95,9 @@ export default defineNuxtConfig({
     "@nuxtjs/apollo",
     // https://auto-animate.formkit.com/#usage-vue
     "@formkit/auto-animate/nuxt",
+
+    // https://content.nuxt.com/
+    "@nuxt/content",
   ],
 
   build: {
@@ -111,6 +114,8 @@ export default defineNuxtConfig({
   },
 
   hooks: {
+    // "pages:extend"
+    // "render:html"
     //   // # append dirs, extending default path
     //   // "components:dirs": (dirs) => {
     //   //   dirs.push({
@@ -215,6 +220,22 @@ export default defineNuxtConfig({
         imports: [{ name: "default", as: "clone" }],
       },
       {
+        from: "lodash/isString",
+        imports: [{ name: "default", as: "isString" }],
+      },
+      {
+        from: "lodash/has",
+        imports: [{ name: "default", as: "hasPath" }],
+      },
+      {
+        from: "lodash/pick",
+        imports: [{ name: "default", as: "pick" }],
+      },
+      {
+        from: "lodash/omit",
+        imports: [{ name: "default", as: "omit" }],
+      },
+      {
         from: "validator/lib/isEmail",
         imports: [{ name: "default", as: "isEmail" }],
       },
@@ -303,7 +324,9 @@ export default defineNuxtConfig({
     "~/assets/styles/vue-toastification/settings.scss",
   ],
 
-  // https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
+  // access style config in preprocessed files
+  //   sass, variables, partials, etc.
+  //  https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
   vite: {
     css: {
       preprocessorOptions: {
@@ -426,5 +449,9 @@ export default defineNuxtConfig({
     //   dir: "./assets/my-icons",
     // },
     // ],
+  },
+
+  content: {
+    // ... options
   },
 });

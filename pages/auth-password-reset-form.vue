@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
 import { VBtnToggleVisible, VSnackbarSuccess } from "@/components/app";
+import { schemaPasswordsMatch } from "@/schemas";
 
 // config, utils
 const cardMaxWidth = 392;
@@ -26,15 +27,19 @@ const { passwordReset, processing } = useMutationAccountsManage();
 const { height: VHeight, width: VW } = useDisplay();
 
 // helpers, forms
-const { form, submit: submitPasswordReset } = useFormDataFields(
+const {
+  form,
+  submit: submitPasswordReset,
+  valid: formValid,
+} = useFormDataFields(
   "7chpiRlIfJFw",
   {
-    password1: True,
-    password2: True,
+    password1: true,
+    password2: true,
   },
   {
+    schema: schemaPasswordsMatch,
     onSubmit: async (fields) => {
-      if (!passwordsMatch.value) return;
       if (!key.value) return;
       try {
         passwordResetAccountID.value = get(
@@ -46,12 +51,6 @@ const { form, submit: submitPasswordReset } = useFormDataFields(
       }
     },
   }
-);
-const passwordsMatch = computed(
-  () =>
-    form.password1.value &&
-    form.password2.value &&
-    form.password1.value === form.password2.value
 );
 
 // watchers
@@ -175,7 +174,7 @@ watch(
             variant="tonal"
             rounded="pill"
             type="submit"
-            :disabled="!(key && passwordsMatch) || processing"
+            :disabled="!(key && formValid) || processing"
           >
             <template #prepend>
               <Icon

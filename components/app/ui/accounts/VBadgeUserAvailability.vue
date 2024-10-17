@@ -11,12 +11,16 @@ const {
 // @@eos
 </script>
 <template>
-  <ProvideUserAvailability :uid="uid" v-slot="{ availability }">
+  <ProvideUserAvailability
+    class="component--VBadgeUserAvailability"
+    :uid="uid"
+    v-slot="{ availability }"
+  >
     <VBadge
       v-if="availability in availabilityUI"
       color="transparent"
       inline
-      class="component--VBadgeUserAvailability *!scale-[85%] translate-y-[3px] px-0 mx-0"
+      class="*!scale-[85%] translate-y-[3px] px-0 mx-0"
       v-bind="$attrs"
     >
       <VTooltip

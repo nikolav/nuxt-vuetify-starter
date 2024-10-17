@@ -2,7 +2,9 @@
 // @@eos
 </script>
 <template>
-  <div>1:22</div>
+  <section class="page--content-docs">
+    <ContentDoc />
+  </section>
 </template>
 <style lang="scss" scoped></style>
 <style lang="scss"></style>

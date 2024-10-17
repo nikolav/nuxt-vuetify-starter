@@ -9,23 +9,26 @@ export const useStoreMain = defineStore("main", () => {
   } = useAppConfig();
   // @store
   const store$ = ref(initial);
-  const get = (path: string) => getPath(store$.value, path);
-  const put = (vars: TStoreMain) => {
+  const get = (path: any) => getPath(store$.value, path);
+  const commit = (vars: TStoreMain) => {
     each(vars, (value: any, path: string) => {
       set(store$.value, path, value);
     });
   };
-  const drop = (...keysToDrop: string[]) => {
-    forEach(keysToDrop, (path: string) => {
+  const drop = (...pathsToDrop: string[]) => {
+    each(pathsToDrop, (path: string) => {
       unset(store$.value, path);
     });
   };
-  const isSet = (path: string) => hasOwn(store$.value, path);
+  // const isSet = (path: any) => hasOwn(store$.value, path);
+  const isSet = (path: any) => hasPath(store$.value, path);
   return {
     store: store$,
     get,
-    put,
+    commit,
     drop,
     isSet,
+    // alias
+    put: commit,
   };
 });

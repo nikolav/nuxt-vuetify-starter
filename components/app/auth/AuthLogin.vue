@@ -16,13 +16,14 @@ const {
 } = useFormDataFields(
   "MwPg4rGKHOPOSK",
   {
-    creds: (value) => authLoginCreds.safeParse(value).success,
+    creds: true,
   },
   {
     onSubmit: async (data) => {
       const [email, password] = String(data.creds).split(":");
       await auth.login({ email, password });
     },
+    schema: authLoginCreds,
   }
 );
 

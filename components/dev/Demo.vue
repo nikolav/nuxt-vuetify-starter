@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { z } from "zod";
+import { Iconx } from "@/components/icons";
 // 8rWqBKIKsWZ4pbf1
 import { Test, Dump } from "@/components/dev";
 const ICONS_DEFAULT = [
@@ -39,6 +41,21 @@ const ICONS_DEFAULT = [
   "warning",
 ];
 
+const { form, submit, valid } = useFormDataFields(
+  "ZoQus7nYYc",
+  {
+    title: true,
+  },
+  {
+    onSubmit: (data) => {
+      console.log({ data });
+    },
+    schema: z.object({
+      title: z.string().min(2),
+    }),
+  }
+);
+
 // @@eos
 </script>
 <template>
@@ -51,5 +68,10 @@ const ICONS_DEFAULT = [
     />
   </VResponsive>
   <VDivider class="mt-4" />
+  <Iconx icon="$iconFrikomLogo" size="12rem" />
+  <VForm @submit.prevent="submit" autocomplete="off">
+    <VTextField label="title" v-model.trim="form.title.value" />
+    <VBtn :disabled="!valid" type="submit">ok</VBtn>
+  </VForm>
 </template>
 <style lang="scss" scoped></style>
