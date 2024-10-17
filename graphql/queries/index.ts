@@ -680,3 +680,4 @@ export const Q_assetsList = gql`
     }
   }
 `;
+

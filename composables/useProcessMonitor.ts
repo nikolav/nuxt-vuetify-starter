@@ -1,11 +1,13 @@
+type TNoop = (...args: any[]) => void;
 export const useProcessMonitor = () => {
   const toggleProcessing = useToggleFlag();
   const error$ = ref<any>(null);
   const success$ = ref(false);
-  const begin = () => {
+  const begin = (onInit: TNoop = noop) => {
     error$.value = null;
     success$.value = false;
     toggleProcessing.on();
+    onInit();
   };
   const setError = (err: any) => {
     error$.value = err;

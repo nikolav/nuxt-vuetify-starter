@@ -15,6 +15,9 @@ definePageMeta({
 });
 
 // @config
+useHead({
+  title: "Tim",
+});
 const { smAndUp } = useDisplay();
 const {
   app: { TOOLTIPS_OPEN_DELAY, SEARCH_DEBOUNCE_DELAY, DEFAULT_TRANSITION },
@@ -408,10 +411,19 @@ const onSubmitApplyGroupFiler = () => {
               >
                 <VBadgeUserAvailability :uid="item.id" />
                 <VBtnShowLocation
-                  :props-menu="{ location: 'bottom' }"
+                  :props-sheet="{ color: 'info-darken-1' }"
+                  :props-menu="{
+                    location: 'bottom',
+                  }"
                   class="-translate-y-[2px]"
                   :uid="item.id"
-                />
+                >
+                  <template #location="{ profile }">
+                    <strong class="text-lg">{{
+                      profile.displayLocation
+                    }}</strong>
+                  </template>
+                </VBtnShowLocation>
                 <strong
                   class="text-body-1 ps-2"
                   :class="[

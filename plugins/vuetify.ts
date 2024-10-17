@@ -15,6 +15,7 @@ import {
   IconFrikomLogo,
   IconKeyWriteFill,
   IconUsersGroup,
+  IconBox3DEdit,
 } from "@/components/icons";
 
 import { srLatn } from "vuetify/locale";
@@ -120,6 +121,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         iconBellOffOutline: IconBellOffOutline,
         iconKeyWriteFill: IconKeyWriteFill,
         iconAccountKey: IconAccountKey,
+        iconBox3DEdit: IconBox3DEdit,
       },
       sets: {
         mdi,

@@ -123,3 +123,4 @@ export { hasOwn } from "./has-own";
 export { batchSet } from "./batch-set";
 export { matchEmailStart } from "./match-email-start";
 export { caseUpper } from "./case-upper";
+export { mimetypeLookupImage } from "./mimes";

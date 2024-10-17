@@ -103,7 +103,7 @@ const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
     </VSnackbarSuccess>
     <VForm @submit.prevent="submit" autocomplete="off">
       <VCard :disabled="pc.processing.value" variant="text" rounded="0">
-        <VToolbarPrimary text="Dodaj artikle">
+        <VToolbarPrimary text="Dodaj proizvod">
           <template #prepend>
             <Icon
               class="opacity-40 ms-1"

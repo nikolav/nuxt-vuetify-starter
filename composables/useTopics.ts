@@ -72,8 +72,8 @@ export const useTopics = () => {
   const firebasePathAvatars = (uid: any) =>
     uid ? `${trimEnd(PATH_PROFILE_AVATARS, "/")}/${uid}` : "";
   const userAvailabilityStatus = () => USER_AVAILABILITY_STATUS;
-  const firebasePathAssets = (uid: any) =>
-    uid ? `${trimEnd(PATH_ASSETS_IMAGES, "/")}/${uid}` : "";
+  const firebasePathAssets = (aid: any) =>
+    aid ? `${trimEnd(PATH_ASSETS_IMAGES, "/")}/${aid}` : "";
 
   return {
     CHAT_MAIN,

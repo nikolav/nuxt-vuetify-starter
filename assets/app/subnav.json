@@ -2,7 +2,7 @@
   "aktiva": [
     {
       "icon": "game-icons:cardboard-box-closed",
-      "title": "Proizvodi",
+      "title": "Roba",
       "size": "1.85rem",
       "to": "aktiva-proizvodi"
     },

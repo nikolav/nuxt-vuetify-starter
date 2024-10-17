@@ -6,7 +6,7 @@ import { Iconx } from "@/components/icons";
 defineOptions({
   inheritAttrs: false,
 });
-const props = defineProps<{ uid: any; propsMenu?: any }>();
+const props = defineProps<{ uid: any; propsMenu?: any; propsSheet?: any }>();
 const {
   app: { TOOLTIPS_OPEN_DELAY, DEFAULT_TRANSITION },
 } = useAppConfig();
@@ -45,7 +45,7 @@ const {
         :close-on-content-click="false"
         v-bind="propsMenu"
       >
-        <VSheet class="pa-1 px-2">
+        <VSheet class="pa-1 px-2" v-bind="propsSheet">
           <slot name="location" :profile="profile">
             <span class="text-body-1">
               {{ profile.displayLocation }}

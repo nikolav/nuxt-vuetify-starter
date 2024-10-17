@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { Dump } from "@/components/dev";
-import { VFabMain, VCardDataIterator } from "@/components/app";
+import {
+  VFabMain,
+  VCardDataIterator,
+  ProvideAssetImages,
+  VBtnOpenGallery,
+} from "@/components/app";
+import { Iconx } from "@/components/icons";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
@@ -27,6 +33,8 @@ const itemLinkTo = (node: any) => ({
 const productGrops = (p: any) => [
   String(last(p.name.split(":"))).toLocaleUpperCase(),
 ];
+const getid = (node: any) => get(node, "id");
+const { $lightbox } = useNuxtApp();
 // @@eos
 </script>
 <template>
@@ -44,6 +52,38 @@ const productGrops = (p: any) => [
     >
       <template #menu>
         <pre>{{ productsSelected?.length }}</pre>
+      </template>
+      <template #list-item-title="{ item, title }">
+        <span class="d-inline-flex items-center translate-y-[2px]">
+          <!-- @@btn:assets:images -->
+          <ProvideAssetImages :aid="getid(item)" v-slot="{ images }">
+            <VBtnOpenGallery
+              :hide-if-empty="true"
+              :slides="images.map((src) => ({ src }))"
+              :show-badge="false"
+              variant="text"
+              color="secondary"
+              density="comfortable"
+              class="pa-0 ma-0"
+            />
+          </ProvideAssetImages>
+          <span class="ps-3">{{ title }}</span>
+        </span>
+      </template>
+      <template #list-item-append="{ item }">
+        <VBtn
+          @click.stop.prevent
+          :to="{
+            name: 'aktiva-proizvodi-uredi-pid',
+            params: { pid: getid(item) },
+          }"
+          icon
+          density="comfortable"
+          variant="plain"
+          color="secondary"
+        >
+          <Iconx icon="$edit" />
+        </VBtn>
       </template>
     </VCardDataIterator>
     <VFabMain :to="{ name: 'aktiva-proizvodi-nov' }" />

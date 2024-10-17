@@ -44,7 +44,7 @@ watch(
 
 // meta, seo --config
 useHead({
-  titleTemplate: (ttl) => (ttl ? `${ttl} | nikolav.rs` : "nikolav.rs"),
+  titleTemplate: (ttl) => (ttl ? `${ttl} | tereni:frikom` : "tereni:frikom"),
 });
 
 // provide current user data

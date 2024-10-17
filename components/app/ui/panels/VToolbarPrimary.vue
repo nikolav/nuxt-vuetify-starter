@@ -34,13 +34,13 @@ const ROUTE_BACK_NAMED = { name: props.routeBackName };
         />
       </slot>
     </template>
-    <slot name="title" :text="text">
-      <VToolbarTitle
-        class="text-center text-body-1 opacity-50 font-weight-light font-italic"
-      >
+    <VToolbarTitle
+      class="text-center text-body-1 opacity-50 font-weight-light font-italic"
+    >
+      <slot name="title" :text="text">
         <span>{{ text }}</span>
-      </VToolbarTitle>
-    </slot>
+      </slot>
+    </VToolbarTitle>
   </VToolbar>
 </template>
 <style lang="scss" scoped></style>

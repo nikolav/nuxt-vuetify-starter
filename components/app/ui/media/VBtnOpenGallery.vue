@@ -5,15 +5,24 @@ defineOptions({
 import type { ILightboxSlide } from "@/types";
 import { LightboxSlides } from "@/components/ui";
 const props = withDefaults(
-  defineProps<{ slides: ILightboxSlide[]; showBadge?: boolean }>(),
+  defineProps<{
+    slides: ILightboxSlide[];
+    showBadge?: boolean;
+    hideIfEmpty?: boolean;
+  }>(),
   {
     showBadge: true,
   }
 );
+const isEmptySLides = computed(() => isEmpty(props.slides));
 // @@eos
 </script>
 <template>
-  <LightboxSlides :slides="slides" class="component--VBtnOpenGallery">
+  <LightboxSlides
+    v-if="!isEmptySLides || !hideIfEmpty"
+    :slides="slides"
+    class="component--VBtnOpenGallery"
+  >
     <template #activator="props_">
       <slot name="activator" :showBadge="showBadge" v-bind="props_">
         <VBadge
@@ -25,14 +34,16 @@ const props = withDefaults(
           :content="props_.slides.length"
         >
           <VBtn
-            @click="props_.open()"
+            @click.stop.prevent="props_.open()"
             icon
             color="primary"
-            density="comfortable"
             size="small"
+            :disabled="isEmptySLides"
             v-bind="$attrs"
           >
-            <Icon name="bi:images" size="1.22rem" />
+            <slot name="icon">
+              <Icon name="bi:images" size="1.22rem" />
+            </slot>
           </VBtn>
         </VBadge>
       </slot>

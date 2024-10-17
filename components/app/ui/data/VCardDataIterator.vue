@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // IS7qWevRGnAxp0Y
+import { mergeProps } from "vue";
 import { VBadgeSelectedOfTotal, VBtnFilterClear } from "@/components/app";
 import { renderIcon } from "@/components/icons";
 
@@ -232,12 +233,7 @@ const onSubmitApplyGroupFiler = () => {
           >
             <VSheet class="pa-0 ma-0">
               <slot name="menu" :selection="itemsSelected">
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est
-                  ratione voluptatum, quos ipsum modi incidunt, labore eaque
-                  quisquam repellat fuga fugiat rem vero ipsam quas sed magni,
-                  similique veritatis voluptatibus.
-                </p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
               </slot>
             </VSheet>
           </VMenu>
@@ -348,7 +344,10 @@ const onSubmitApplyGroupFiler = () => {
               class="ps-2"
             >
               <template #append="props_" v-if="$slots['list-item-append']">
-                <slot name="list-item-append" v-bind="props_" />
+                <slot
+                  name="list-item-append"
+                  v-bind="mergeProps(props_, { item: node.raw })"
+                />
               </template>
               <template #prepend>
                 <VCheckboxBtn
@@ -364,10 +363,16 @@ const onSubmitApplyGroupFiler = () => {
                 ></VCheckboxBtn>
               </template>
               <VListItemTitle
-                class="ps-4 text-body-1"
+                class="ps-1 text-body-1"
                 @click="select([node], !isSelected(node))"
               >
-                <span>{{ node.raw[itemTitle] }}</span>
+                <slot
+                  name="list-item-title"
+                  :item="node.raw"
+                  :title="node.raw[itemTitle]"
+                >
+                  <span>{{ node.raw[itemTitle] }}</span>
+                </slot>
               </VListItemTitle>
             </VListItem>
           </VList>

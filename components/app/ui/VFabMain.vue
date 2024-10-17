@@ -10,7 +10,7 @@ const { smAndUp } = useDisplay();
     absolute
     appear
     icon="$plus"
-    class="!fixed !z-[9999]"
+    class="!fixed !z-[1555]"
     :class="[smAndUp ? 'end-20 bottom-6' : 'end-6 bottom-20']"
   />
 </template>

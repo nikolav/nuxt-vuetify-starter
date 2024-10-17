@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Iconx } from "@/components/icons";
+
 // 8rWqBKIKsWZ4pbf1
 import { Test, Dump } from "@/components/dev";
 const ICONS_DEFAULT = [
@@ -40,6 +41,15 @@ const ICONS_DEFAULT = [
   "warning",
 ];
 
+const URL =
+  "https://media.australian.museum/media/dd/images/Some_image.width-1200.976d0a3.jpg";
+const { file } = useFetchUrlToFileData();
+const { upload } = useFirebaseStorage("/temp/images");
+
+const dFile = async () => {
+  console.log(await file(URL, "Some_image.width-1200.976d0a3.jpg"));
+};
+
 // @@eos
 </script>
 <template>
@@ -53,5 +63,6 @@ const ICONS_DEFAULT = [
   </VResponsive>
   <VDivider class="mt-4" />
   <Iconx icon="$iconFrikomLogo" size="12rem" />
+  <VBtn @click="dFile">ok</VBtn>
 </template>
 <style lang="scss" scoped></style>
