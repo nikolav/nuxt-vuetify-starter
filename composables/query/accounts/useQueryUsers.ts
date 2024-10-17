@@ -1,6 +1,6 @@
 import type { IUser } from "@/types";
 import { Q_users, Q_usersOnly } from "@/graphql";
-export const useQueryUsers = (UIDS?: any) => {
+export const useQueryUsers = (UIDS?: any, $ENABLED: any = true) => {
   const {
     graphql: { STORAGE_QUERY_POLL_INTERVAL },
     io: { IOEVENT_AUTH_NEWUSER, IOEVENT_ACCOUNTS_UPDATED },
@@ -10,6 +10,7 @@ export const useQueryUsers = (UIDS?: any) => {
   watchEffect(() => {
     uids.value = toValue(UIDS);
   });
+  const enabled = computed(() => toValue($ENABLED));
   const {
     result,
     load: queryStart,
@@ -19,6 +20,7 @@ export const useQueryUsers = (UIDS?: any) => {
     isAll_.value ? Q_users : Q_usersOnly,
     isAll_.value ? undefined : { uids },
     {
+      enabled,
       pollInterval: STORAGE_QUERY_POLL_INTERVAL,
     }
   );
@@ -34,5 +36,5 @@ export const useQueryUsers = (UIDS?: any) => {
   useIOEvent(IOEVENT_AUTH_NEWUSER, reload);
   useIOEvent(IOEVENT_ACCOUNTS_UPDATED, reload);
 
-  return { uids, users, reload };
+  return { uids, users, reload, enabled };
 };

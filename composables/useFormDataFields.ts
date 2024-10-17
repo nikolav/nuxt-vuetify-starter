@@ -1,6 +1,6 @@
 import { type KeySchema } from "zod";
 import type { RecordJson, TOrPromise } from "@/types";
-type TFormFieldsOnSubmit = (...args: any[]) => TOrPromise<void>;
+type TFormFieldsOnSubmit = <T = any>(...args: T[]) => TOrPromise<void>;
 export const useFormDataFields = (
   KEY: string,
   FIELDS: Record<string, boolean>,

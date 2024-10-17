@@ -6,6 +6,7 @@ import {
   VBtnFilterClear,
   VFabMain,
   VBadgeUserAvailability,
+  VBtnShowLocation,
 } from "@/components/app";
 
 definePageMeta({
@@ -400,11 +401,17 @@ const onSubmitApplyGroupFiler = () => {
                   :size="smAndUp ? undefined : 'x-small'"
                 />
               </td>
+              <!-- @@ -->
               <td
                 v-else-if="col.key == 'fullname'"
                 :class="[smAndUp ? undefined : 'ps-2']"
               >
                 <VBadgeUserAvailability :uid="item.id" />
+                <VBtnShowLocation
+                  :props-menu="{ location: 'bottom' }"
+                  class="-translate-y-[2px]"
+                  :uid="item.id"
+                />
                 <strong
                   class="text-body-1 ps-2"
                   :class="[
