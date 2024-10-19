@@ -12,10 +12,11 @@ export const useFetchUrlToFileData = () => {
   const pc = useProcessMonitor();
   const file = async (url: string, filename?: string) => {
     let fdata;
+    let file_;
     const filename_ = filename || `file:${idGen()}`;
     try {
       pc.begin();
-      if (!isURL(url)) throw "--bad-url";
+      if (!isURL(url)) throw "--no-url";
       fdata = get(
         await $fetch(ENDPOINT_GRAPHQL, {
           method: "POST",
@@ -40,10 +41,11 @@ export const useFetchUrlToFileData = () => {
     }
     if (!pc.error.value) {
       pc.successful();
-      return new File([b64tob(fdata)], filename_, {
+      file_ = new File([b64tob(fdata)], filename_, {
         type: mimetypeLookupImage(filename_),
       });
     }
+    return file_;
   };
 
   return { file, processing: pc.processing };

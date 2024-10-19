@@ -24,7 +24,7 @@ const {
   invoke,
   isEmpty,
   isFunction,
-  keys,
+  // keys,
   last,
   map,
   memoize,
@@ -80,7 +80,7 @@ export {
   invoke,
   isEmpty,
   isFunction,
-  keys,
+  // keys,
   last,
   // len,
   map,
@@ -122,5 +122,7 @@ export { idGen } from "./id-gen";
 export { hasOwn } from "./has-own";
 export { batchSet } from "./batch-set";
 export { matchEmailStart } from "./match-email-start";
+export { matchAfterLastDot } from "./match-after-last-dot";
 export { caseUpper } from "./case-upper";
 export { mimetypeLookupImage } from "./mimes";
+export { withArgsPrepended } from "./func";

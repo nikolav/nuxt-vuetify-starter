@@ -13,19 +13,7 @@ definePageMeta({
 });
 
 const productsSelected = ref();
-// const { products, reload: productsReload, processing } = useQueryProductsList();
-const {
-  db: {
-    Assets: {
-      type: { PHYSICAL_PRODUCT },
-    },
-  },
-} = useAppConfig();
-const {
-  assets: products,
-  reload,
-  processing,
-} = useQueryManageAssets(PHYSICAL_PRODUCT);
+const { assets: products, reload, processing } = useQueryManageAssetsProducts();
 const itemLinkTo = (node: any) => ({
   name: "aktiva-proizvodi-pid",
   params: { pid: node.raw.id },

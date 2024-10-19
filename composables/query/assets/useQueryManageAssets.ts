@@ -51,13 +51,9 @@ export const useQueryManageAssets = (ASSETS_TYPE?: any, AIDS?: any) => {
   const reload = async () => await refetch();
   const commit = async (fields: any, aid?: any) =>
     await mutateAssetsUpsert({
-      fields: assign(
-        {},
-        null != aid ? fields : sHasName.passthrough().parse(fields),
-        {
-          type: type.value,
-        }
-      ),
+      fields: assign({}, aid ? fields : sHasName.passthrough().parse(fields), {
+        type: type.value,
+      }),
       aid,
     });
   const remove = async (aids: any) => await mutateAssetsRemove({ aids });

@@ -12,7 +12,10 @@ export const useProcessMonitor = () => {
   const setError = (err: any) => {
     error$.value = err;
   };
-  const done = toggleProcessing.off;
+  const done = (callback: TNoop = noop) => {
+    toggleProcessing.off();
+    callback();
+  };
   const successful = (callback: any = noop) => {
     success$.value = true;
     callback();

@@ -236,6 +236,14 @@ export default defineNuxtConfig({
         imports: [{ name: "default", as: "omit" }],
       },
       {
+        from: "lodash/keys",
+        imports: [{ name: "default", as: "keys" }],
+      },
+      {
+        from: "lodash/isEqual",
+        imports: [{ name: "default", as: "isEqual" }],
+      },
+      {
         from: "validator/lib/isEmail",
         imports: [{ name: "default", as: "isEmail" }],
       },

@@ -3,6 +3,8 @@ import {
   VToolbarPrimary,
   VImgImagesPicker,
   VSnackbarSuccess,
+  VBtnSave,
+  VBtnReset,
 } from "@/components/app";
 import { schemaAssetsInput as si } from "@/schemas";
 definePageMeta({
@@ -133,8 +135,7 @@ const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
                     variant="underlined"
                   >
                     <template #label>
-                      <span>Naziv </span
-                      ><span class="text-error">*</span>
+                      <span>Naziv </span><span class="text-error">*</span>
                     </template>
                   </VTextField>
                   <VTextField
@@ -157,33 +158,12 @@ const { height: HMAX } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
                   />
                 </div>
                 <VCardActions class="mt-6 *pa-6">
-                  <VBtn
-                    @click="formReset()"
-                    color="secondary"
-                    variant="plain"
-                    rounded="pill"
-                    class="px-3"
-                  >
-                    <VIcon size="large" icon="$close" start />
-                    <span> Poništi </span>
-                  </VBtn>
+                  <VBtnReset @click="formReset()" />
                   <VSpacer />
-                  <VBtn
-                    elevation="1"
-                    size="large"
+                  <VBtnSave
                     type="submit"
-                    variant="tonal"
-                    rounded="pill"
-                    class="px-4"
                     :disabled="pc.processing.value || !formValid"
-                  >
-                    <Icon
-                      class="opacity-50 me-2"
-                      size="1.44rem"
-                      name="material-symbols:save"
-                    />
-                    <span>Sačuvaj</span>
-                  </VBtn>
+                  />
                 </VCardActions>
               </VCol>
             </VRow>

@@ -27,7 +27,7 @@ const isEmptySLides = computed(() => isEmpty(props.slides));
       <slot name="activator" :showBadge="showBadge" v-bind="props_">
         <VBadge
           color="secondary"
-          offset-x="-4"
+          offset-x="-8"
           floating
           :model-value="showBadge"
           location="end"

@@ -78,7 +78,7 @@ watch(
         height="32"
       >
         <template #prepend>
-          <VBtnOpenGallery :slides="slidesImagesPicked" />
+          <VBtnOpenGallery density="comfortable" :slides="slidesImagesPicked" />
         </template>
         <template #append>
           <VBtn

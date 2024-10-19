@@ -1,5 +1,4 @@
-import { type KeySchema } from "zod";
-import type { RecordJson, TOrPromise } from "@/types";
+import type { TOrPromise } from "@/types";
 type TFormFieldsOnSubmit = <T = any>(...args: T[]) => TOrPromise<void>;
 export const useFormDataFields = (
   KEY: string,
@@ -7,6 +6,7 @@ export const useFormDataFields = (
   config: {
     onSubmit?: TFormFieldsOnSubmit;
     schema?: any;
+    dump?: any;
   } = {}
 ) => {
   const main$$ = useStoreMain();
@@ -26,17 +26,19 @@ export const useFormDataFields = (
   const valid = computed(() =>
     config.schema ? config.schema.safeParse(dump()).success : true
   );
-  const dump = () =>
-    reduce(
-      FIELDS,
-      (data, flag, field) => {
-        if (flag) {
-          data[field] = form[field].value;
-        }
-        return data;
-      },
-      <RecordJson>{}
-    );
+  const dump =
+    config.dump ||
+    (() =>
+      reduce(
+        FIELDS,
+        (data, flag, field) => {
+          if (flag) {
+            data[field] = form[field].value;
+          }
+          return data;
+        },
+        <any>{}
+      ));
   const submit = async () => {
     if (!config.onSubmit) return;
     if (!valid.value) return;

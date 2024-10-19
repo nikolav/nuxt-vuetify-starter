@@ -57,12 +57,15 @@ export const useFirebaseStorage = (STORE_PATH?: any) => {
   const ls = async () => {
     return [...(get(await listAll(refStore.value), "items") || [])];
   };
+  const rma = async () =>
+    await Promise.all(map(await ls(), async (node) => await rm(node.name)));
 
   return {
     upload,
     url,
     ls,
     rm,
+    rma,
     info,
   };
 };
