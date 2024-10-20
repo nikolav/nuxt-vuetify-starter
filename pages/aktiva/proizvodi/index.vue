@@ -5,24 +5,35 @@ import {
   VCardDataIterator,
   ProvideAssetImages,
   VBtnOpenGallery,
+  VSheetPinCodeRequired,
 } from "@/components/app";
 import { Iconx } from "@/components/icons";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
+const {
+  app: { DEFAULT_TRANSITION, TOOLTIPS_OPEN_DELAY },
+} = useAppConfig();
 
 const productsSelected = ref();
-const { assets: products, reload, processing } = useQueryManageAssetsProducts();
-const itemLinkTo = (node: any) => ({
+const {
+  assets: products,
+  reload,
+  remove: assetsRemove,
+  processing,
+} = useQueryManageAssetsProducts();
+const itemLinkTo = (item: any) => ({
   name: "aktiva-proizvodi-pid",
-  params: { pid: node.raw.id },
+  params: { pid: item?.id },
+  target: "_blank",
+  external: true,
 });
 const productGrops = (p: any) => [
   String(last(p.name.split(":"))).toLocaleUpperCase(),
 ];
 const getid = (node: any) => get(node, "id");
-const { $lightbox } = useNuxtApp();
+const assetNameById = (id: any) => get(find(products.value, { id }), "name");
 
 // ##head
 useHead({ title: "Roba" });
@@ -35,7 +46,6 @@ useHead({ title: "Roba" });
       v-model="productsSelected"
       :items="products"
       item-title="name"
-      :item-to="itemLinkTo"
       item-value="id"
       :reload="reload"
       :per-page="2"
@@ -59,7 +69,27 @@ useHead({ title: "Roba" });
               class="pa-0 ma-0"
             />
           </ProvideAssetImages>
-          <span class="ps-3">{{ title }}</span>
+          <NuxtLink
+            :to="pick(itemLinkTo(item), ['name', 'params'])"
+            v-bind="omit(itemLinkTo(item), ['name', 'params'])"
+          >
+            <VBtn
+              @click.stop
+              icon
+              variant="text"
+              size="small"
+              density="comfortable"
+              color="secondary"
+              class="ms-2"
+            >
+              <Iconx
+                icon="tabler:external-link"
+                size="1.33rem"
+                class="*-translate-y-px"
+              />
+            </VBtn>
+          </NuxtLink>
+          <span class="ps-4">{{ title }}</span>
         </span>
       </template>
       <template #list-item-append="{ item }">
@@ -75,6 +105,48 @@ useHead({ title: "Roba" });
           color="secondary"
         >
           <Iconx icon="$edit" />
+        </VBtn>
+        <VBtn
+          @click.stop.prevent
+          icon
+          variant="plain"
+          color="error"
+          density="comfortable"
+          class="ms-3"
+        >
+          <Iconx icon="mdi:trash-can" size="1.22rem" class="opacity-40" />
+          <VMenu
+            location="center"
+            activator="parent"
+            :close-on-content-click="false"
+            :transition="DEFAULT_TRANSITION"
+          >
+            <VSheetPinCodeRequired
+              message="Pin za brisanje proizvoda:"
+              :props-actions="{ class: 'flex-col !gap-3' }"
+            >
+              <template #actions="{ pin, text }">
+                <VBtn
+                  @click="pin == text && assetsRemove([getid(item)])"
+                  :disabled="text != pin"
+                  color="error"
+                  variant="tonal"
+                  rounded="pill"
+                  class="px-3"
+                >
+                  <template #prepend>
+                    <Iconx size="1.22rem" icon="mdi:trash-can" />
+                  </template>
+                  <span>Obriši proizvod</span>
+                </VBtn>
+                <em
+                  class="text-error"
+                  :class="[text != pin ? 'opacity-20' : undefined]"
+                  >{{ assetNameById(getid(item)) }}</em
+                >
+              </template>
+            </VSheetPinCodeRequired>
+          </VMenu>
         </VBtn>
       </template>
     </VCardDataIterator>

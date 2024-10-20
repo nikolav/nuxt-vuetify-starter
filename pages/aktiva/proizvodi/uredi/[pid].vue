@@ -56,7 +56,7 @@ const { assets: products, commit } = useQueryManageAssetsProducts(() => [
 // ##computed
 const p = computed(() => first(products.value));
 // ##forms ##helpers
-const FIELDS = <any>{
+const FIELDS = <Record<string, any>>{
   name: {
     label: "Naziv *",
     icon: {
@@ -65,6 +65,12 @@ const FIELDS = <any>{
     },
   },
   category: {
+    resolve: (_path: any) => {
+      const c = find(p.value?.tags, (t) =>
+        t.startsWith(CATEGORY_KEY_ASSETS_prefix)
+      );
+      return c && matchAfterLastColon(c);
+    },
     type: "select",
     label: "Robna grupa",
     icon: {
@@ -105,29 +111,16 @@ const FIELDS = <any>{
   },
 };
 
-const fieldsResolve = <any>{
-  category: (_path: any) => {
-    const c = find(p.value?.tags, (t) =>
-      t.startsWith(CATEGORY_KEY_ASSETS_prefix)
-    );
-    return c && matchAfterLastColon(c);
-  },
-};
-const fieldsResolveDefault = (path: any) => get(p.value, path);
+const fieldResolveDefault = (path: any) => get(p.value, path);
 const fieldsResetFromStore = () => {
   each(FIELDS, (item: any, field: string) => {
-    form[field].value = (fieldsResolve[field] || fieldsResolveDefault)(
+    form[field].value = (item.resolve || fieldResolveDefault)(
       item.path || field
     );
   });
 };
 
-const {
-  form,
-  submit: formSubmit,
-  // valid: formValid,
-  // clear: formClear,
-} = useFormDataFields(
+const { form, submit: formSubmit } = useFormDataFields(
   `fS2V1LZ9HE8PX1gNMq --${pid.value}`,
   reduce(
     keys(FIELDS),
@@ -194,7 +187,7 @@ const diffDump = () =>
     (d, item, field) => {
       const path = item.path || field;
       const newValue = form[field].value;
-      if (newValue != (fieldsResolve[path] || fieldsResolveDefault)(path)) {
+      if (newValue != (item.resolve || fieldResolveDefault)(path)) {
         set(d, path, newValue);
       }
       return d;
@@ -204,7 +197,7 @@ const diffDump = () =>
 // ##watch
 watchProcessing(pc.processing);
 // ##hooks:lifecycle
-// render asset:images
+// init asset:images
 useOnceMountedOn(true, async () => {
   newProductImagesPicked.value = await Promise.all(
     map(await ls(), async (node) => {
@@ -216,7 +209,7 @@ useOnceMountedOn(true, async () => {
     })
   );
 });
-// load asset:fields
+// init asset:fields
 useOnceMountedOn(p, fieldsResetFromStore);
 // ##handlers
 const onUpdateModelValuePicker = (args: any[]) => {

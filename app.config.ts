@@ -217,6 +217,7 @@ export default defineAppConfig({
       /^auth\-verify\-email$/,
       /^auth\-password\-reset\-form$/,
       /^docs\-/,
+      /^aktiva-proizvodi-pid/,
     ],
   },
   SEO: {

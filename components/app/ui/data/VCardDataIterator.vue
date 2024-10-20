@@ -24,7 +24,9 @@ const props = withDefaults(
   {
     itemTitle: "title",
     itemValue: "id",
-    itemTo: noop,
+    itemTo: () => {
+      return <any>{};
+    },
     cardProps: {},
     menuProps: {},
     perPage: 5,
@@ -336,45 +338,42 @@ const onSubmitApplyGroupFiler = () => {
         </template>
         <template #default="{ items, isSelected, select }">
           <VList density="comfortable" variant="text" class="py-0">
-            <VListItem
-              v-for="node in items"
-              :key="node.raw[itemValue]"
-              :value="node.raw[itemValue]"
-              :to="itemTo(node)"
-              class="ps-2"
-            >
-              <template #append="props_" v-if="$slots['list-item-append']">
-                <slot
-                  name="list-item-append"
-                  v-bind="mergeProps(props_, { item: node.raw })"
-                />
-              </template>
-              <template #prepend>
-                <VCheckboxBtn
-                  base-color="secondary-lighten-1"
-                  class="mx-0 scale-[109%]"
-                  @click.stop
-                  :model-value="isSelected(node)"
-                  @update:model-value="select([node], !isSelected(node))"
-                  density="comfortable"
-                  :false-icon="iconCheckOff"
-                  :true-icon="iconCheckOn"
-                  color="primary"
-                ></VCheckboxBtn>
-              </template>
-              <VListItemTitle
-                class="ps-1 text-body-1"
-                @click="select([node], !isSelected(node))"
-              >
-                <slot
-                  name="list-item-title"
-                  :item="node.raw"
-                  :title="node.raw[itemTitle]"
+            <!-- @@list:item -->
+            <template v-for="node in items" :key="node.raw[itemValue]">
+              <VListItem :value="node.raw[itemValue]" class="ps-2">
+                <template #append="props_" v-if="$slots['list-item-append']">
+                  <slot
+                    name="list-item-append"
+                    v-bind="mergeProps(props_, { item: node.raw })"
+                  />
+                </template>
+                <template #prepend>
+                  <VCheckboxBtn
+                    base-color="secondary-lighten-1"
+                    class="mx-0 scale-[109%]"
+                    @click.stop
+                    :model-value="isSelected(node)"
+                    @update:model-value="select([node], !isSelected(node))"
+                    density="comfortable"
+                    :false-icon="iconCheckOff"
+                    :true-icon="iconCheckOn"
+                    color="primary"
+                  ></VCheckboxBtn>
+                </template>
+                <VListItemTitle
+                  class="ps-1 text-body-1"
+                  @click="select([node], !isSelected(node))"
                 >
-                  <span>{{ node.raw[itemTitle] }}</span>
-                </slot>
-              </VListItemTitle>
-            </VListItem>
+                  <slot
+                    name="list-item-title"
+                    :item="node.raw"
+                    :title="node.raw[itemTitle]"
+                  >
+                    <span>{{ node.raw[itemTitle] }}</span>
+                  </slot>
+                </VListItemTitle>
+              </VListItem>
+            </template>
           </VList>
         </template>
       </VDataIterator>

@@ -5,6 +5,8 @@ const props = withDefaults(
   defineProps<{
     message?: string | undefined;
     pinLength?: string | number | undefined;
+    propsTextfield?: any;
+    propsActions?: any;
   }>(),
   {
     pinLength: 4,
@@ -42,8 +44,9 @@ const code = ref();
         single-line
         label="Unesi pin kod"
         rounded="lg"
+        v-bind="propsTextfield"
       />
-      <VCardActions class="justify-center">
+      <VCardActions class="justify-center" v-bind="propsActions">
         <slot name="actions" :pin="pin" :text="code">
           <VBtn :disabled="code != pin">ok</VBtn>
         </slot>

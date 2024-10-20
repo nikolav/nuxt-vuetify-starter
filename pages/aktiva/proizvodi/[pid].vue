@@ -3,8 +3,8 @@
 import { Dump } from "@/components/dev";
 // ##config
 definePageMeta({
-  layout: "app-default",
-  middleware: "authorized",
+  layout: "default",
+  // middleware: "authorized",
 });
 
 // ##utils
