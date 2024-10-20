@@ -41,8 +41,10 @@ const ICONS_DEFAULT = [
   "warning",
 ];
 
+const { categories_select_menu } = useCategoryAssets();
+
 const ok = () => {
-  console.log(matchAfterLastDot("asdasd..1"));
+  console.log({ categories_select_menu });
 };
 // @@eos
 </script>

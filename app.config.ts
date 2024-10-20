@@ -12,6 +12,7 @@ import {
   URL_PASSWORD_RESET_REQUEST,
   URL_PASSWORD_RESET_FORM_LINK,
   URL_PASSWORD_RESET_ACTION,
+  CATEGORY_KEY_ASSETS_prefix,
 } from "@/config";
 
 const themeDark = "dark";
@@ -329,6 +330,9 @@ export default defineAppConfig({
   },
   db: {
     Assets: {
+      categories: {
+        CATEGORY_KEY_ASSETS_prefix,
+      },
       type: {
         DIGITAL_CHANNEL: "DIGITAL_CHANNEL:YqmefT",
         DIGITAL_CHAT: "DIGITAL_CHAT:4nASbEj8pFvqm",

@@ -23,6 +23,10 @@ const productGrops = (p: any) => [
 ];
 const getid = (node: any) => get(node, "id");
 const { $lightbox } = useNuxtApp();
+
+// ##head
+useHead({ title: "Roba" });
+
 // @@eos
 </script>
 <template>

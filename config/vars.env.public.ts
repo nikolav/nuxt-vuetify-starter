@@ -23,3 +23,5 @@ export const URL_VERIFY_EMAIL = `${trimEnd(
 )}/auth-verify-email`;
 
 export { SSR } from "./vars.env";
+
+export const CATEGORY_KEY_ASSETS_prefix = "CATEGORY_KEY:ASSETS:hhPDiM:";

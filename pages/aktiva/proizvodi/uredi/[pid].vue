@@ -22,15 +22,26 @@ const IMAGE_PICKER_SIZE_MAX = {
   h: 255,
   w: 320,
 };
+const {
+  app: { DEFAULT_TRANSITION },
+  db: {
+    Assets: {
+      categories: { CATEGORY_KEY_ASSETS_prefix },
+    },
+  },
+} = useAppConfig();
 // ##utils
+const { categories_select_menu } = useCategoryAssets();
+const { mdAndUp } = useDisplay();
 const route = useRoute();
 const { file } = useFetchUrlToFileData();
 const { firebasePathAssets } = useTopics();
 const pc = useProcessMonitor();
 const { watchProcessing } = useStoreAppProcessing();
-const { mdAndUp } = useDisplay();
 // ##icons
 // ##refs ##flags
+const ref_zi0LBpIF30d1BHKk = ref();
+const { width: WSIZER } = useElementSize(ref_zi0LBpIF30d1BHKk);
 const newProductImagesPicked = ref();
 const imagesUpdated = ref();
 const pid = computed(() => get(route.params, "pid"));
@@ -51,6 +62,14 @@ const FIELDS = <any>{
     icon: {
       name: "mdi:tag",
       size: "1.22rem",
+    },
+  },
+  category: {
+    type: "select",
+    label: "Robna grupa",
+    icon: {
+      name: "mdi:folder",
+      size: ".82rem",
     },
   },
   code: {
@@ -77,7 +96,7 @@ const FIELDS = <any>{
     },
   },
   notes: {
-    // type: "textarea",
+    type: "textarea",
     label: "Opis",
     icon: {
       name: "$edit",
@@ -86,17 +105,20 @@ const FIELDS = <any>{
   },
 };
 
-const fieldsSyncFromStore = () => {
-  each(FIELDS, (item: any, field: string) => {
-    const val = get(p.value, item.path || field);
-    if (val) {
-      form[field].value = val;
-    }
-  });
+const fieldsResolve = <any>{
+  category: (_path: any) => {
+    const c = find(p.value?.tags, (t) =>
+      t.startsWith(CATEGORY_KEY_ASSETS_prefix)
+    );
+    return c && matchAfterLastColon(c);
+  },
 };
+const fieldsResolveDefault = (path: any) => get(p.value, path);
 const fieldsResetFromStore = () => {
   each(FIELDS, (item: any, field: string) => {
-    form[field].value = get(p.value, item.path || field);
+    form[field].value = (fieldsResolve[field] || fieldsResolveDefault)(
+      item.path || field
+    );
   });
 };
 
@@ -172,7 +194,7 @@ const diffDump = () =>
     (d, item, field) => {
       const path = item.path || field;
       const newValue = form[field].value;
-      if (newValue != get(p.value, path)) {
+      if (newValue != (fieldsResolve[path] || fieldsResolveDefault)(path)) {
         set(d, path, newValue);
       }
       return d;
@@ -195,7 +217,7 @@ useOnceMountedOn(true, async () => {
   );
 });
 // load asset:fields
-useOnceMountedOn(p, fieldsSyncFromStore);
+useOnceMountedOn(p, fieldsResetFromStore);
 // ##handlers
 const onUpdateModelValuePicker = (args: any[]) => {
   imagesUpdated.value = !isEmpty(args);
@@ -241,12 +263,13 @@ const onUpdateModelValuePicker = (args: any[]) => {
                 <!-- @@fields -->
                 <!-- name, code, barcode, link, notes, images -->
                 <div
+                  ref="ref_zi0LBpIF30d1BHKk"
                   class="__placer max-w-[512px] mx-auto"
                   :class="[mdAndUp ? undefined : 'mt-5']"
                 >
                   <template v-for="(item, field) in FIELDS" :key="field">
                     <VTextField
-                      v-if="'notes' != field"
+                      v-if="!item?.type"
                       v-model="form[field].value"
                       :label="item.label"
                       variant="underlined"
@@ -261,7 +284,7 @@ const onUpdateModelValuePicker = (args: any[]) => {
                       </template>
                     </VTextField>
                     <VTextarea
-                      v-else-if="'notes' == field"
+                      v-else-if="'textarea' == item.type"
                       v-model="form[field].value"
                       :label="item.label"
                       variant="underlined"
@@ -276,6 +299,38 @@ const onUpdateModelValuePicker = (args: any[]) => {
                         />
                       </template>
                     </VTextarea>
+                    <VSelect
+                      v-else-if="'select' == item.type"
+                      v-model="form[field].value"
+                      class="px-5 mt-1"
+                      rounded="pill"
+                      variant="solo-filled"
+                      :items="categories_select_menu"
+                      :transition="DEFAULT_TRANSITION"
+                      :menu-props="{
+                        location: 'center',
+                        width: WSIZER,
+                      }"
+                      :list-props="{
+                        class: 'py-0',
+                        density: 'compact',
+                      }"
+                    >
+                      <template #label>
+                        <span class="d-flex items-center">
+                          <Iconx
+                            :size="item.icon.size"
+                            class="opacity-50 me-2"
+                            :icon="item.icon.name"
+                          />
+                          <span>{{ item.label }}</span>
+                          <span class="text-error">&nbsp;*</span>
+                        </span>
+                      </template>
+                      <template #prepend-inner>
+                        <pre class="__spacer me-2" />
+                      </template>
+                    </VSelect>
                   </template>
                   <VCardActions class="justify-around pa-5">
                     <VBtnReset @click="fieldsResetFromStore" />
