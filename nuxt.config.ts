@@ -244,6 +244,22 @@ export default defineNuxtConfig({
         imports: [{ name: "default", as: "isEqual" }],
       },
       {
+        from: "lodash/sample",
+        imports: [{ name: "default", as: "sample" }],
+      },
+      {
+        from: "lodash/take",
+        imports: [{ name: "default", as: "take" }],
+      },
+      {
+        from: "lodash/takeRight",
+        imports: [{ name: "default", as: "takeRight" }],
+      },
+      {
+        from: "lodash/startCase",
+        imports: [{ name: "default", as: "startCase" }],
+      },
+      {
         from: "validator/lib/isEmail",
         imports: [{ name: "default", as: "isEmail" }],
       },
@@ -286,7 +302,7 @@ export default defineNuxtConfig({
       viewport:
         "width=device-width, initial-scale=1.0, shrink-to-fit=no, minimum-scale=1",
       title: "app",
-      // titleTemplate: "%s | nikolav.rs",
+      titleTemplate: "%s | tereni:frikom",
       // https://www.geeksforgeeks.org/meta-tags-in-nuxt-js/
       meta,
       //
@@ -378,12 +394,16 @@ export default defineNuxtConfig({
 
   // https://image.nuxt.com/get-started/configuration
   image: {
+    // # can override at the component level
     // quality: 80,
     // # globally initialize an $img helper
     // inject: true,
     // format: ["webp"],
     // #allow domains to be optimized
-    // domains: ["nuxtjs.org"],
+    domains: [
+      // 🏠
+      // "frikom.nikolav.rs",
+    ],
     //
     // The screen sizes predefined by `@nuxt/image`:
     screens: {

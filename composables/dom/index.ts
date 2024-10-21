@@ -1,1 +1,1 @@
-export {};
+export { useScrollBottom } from "./useScrollBottom";

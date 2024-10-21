@@ -64,7 +64,7 @@ export const useDocs = <TData = TDocData>(
 
   const upsert = async (data: TData, id: OrNoValue<number> = null) => {
     if (enabled$.value)
-      await mutateDocsUpsert({ topic: topic$.value, data, id });
+      return await mutateDocsUpsert({ topic: topic$.value, data, id });
   };
 
   const remove = async (id: OrNoValue<number> = undefined) => {

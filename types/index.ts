@@ -226,12 +226,6 @@ export type TGravatars = Record<
 
 export type TDataLikesDislikesStore = Record<string, number>;
 
-export interface ITopicChatMessage {
-  uid?: OrNoValue<number | string>;
-  name?: OrNoValue<string>;
-  message: string;
-}
-
 export interface IDataRating {
   [topic: string]: {
     [key: string]: number;
@@ -306,4 +300,10 @@ export interface ILightboxSlide {
   thumb?: string | undefined;
   type?: any;
   // type?: "image" | "iframe" | "video" | "pdf" | "inline" | "html"| "ajax" | "youtube" | "vimeo" | undefined;
+}
+
+export interface ITopicChatMessage {
+  uid?: any;
+  name?: any;
+  message: string;
 }

@@ -13,6 +13,7 @@ import {
   URL_PASSWORD_RESET_FORM_LINK,
   URL_PASSWORD_RESET_ACTION,
   CATEGORY_KEY_ASSETS_prefix,
+  DEFAULT_NO_IMAGE_AVAILABLE,
 } from "@/config";
 
 const themeDark = "dark";
@@ -29,7 +30,7 @@ export default defineAppConfig({
     FLAG_SHOW_AUTH_BACKGROUND: "0hrfFp7OeZWPQ7wE",
   },
   app: {
-    DEFAULT_NO_IMAGE_AVAILABLE: "/no-image.jpg",
+    DEFAULT_NO_IMAGE_AVAILABLE,
     COOKIE_ANONYMOS_USER: "ANONYMOS_USER:XFwrJOC6a",
     DEFAULT_TRANSITION: "slide-y-reverse-transition",
     TRANSLATION_ENABLED: true,
@@ -48,7 +49,7 @@ export default defineAppConfig({
     USER_AVAILABILITY_STATUS: "USER_AVAILABILITY_STATUS:TOy5MSh9d7xmo94vvMED",
     CHAT_ORDER_COM_USER_prefix: "e5iT1p1Mmx5HD@",
     COM_PHOTOS_prefix: "@com:photos:",
-    LIKEDISLIKE_CACHE_ID: "4OpsEOLNYG1wuF64OhBr",
+    LIKEDISLIKE_CACHE_ID: "LIKEDISLIKE_CACHE_ID:Qh8kHQ",
     LIKES_preix: "@likes:",
     PRODUCT_IMAGES: "@images:product:",
     TAG_USERS: "@users",
@@ -79,8 +80,12 @@ export default defineAppConfig({
     TOPIC_CHAT_COM_prefix: "chat:com:i54gyCFeLH::",
     TOPIC_CHAT_PRODUCTS_prefix: "chat:products:vyuoiOe3eZW7::",
     TOPIC_RATING_POSTS_prefix: "rating:posts:31p4idFZ7uzT7TKm:",
-    TOPIC_RATINGS: "ratings:ZM2Vz8rC",
+    TOPIC_RATINGS: "topic-ratings:y0y8ij",
     USER_CONFIG_PREFERENCES: "config:98BAXCnOynhYgm640So:",
+    TOPIC_RATING_ASSETS_prefix: "TOPIC_RATING_ASSETS:wWSbCaLd2QXLGdYI:",
+    ASSETS_LIKES_prefix: "ASSETS_LIKES:WLbLz4PCh3ijB:",
+    TOPIC_CHAT_ASSETS_prefix: "TOPIC_CHAT_ASSETS:eIFs9HinYG4:",
+    TOPIC_CHAT_ACTIVE: "TOPIC_CHAT_ACTIVE:jiGNqK9Rbx1EE",
   },
   //
   FIELDS_OMIT_STORAGE_META: ["id", "created_at", "updated_at", "__typename"],

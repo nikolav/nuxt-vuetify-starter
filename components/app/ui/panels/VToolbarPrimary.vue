@@ -1,7 +1,12 @@
 <script setup lang="ts">
 // 1MEGCDgb23pxaFqEC
 const props = withDefaults(
-  defineProps<{ routeBackName?: string; dividerStart?: boolean; text?: any }>(),
+  defineProps<{
+    routeBackName?: string;
+    dividerStart?: boolean;
+    text?: any;
+    propsTitle?: any;
+  }>(),
   {
     routeBackName: "aktiva-proizvodi",
     dividerStart: true,
@@ -24,6 +29,7 @@ const ROUTE_BACK_NAMED = { name: props.routeBackName };
       <VDivider v-if="dividerStart" vertical inset class="ms-2" />
     </template>
     <template #append>
+      <slot name="actions" />
       <slot name="append" :toRoutePrev="ROUTE_BACK_NAMED">
         <VBtn
           size="small"
@@ -35,7 +41,8 @@ const ROUTE_BACK_NAMED = { name: props.routeBackName };
       </slot>
     </template>
     <VToolbarTitle
-      class="text-center text-body-1 opacity-50 font-weight-light font-italic"
+      class="text-center opacity-50 font-weight-light *text-body-1 *font-italic"
+      v-bind="propsTitle"
     >
       <slot name="title" :text="text">
         <span>{{ text }}</span>

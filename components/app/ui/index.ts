@@ -7,6 +7,7 @@ export * from "./media";
 export * from "./prompt";
 export * from "./accounts";
 export * from "./forms";
+export * from "./social";
 
 export { default as VChipPlus } from "./v-chip-plus.vue";
 export { default as VBtnFilterClear } from "./vbtn-filter-clear.vue";

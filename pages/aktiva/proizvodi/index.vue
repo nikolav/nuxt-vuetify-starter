@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Dump } from "@/components/dev";
 import {
   VFabMain,
   VCardDataIterator,
@@ -24,10 +23,12 @@ const {
   processing,
 } = useQueryManageAssetsProducts();
 const itemLinkTo = (item: any) => ({
-  name: "aktiva-proizvodi-pid",
-  params: { pid: item?.id },
-  target: "_blank",
+  to: {
+    name: "aktiva-proizvodi-pid",
+    params: { pid: item?.id },
+  },
   external: true,
+  target: "_blank",
 });
 const productGrops = (p: any) => [
   String(last(p.name.split(":"))).toLocaleUpperCase(),
@@ -69,10 +70,7 @@ useHead({ title: "Roba" });
               class="pa-0 ma-0"
             />
           </ProvideAssetImages>
-          <NuxtLink
-            :to="pick(itemLinkTo(item), ['name', 'params'])"
-            v-bind="omit(itemLinkTo(item), ['name', 'params'])"
-          >
+          <NuxtLink v-bind="itemLinkTo(item)">
             <VBtn
               @click.stop
               icon

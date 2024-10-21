@@ -1,5 +1,5 @@
 import type { IDataRating } from "@/types";
-const RATING_LOCAL = "F0hBduJgNto3UfXEo";
+const RATING_LOCAL = "yY9LrkiWtmDkWO3Owty";
 export const useTopicRating = (topic: any, _default = 0) => {
   const {
     key: { TOPIC_RATINGS },

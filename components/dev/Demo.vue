@@ -41,11 +41,11 @@ const ICONS_DEFAULT = [
   "warning",
 ];
 
-const { categories_select_menu } = useCategoryAssets();
-
-const ok = () => {
-  console.log({ categories_select_menu });
+const { topic, clear } = useGlobalVariableChatActive();
+const ok = async () => {
+  topic.value = `topic:122`;
 };
+const post = async () => {};
 // @@eos
 </script>
 <template>
@@ -60,5 +60,6 @@ const ok = () => {
   <VDivider class="mt-4" />
   <Iconx icon="$iconFrikomLogo" size="12rem" />
   <VBtn @click="ok">ok</VBtn>
+  <VBtn @click="clear">clear</VBtn>
 </template>
 <style lang="scss" scoped></style>

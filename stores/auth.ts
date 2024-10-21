@@ -25,7 +25,7 @@ import {
 
 export const useStoreApiAuth = defineStore("auth", () => {
   const {
-    key: { CHAT_NAME },
+    key: { CHAT_NAME: DISPLAY_NAME },
     stores: {
       auth: {
         KEY_ACCESS_TOKEN,
@@ -41,8 +41,8 @@ export const useStoreApiAuth = defineStore("auth", () => {
     initOnMounted: true,
   });
   const headers$ = computed(() => authHeaders(token$.value));
-  // init chat name @login
-  const chatName$ = useLocalStorage(CHAT_NAME, () => "", {
+  // init display name @login
+  const displayName = useLocalStorage(DISPLAY_NAME, () => "", {
     initOnMounted: true,
   });
 
@@ -101,6 +101,15 @@ export const useStoreApiAuth = defineStore("auth", () => {
     if (token$.value) await onLoginApollo(token$.value);
   });
 
+  const calcDisplayNameOnNoStorage = () => {
+    displayName.value = startCase(
+      get(profile.value, "displayName") ||
+        [get(profile.value, "firstName"), get(profile.value, "lastName")]
+          .filter(Boolean)
+          .join(" ") ||
+        matchEmailStart(get(user$.value, "email"))
+    );
+  };
   // sync apollo:auth
   watch(isAuth$, async (isAuth) => {
     if (isAuth) {
@@ -108,17 +117,13 @@ export const useStoreApiAuth = defineStore("auth", () => {
       // await onLoginApollo(token$.value);
 
       // cache auto `chatName`
-      if (chatName$.value) return;
-      const chatName = matchEmailStart(get(user$.value, "email"));
-      const chatNameDefault = matchEmailStart(APP_USER_DEFAULT_email);
-      if (chatNameDefault == chatName) return;
-      chatName$.value = startCase(chatName);
+      if (!displayName.value) calcDisplayNameOnNoStorage();
     } else {
       // #signal logout to apollo
       await onLogoutApollo();
       // clear auto `chatName`
 
-      // chatName$.value = "";
+      // displayName.value = "";
     }
   });
 
@@ -214,10 +219,10 @@ export const useStoreApiAuth = defineStore("auth", () => {
     isAdmin$,
     isDefault$,
     isAuthenticated$,
-
+    // @refs
+    displayName,
     // @api/flags
     status: pc,
-
     // hard login
     //  put token:validated
     tokenPut: (t: string) => {

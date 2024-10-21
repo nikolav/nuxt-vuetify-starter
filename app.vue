@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 // import { Dump } from "@/components/dev";
-import { SpinnerAppProcessing } from "@/components/ui";
 import { type MessagePayload } from "firebase/messaging";
+import { SpinnerAppProcessing } from "@/components/ui";
+import { VNavigationDrawerChatActive } from "@/components/app";
 
 const {
   app: { LOGOUT_RELOAD_PATH },
@@ -43,9 +44,9 @@ watch(
 );
 
 // meta, seo --config
-useHead({
-  titleTemplate: (ttl) => (ttl ? `${ttl} | tereni:frikom` : "tereni:frikom"),
-});
+// useHead({
+//   titleTemplate: (ttl) => `${ttl ? ttl + " | " : ""}tereni:frikom`,
+// });
 
 // provide current user data
 const uid = computed(() => auth.uid);
@@ -87,12 +88,15 @@ provide(key_REF_APPMAIN, ref_appMain);
     :theme="theme"
     :class="[authBgActive ? 'v-app--authBgActive' : undefined]"
   >
-    <!-- @pages -->
+    <!-- @@overlays -->
+    <VNavigationDrawerChatActive />
+
+    <!-- @@pages -->
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
 
-    <!-- @ui:status -->
+    <!-- @@status -->
     <NuxtLoadingIndicator color="red" />
     <SpinnerAppProcessing :opacity="0.81" />
   </VApp>

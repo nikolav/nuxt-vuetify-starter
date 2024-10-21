@@ -23,6 +23,10 @@ export const useTopics = () => {
       TOPIC_CHAT_PRODUCTS_prefix,
       TOPIC_RATING_POSTS_prefix,
       USER_CONFIG_PREFERENCES,
+      TOPIC_RATING_ASSETS_prefix,
+      ASSETS_LIKES_prefix,
+      TOPIC_CHAT_ASSETS_prefix,
+      TOPIC_CHAT_ACTIVE,
     },
     firebase: {
       messaging: { KEY_FCM_DEVICE_TOKENS },
@@ -74,10 +78,17 @@ export const useTopics = () => {
   const userAvailabilityStatus = () => USER_AVAILABILITY_STATUS;
   const firebasePathAssets = (aid: any) =>
     aid ? `${trimEnd(PATH_ASSETS_IMAGES, "/")}/${aid}` : "";
+  const ratingAssets = (aid?: any) =>
+    aid ? `${TOPIC_RATING_ASSETS_prefix}${aid}` : "";
+  const likesAssets = (aid?: any) =>
+    aid ? `${ASSETS_LIKES_prefix}${aid}` : "";
+  const chatAssets = (aid?: any) =>
+    aid ? `${TOPIC_CHAT_ASSETS_prefix}${aid}` : "";
 
   return {
     CHAT_MAIN,
     MAILING_LIST,
+    TOPIC_CHAT_ACTIVE,
     //
     chatOrder,
     comChat,
@@ -98,6 +109,9 @@ export const useTopics = () => {
     userAvailabilityStatus,
     firebasePathAvatars,
     firebasePathAssets,
+    ratingAssets,
+    likesAssets,
+    chatAssets,
     //
     ioeventAccountUpdated,
   };
