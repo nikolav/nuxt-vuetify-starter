@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { mergeProps } from "vue";
 const props = defineProps<{
   topic: string;
   light?: boolean;
   small?: boolean | undefined;
+  propsButtons?: any;
+  propsButtonLeft?: any;
+  propsButtonRight?: any;
 }>();
 
 const { like, dislike, likesCount, dislikesCount, isLiked, isDisliked } =
@@ -21,7 +25,6 @@ const { like, dislike, likesCount, dislikesCount, isLiked, isDisliked } =
     elevation="0"
     :border="!small ? true : undefined"
     :variant="light ? 'outlined' : 'flat'"
-    v-bind="$attrs"
   >
     <VBtn
       @click="like(!isLiked)"
@@ -32,6 +35,7 @@ const { like, dislike, likesCount, dislikesCount, isLiked, isDisliked } =
         !isLiked ? 'opacity-50' : ['opacity-100', light ? 'bg-primary-2' : ''],
         small ? '!py-[3px]' : undefined,
       ]"
+      v-bind="mergeProps(propsButtons, propsButtonLeft)"
     >
       <strong
         :class="small ? 'text-sm' : undefined"
@@ -52,6 +56,7 @@ const { like, dislike, likesCount, dislikesCount, isLiked, isDisliked } =
           : ['opacity-100', light ? 'bg-primary-2' : ''],
         small ? '!py-[3px]' : undefined,
       ]"
+      v-bind="mergeProps(propsButtons, propsButtonRight)"
       ><strong
         :class="small ? 'text-sm' : undefined"
         class="-translate-y-px -translate-x-px"

@@ -4,4 +4,4 @@ export { default as VNavigationDrawerChatActive } from "./VNavigationDrawerChatA
 export { default as VBtnMenuTopicPublish } from "./VBtnMenuTopicPublish.vue";
 export { default as VDataIteratorRenderChatSimple } from "./VDataIteratorRenderChatSimple.vue";
 export { default as VSheetChatItemSimple } from "./VSheetChatItemSimple.vue";
-
+export { default as VBtnTopicChatToggle } from "./VBtnTopicChatToggle.vue";

@@ -84,11 +84,7 @@ watch(
       position="absolute"
       class="bottom-8 end-5 z-[1]"
     >
-      <Iconx
-        class="text-primary-darken-1"
-        size="1.82rem"
-        icon="ion:paper-plane"
-      />
+      <Iconx class="text-primary" size="1.82rem" icon="ion:paper-plane" />
       <VMenu
         v-model="menuIsActive"
         :width="smAndUp ? 312 : VW"
@@ -98,7 +94,7 @@ watch(
         :close-on-content-click="false"
         :offset="22"
       >
-        <VSheet rounded="lg" class="pa-3">
+        <VSheet rounded="lg ts-xl" class="pa-3 ps-5">
           <VForm
             :disabled="loading"
             @submit.prevent="submit"
@@ -114,7 +110,7 @@ watch(
                 <Iconx
                   size="1.25rem"
                   icon="ri:user-line"
-                  class="opacity-20 me-1"
+                  class="opacity-20 me-1 -translate-y-px"
                 />
               </template>
             </VTextField>

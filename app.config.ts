@@ -83,9 +83,12 @@ export default defineAppConfig({
     TOPIC_RATINGS: "topic-ratings:y0y8ij",
     USER_CONFIG_PREFERENCES: "config:98BAXCnOynhYgm640So:",
     TOPIC_RATING_ASSETS_prefix: "TOPIC_RATING_ASSETS:wWSbCaLd2QXLGdYI:",
-    ASSETS_LIKES_prefix: "ASSETS_LIKES:WLbLz4PCh3ijB:",
     TOPIC_CHAT_ASSETS_prefix: "TOPIC_CHAT_ASSETS:eIFs9HinYG4:",
     TOPIC_CHAT_ACTIVE: "TOPIC_CHAT_ACTIVE:jiGNqK9Rbx1EE",
+    TOPIC_CHAT_ACTIVE_name: "TOPIC_CHAT_ACTIVE_name:vdqkf",
+    ASSETS_LIKES_prefix: "ASSETS_LIKES:WLbLz4PCh3ijB:",
+    DOCS_LIKES_prefix: "DOCS_LIKES:cmb8IRG3QNiA5r:",
+    TOPIC_CHAT_ACTIVE_main: "TOPIC_CHAT_ACTIVE_main:oYgQb3SHdQiLpHO1Y0cv",
   },
   //
   FIELDS_OMIT_STORAGE_META: ["id", "created_at", "updated_at", "__typename"],

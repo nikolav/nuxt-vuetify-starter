@@ -6,6 +6,7 @@ import {
   VToolbarPrimary,
   VRatingTopicRating,
   VBtnGroupTopicLikeDislike,
+  VBtnTopicChatToggle,
 } from "@/components/app";
 import { Iconx } from "@/components/icons";
 // ##config
@@ -19,7 +20,7 @@ const {
 } = useAppConfig();
 
 // ##utils
-const { ratingAssets, likesAssets } = useTopics();
+const { ratingAssets, likesAssets, chatAssets } = useTopics();
 const { mdAndUp, smAndUp } = useDisplay();
 const route = useRoute();
 const pid = computed(() => get(route.params, "pid"));
@@ -33,6 +34,7 @@ const { images } = useFirebaseStorageAssetImages(ID);
 // ##computed
 const topicRatingAssets = computed(() => ratingAssets(ID.value));
 const topicLikesAsset = computed(() => likesAssets(ID.value));
+const topicChatAsset = computed(() => chatAssets(ID.value));
 const titleProductName = computed(() => p.value?.name || "");
 const {
   current: imageCurrent,
@@ -68,6 +70,7 @@ useHead({ title: titleProductName });
     <VCard :disabled="false" variant="text" rounded="0">
       <VToolbarPrimary
         :props-title="{ class: 'text-start text-body-1 font-italic' }"
+        :props-actions="{ class: 'pe-7' }"
         route-back-name="index"
       >
         <template #prepend>
@@ -79,6 +82,9 @@ useHead({ title: titleProductName });
         </template>
         <template v-if="smAndUp" #title>
           <span> Podaci o proizvodu </span>
+        </template>
+        <template #actions>
+          <VBtnTopicChatToggle :topic="topicChatAsset" />
         </template>
       </VToolbarPrimary>
       <VContainer fluid class="pa-2 ma-0">

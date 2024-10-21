@@ -5,14 +5,15 @@ import { VSheetChatItemSimple } from "@/components/app";
 const emit = defineEmits<{
   (e: "chatMessagesInit"): void;
 }>();
+const props = defineProps<{ propsContainer?: any }>();
 // ##utils
 // ##icons
 // ##refs ##flags
 // ##data ##auth ##state
-const { chat, length: chatSize } = useDocsTopicChat();
+const { chat, length: chatSize, remove } = useDocsTopicChat();
 // ##computed
 // ##forms ##helpers ##handlers
-const getkey_ = (node: any) => get(node, "raw.id");
+const id_ = (node: any) => get(node, "raw.id");
 // ##watch
 useOnceMountedOn(chatSize, () => {
   emit("chatMessagesInit");
@@ -24,7 +25,7 @@ useOnceMountedOn(chatSize, () => {
 </script>
 <template>
   <VDataIterator
-    class="component--VListRenderChatSimple"
+    class="component--VDataIteratorRenderChatSimple"
     :items="chat"
     :items-per-page="-1"
   >
@@ -32,9 +33,12 @@ useOnceMountedOn(chatSize, () => {
       <pre>no chat data</pre>
     </template>
     <template #default="{ items }">
-      <div class="__spacer space-y-2">
-        <template v-for="node in items" :key="getkey_(node)">
-          <VSheetChatItemSimple :item="node.raw" />
+      <div class="__spacer space-y-2" v-bind="propsContainer">
+        <template v-for="node in items" :key="id_(node)">
+          <VSheetChatItemSimple
+            :remove="() => remove(id_(node))"
+            :item="node.raw"
+          />
         </template>
       </div>
     </template>

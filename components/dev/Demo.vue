@@ -41,9 +41,16 @@ const ICONS_DEFAULT = [
   "warning",
 ];
 
+const { $dd } = useNuxtApp();
 const { topic, clear } = useGlobalVariableChatActive();
 const ok = async () => {
   topic.value = `topic:122`;
+};
+const dd = async () => {
+  // console.log($dd.utc('2025-11-21T09:12:05.878508').fromNow(true));
+  console.log(
+    $dd.duration('P-1Y-2DT-1H-5S').humanize(true)
+  )
 };
 const post = async () => {};
 // @@eos
@@ -61,5 +68,6 @@ const post = async () => {};
   <Iconx icon="$iconFrikomLogo" size="12rem" />
   <VBtn @click="ok">ok</VBtn>
   <VBtn @click="clear">clear</VBtn>
+  <VBtn @click="dd">dd</VBtn>
 </template>
 <style lang="scss" scoped></style>
