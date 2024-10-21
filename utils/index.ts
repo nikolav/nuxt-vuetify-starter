@@ -1,6 +1,6 @@
 import lodash from "lodash";
 //
-export { isEmail, isMobilePhone, isURL } from "validator";
+// export { isEmail, isMobilePhone, isURL } from "validator";
 //
 const {
   assign,

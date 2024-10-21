@@ -9,3 +9,4 @@ export * from "./dom";
 export * from "./services";
 export * from "./social";
 export * from "./auth";
+export * from "./path";

@@ -98,6 +98,9 @@ export default defineNuxtConfig({
 
     // https://content.nuxt.com/
     "@nuxt/content",
+
+    // https://github.com/nicolasbeauvais/vue-social-sharing
+    // "vue-social-sharing/nuxt",
   ],
 
   build: {
@@ -271,9 +274,18 @@ export default defineNuxtConfig({
         from: "lodash/snakeCase",
         imports: [{ name: "default", as: "snakeCase" }],
       },
+      // export { isEmail, isMobilePhone, isURL } from "validator";
       {
         from: "validator/lib/isEmail",
         imports: [{ name: "default", as: "isEmail" }],
+      },
+      {
+        from: "validator/lib/isMobilePhone",
+        imports: [{ name: "default", as: "isMobilePhone" }],
+      },
+      {
+        from: "validator/lib/isURL",
+        imports: [{ name: "default", as: "isURL" }],
       },
     ],
     //

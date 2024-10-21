@@ -37,6 +37,7 @@ const topic_ = () => {
       @click="topic_"
       icon
       class="component--VBtnTopicChatToggle"
+      size="large"
       v-bind="$attrs"
     >
       <slot name="icon" :isActive="isActive">

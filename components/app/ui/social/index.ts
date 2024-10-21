@@ -5,3 +5,4 @@ export { default as VBtnMenuTopicPublish } from "./VBtnMenuTopicPublish.vue";
 export { default as VDataIteratorRenderChatSimple } from "./VDataIteratorRenderChatSimple.vue";
 export { default as VSheetChatItemSimple } from "./VSheetChatItemSimple.vue";
 export { default as VBtnTopicChatToggle } from "./VBtnTopicChatToggle.vue";
+export { default as VBtnShareSocialNetworks } from "./VBtnShareSocialNetworks.vue";

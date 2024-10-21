@@ -1,0 +1,1 @@
+export { usePublicUrlAssetProduct } from "./usePublicUrlAssetProduct";

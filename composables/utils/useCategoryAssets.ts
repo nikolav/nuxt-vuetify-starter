@@ -1,5 +1,9 @@
 import { tree } from "nikolav-treets";
 import m from "~/assets/app/categories.assets.products.json";
+
+// import * as nvtree from "nikolav-treets";
+// const { tree } = nvtree;
+
 // import { CATEGORY_KEY_ASSETS_prefix } from "@/config";
 // @static
 //  load menu

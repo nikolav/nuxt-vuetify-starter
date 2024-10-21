@@ -26,3 +26,5 @@ export { SSR } from "./vars.env";
 
 export const CATEGORY_KEY_ASSETS_prefix = "CATEGORY_KEY:ASSETS:hhPDiM:";
 export const DEFAULT_NO_IMAGE_AVAILABLE = "/no-image.jpg";
+
+export const ASSETS_PATH_proizvodi = "aktiva/proizvodi";
