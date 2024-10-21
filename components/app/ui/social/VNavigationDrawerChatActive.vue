@@ -18,7 +18,7 @@ const {
 } = useAppConfig();
 // ##utils
 const { smAndUp, width: VW } = useDisplay();
-const { isActive, clear } = useGlobalVariableChatActive();
+const { isActive, clear, chatTitle } = useGlobalVariableChatActive();
 const ref_bsLbRm = ref();
 // ##store ##auth ##data
 // ##helpers ##handlers
@@ -50,7 +50,7 @@ const { scrollBottom: NTscrollBottom, scrollBottomIfEnd } = useScrollBottom(
       v-bind="propsContainer"
     >
       <VToolbarPrimary
-        text="title --text"
+        :text="chatTitle"
         :props-title="{ class: 'text-start font-italic text-body-1' }"
         elevation="1"
         color="primary-lighten-1"

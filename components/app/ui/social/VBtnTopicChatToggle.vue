@@ -14,7 +14,11 @@ const props = defineProps<{
 const { TOPIC_CHAT_ACTIVE_main } = useTopics();
 // ##icons
 // ##refs ##flags
-const { isActive, topicSet } = useGlobalVariableChatActive();
+const {
+  topic: topicCurrent,
+  isActive,
+  topicSet,
+} = useGlobalVariableChatActive();
 // ##data ##auth ##state
 // ##computed
 // ##forms ##helpers ##handlers

@@ -32,10 +32,12 @@ const p = computed(() => first(products.value));
 const ID = computed(() => p.value?.id);
 const { images } = useFirebaseStorageAssetImages(ID);
 // ##computed
+const titleProductName = computed(() => p.value?.name || "");
 const topicRatingAssets = computed(() => ratingAssets(ID.value));
 const topicLikesAsset = computed(() => likesAssets(ID.value));
-const topicChatAsset = computed(() => chatAssets(ID.value));
-const titleProductName = computed(() => p.value?.name || "");
+const topicChatAsset = computed(
+  () => `${chatAssets(ID.value)} --title ${kebabCase(titleProductName.value)}`
+);
 const {
   current: imageCurrent,
   size: imagesLength,

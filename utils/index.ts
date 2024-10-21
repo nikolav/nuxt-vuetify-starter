@@ -126,3 +126,4 @@ export { matchAfterLastDot } from "./match-after-last-dot";
 export { caseUpper } from "./case-upper";
 export { mimetypeLookupImage } from "./mimes";
 export { withArgsPrepended } from "./func";
+export { shellArgsParse as parseShell } from "./parse";

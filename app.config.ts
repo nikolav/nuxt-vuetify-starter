@@ -88,7 +88,8 @@ export default defineAppConfig({
     TOPIC_CHAT_ACTIVE_name: "TOPIC_CHAT_ACTIVE_name:vdqkf",
     ASSETS_LIKES_prefix: "ASSETS_LIKES:WLbLz4PCh3ijB:",
     DOCS_LIKES_prefix: "DOCS_LIKES:cmb8IRG3QNiA5r:",
-    TOPIC_CHAT_ACTIVE_main: "TOPIC_CHAT_ACTIVE_main:oYgQb3SHdQiLpHO1Y0cv",
+    TOPIC_CHAT_ACTIVE_main:
+      "TOPIC_CHAT_ACTIVE_main:oYgQb3SHdQiLpHO1Y0cv --title @kanal:frikom:Svi",
   },
   //
   FIELDS_OMIT_STORAGE_META: ["id", "created_at", "updated_at", "__typename"],

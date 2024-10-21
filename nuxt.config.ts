@@ -260,6 +260,18 @@ export default defineNuxtConfig({
         imports: [{ name: "default", as: "startCase" }],
       },
       {
+        from: "lodash/camelCase",
+        imports: [{ name: "default", as: "camelCase" }],
+      },
+      {
+        from: "lodash/kebabCase",
+        imports: [{ name: "default", as: "kebabCase" }],
+      },
+      {
+        from: "lodash/snakeCase",
+        imports: [{ name: "default", as: "snakeCase" }],
+      },
+      {
         from: "validator/lib/isEmail",
         imports: [{ name: "default", as: "isEmail" }],
       },
