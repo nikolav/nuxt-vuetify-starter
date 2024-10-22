@@ -1,12 +1,11 @@
 <script setup lang="ts">
-// U2V0r0Lk5krE2W619
-import type { OrNoValue } from "@/types";
+// 68jtQCbo3dk7ODjzicNc
 defineOptions({
   inheritAttrs: false,
 });
 const LIST_MIN_WIDTH = 192;
 const props = withDefaults(
-  defineProps<{ items: OrNoValue<any[]>; showIndex?: number }>(),
+  defineProps<{ items?: any[]; showIndex?: number }>(),
   {
     showIndex: 0,
   }
@@ -16,32 +15,38 @@ const {
   app: { TOOLTIPS_OPEN_DELAY, DEFAULT_TRANSITION },
 } = useAppConfig();
 
-const getLabel = <T = any>(node: T) => node;
-const noLabels = computed(() => isEmpty(props.items));
-const size = computed(() => len(props.items));
+// label getter --do-custom
+const getLabel = identity;
+
 const labels = computed(() =>
-  noLabels.value ? [] : map(props.items, getLabel)
+  filter(map(props.items || [], getLabel), Boolean)
 );
+const size = computed(() => len(labels.value));
+
+const toggleMenuShowGroups = useToggleFlag();
 // @@eos
 </script>
 <template>
   <span v-if="0 < size" class="component--v-chip-plus d-flex items-center">
     <VChip
-      :text="labels[props.showIndex]"
+      :text="`${labels[showIndex] || ''}`"
       size="small"
       color="warning-darken-2"
+      @click.stop="1 < size && toggleMenuShowGroups.on()"
       v-bind="$attrs"
     />
-    <VBadge v-if="1 < size" inline color="primary-darken-2">
-      <template #badge>
-        <pre class="d-inline-block">+{{ size - 1 }}</pre>
-      </template>
+    <VBadge
+      v-if="1 < size"
+      :content="`+${size - 1}`"
+      inline
+      color="primary-darken-2"
+      @click.stop
+    >
       <VMenu
-        :transition="DEFAULT_TRANSITION"
+        v-model="toggleMenuShowGroups.isActive.value"
         activator="parent"
         location="center"
-        open-on-hover
-        :open-delay="TOOLTIPS_OPEN_DELAY"
+        :transition="DEFAULT_TRANSITION"
       >
         <VList
           :items="labels"
@@ -50,7 +55,6 @@ const labels = computed(() =>
           variant="text"
           lines="one"
           base-color="primary-darken-2"
-          rounded="lg"
           density="compact"
         />
       </VMenu>

@@ -3,6 +3,7 @@ import {
   VSheetPinCodeRequired,
   VBtnUpdateProfileImage,
   VSelectAvailabilityPicker,
+  VBtnTopicChatToggle,
 } from "@/components/app";
 
 definePageMeta({
@@ -75,6 +76,10 @@ const restoreFormFieldsFromStore = () => {
     form[field].value = get(auth.profile, field);
   });
 };
+const { chatUserChannel } = useTopics();
+const topicUserChannel = computed(() =>
+  [chatUserChannel(auth.uid), "--title", kebabCase(auth.displayName)].join(" ")
+);
 
 // @watch
 onMounted(() => {
@@ -103,6 +108,9 @@ onMounted(() => {
               class="opacity-30"
             />
             <VDivider vertical inset class="ms-3" />
+          </template>
+          <template #append>
+            <VBtnTopicChatToggle density="compact" :topic="topicUserChannel" />
           </template>
         </VToolbar>
         <VCardText class="max-w-[345px] mx-auto">

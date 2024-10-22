@@ -77,7 +77,8 @@ export default defineAppConfig({
     PRODUCTS_LIKES_prefix: "MEDs6Eov9fHBM5HZ6I1X::",
     PROVIDE_APP_DATA: "Ud8dHoadmBgSr55P6gJ",
     THEME: "I0AOO9BgtWwscK7P",
-    TOPIC_CHAT_COM_prefix: "chat:com:i54gyCFeLH::",
+    TOPIC_CHAT_USER_CHANNEL_prefix:
+      "TOPIC_CHAT_USER_CHANNEL:9y2ED1zOBhmz7cIxi0u:",
     TOPIC_CHAT_PRODUCTS_prefix: "chat:products:vyuoiOe3eZW7::",
     TOPIC_RATING_POSTS_prefix: "rating:posts:31p4idFZ7uzT7TKm:",
     TOPIC_RATINGS: "topic-ratings:y0y8ij",
@@ -270,6 +271,7 @@ export default defineAppConfig({
     aliases: {
       nuxt: "logos:nuxt-icon",
       github: "tabler:brand-github-filled",
+      chat: "streamline:chat-two-bubbles-oval",
     },
   },
   acconts: {

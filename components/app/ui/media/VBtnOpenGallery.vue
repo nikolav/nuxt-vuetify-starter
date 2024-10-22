@@ -9,12 +9,14 @@ const props = withDefaults(
     slides: ILightboxSlide[];
     showBadge?: boolean;
     hideIfEmpty?: boolean;
+    propsBadge?: any;
   }>(),
   {
     showBadge: true,
   }
 );
 const isEmptySLides = computed(() => isEmpty(props.slides));
+
 // @@eos
 </script>
 <template>
@@ -32,6 +34,7 @@ const isEmptySLides = computed(() => isEmpty(props.slides));
           :model-value="showBadge"
           location="end"
           :content="props_.slides.length"
+          v-bind="propsBadge"
         >
           <VBtn
             @click.stop.prevent="props_.open()"

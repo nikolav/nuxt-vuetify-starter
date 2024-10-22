@@ -30,9 +30,13 @@ export const useCategoryAssets = () => {
       },
     },
   } = useAppConfig();
+  const isCategoryTag = (value?: any) =>
+    value && String(value).startsWith(CATEGORY_KEY_ASSETS_prefix);
+  const categoryTagByAsset = (asset?: any) =>
+    find(asset?.tags, (t: string) => t.startsWith(CATEGORY_KEY_ASSETS_prefix));
   const categoryNodeByTag = (tag?: string) => {
-    if (!(tag && String(tag).startsWith(CATEGORY_KEY_ASSETS_prefix))) return;
-    const key_ = matchAfterLastColon(tag);
+    if (!isCategoryTag(tag)) return;
+    const key_ = matchAfterLastColon(tag!);
     // return menu.find((node) => key_ === node.value().key);
     return top.lsa().find((node) => key_ === node.value().key);
   };
@@ -41,5 +45,6 @@ export const useCategoryAssets = () => {
     top,
     categories_select_menu,
     categoryNodeByTag,
+    categoryTagByAsset,
   };
 };

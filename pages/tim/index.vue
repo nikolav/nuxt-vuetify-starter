@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
-import { renderIcon } from "@/components/icons";
+import { renderIcon, Iconx } from "@/components/icons";
 import {
   VChipPlus,
   VBtnFilterClear,
   VFabMain,
   VBadgeUserAvailability,
   VBtnShowLocation,
+  VMenuComposeChatMessage,
+  VSnackbarSuccess,
 } from "@/components/app";
 
 definePageMeta({
@@ -22,10 +24,11 @@ const { smAndUp } = useDisplay();
 const {
   app: { TOOLTIPS_OPEN_DELAY, SEARCH_DEBOUNCE_DELAY, DEFAULT_TRANSITION },
   layout: { toolbarMainHeight },
+  icon: {
+    aliases: { chat: iconChat },
+  },
 } = useAppConfig();
 const headers = [
-  // { title: "ID", key: "id" },
-  // { title: "Email", key: "email" },
   {
     title: "",
     key: "data-table-select",
@@ -57,13 +60,15 @@ const iconSearch = renderIcon("material-symbols:search", {
 
 // @data
 const { users, reload: usersReload } = useQueryUsers();
+const { messageMany } = useQueryComms();
 
-// @refs
+// @refs @flags
 const usersSearch = ref();
 const usersDataFilter = ref();
 const groupsSelected = ref<string[]>();
 const groupSelectionMany = ref<string[]>([]);
 const selection = ref<any[]>([]);
+const somePicked = computed(() => !isEmpty(selection.value));
 
 const usersFilteredGroups = computed(() =>
   isEmpty(groupsSelected.value)
@@ -72,6 +77,8 @@ const usersFilteredGroups = computed(() =>
         some(groupsSelected.value, (g) => user.groups?.includes(g))
       )
 );
+const toggleMessageManyPosted = useToggleFlag();
+const toggleMenuIsActiveMessageMany = useToggleFlag();
 
 // @computed
 const noUsers = computed(() => isEmpty(usersFilteredGroups.value));
@@ -88,17 +95,10 @@ const {
   length: totPages,
   perPage,
 } = usePaginatedData({
-  data: users,
-  perPage: 8,
+  // data: users,
+  data: usersFilteredGroups,
+  perPage: 6,
 });
-
-// @watch
-watch(
-  usersSearch,
-  debounce((search: string) => {
-    usersDataFilter.value = search || undefined;
-  }, SEARCH_DEBOUNCE_DELAY)
-);
 
 // @helpers
 const filterClear = () => {
@@ -129,25 +129,67 @@ const calcValueOf = (maybeCallableOrValue: any, node: any) =>
 const onSubmitApplyGroupFiler = () => {
   groupsSelected.value = groupSelectionMany.value;
 };
+const onMessageMany = async (message: string) => {
+  if (
+    !isEmpty(
+      get(
+        await messageMany({ message, uids: map(selection.value, "id") }),
+        "data.commsMessageMany.status.uids"
+      )
+    )
+  ) {
+    // message published
+    toggleMessageManyPosted.on();
+  }
+};
+
+// @watch
+watch(
+  usersSearch,
+  debounce((search: string) => {
+    usersDataFilter.value = search || undefined;
+  }, SEARCH_DEBOUNCE_DELAY)
+);
+watch(toggleMessageManyPosted.isActive, (isActive) => {
+  if (isActive) {
+    toggleMenuIsActiveMessageMany.off();
+  }
+});
+
 // @@eos
 </script>
 <template>
   <section class="page--tim">
-    <VCard density="comfortable" variant="text" rounded="0">
+    <VMenuComposeChatMessage
+      :activator="undefined"
+      v-model="toggleMenuIsActiveMessageMany.isActive.value"
+      @message="onMessageMany"
+      :class="
+        smAndUp
+          ? '!top-[44%] -translate-y-[44%] !start-1/2 -translate-x-1/2'
+          : 'translate-x-[4%] !top-[44%] -translate-y-[44%]'
+      "
+      :width="smAndUp ? 395 : '92%'"
+    />
+    <VSnackbarSuccess v-model="toggleMessageManyPosted.isActive.value">
+      <span>Poruka je uspešno poslata.</span>
+    </VSnackbarSuccess>
+    <VCard id="ID--P8jDb" density="comfortable" variant="text" rounded="0">
+      <!-- # https://vuetifyjs.com/en/components/data-tables/basics/#items -->
       <VDataTable
-        v-model="selection"
-        :items="usersFilteredGroups"
+        id="ID--1QknrimP7"
         :headers="headers"
+        :items="usersFilteredGroups"
+        v-model="selection"
+        :search="usersDataFilter"
         :items-per-page="perPage"
         :page="page$"
-        :search="usersDataFilter"
+        show-select
         hide-default-footer
         hover
-        color="primary"
-        density="compact"
         return-object
-        show-select
-        id="ID--1QknrimP7"
+        color="primary"
+        density="comfortable"
         class="CLASS--VDataTable--no-row-divider"
       >
         <template #top>
@@ -158,16 +200,21 @@ const onSubmitApplyGroupFiler = () => {
             color="primary"
             class="px-0 *:space-x-1"
           >
-            <span v-if="!noUsers" class="d-flex items-center gap-2 ps-2">
-              <em class="opacity-50">{{ selection.length }}</em>
-              <span>&#47;</span>
-              <VBadge
-                color="primary-lighten-2"
-                inline
-                :content="sizeUsers"
-                class="opacity-50 mx-0 px-0 -translate-x-1"
-              />
-            </span>
+            <!-- @@toolbar:start -->
+            <!-- selection.count, divider -->
+            <template v-if="!noUsers">
+              <span class="d-flex items-center gap-2 ps-2">
+                <em class="opacity-50">{{ selection.length }}</em>
+                <span>&#47;</span>
+                <VBadge
+                  color="primary-lighten-2"
+                  inline
+                  :content="sizeUsers"
+                  class="opacity-50 mx-0 px-0 -translate-x-1"
+                />
+              </span>
+              <VDivider vertical inset />
+            </template>
             <VBtn
               @click="usersSelectAllOff"
               density="comfortable"
@@ -246,18 +293,32 @@ const onSubmitApplyGroupFiler = () => {
             <!-- @@dots coommands:rest -->
             <VBtn density="comfortable" icon variant="text">
               <Icon name="mdi:dots-vertical" size="1.35rem" />
+              <!-- @@commands:menu -->
               <VMenu
                 activator="parent"
                 location="bottom end"
-                max-width="422"
+                max-width="392"
                 :transition="DEFAULT_TRANSITION"
               >
-                <VSheet>
-                  <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Magnam unde temporibus earum?
-                  </p>
-                </VSheet>
+                <VList>
+                  <!-- @@messageMany -->
+                  <VListItem
+                    @click="toggleMenuIsActiveMessageMany"
+                    :disabled="!somePicked"
+                    value="p5EtuiJpan"
+                  >
+                    <template #prepend>
+                      <Iconx
+                        :icon="iconChat"
+                        class="me-3 opacity-30"
+                        size="1.25rem"
+                      />
+                    </template>
+                    <VListItemTitle>
+                      <span> Pošalji poruku korisnicima </span>
+                    </VListItemTitle>
+                  </VListItem>
+                </VList>
               </VMenu>
             </VBtn>
           </VToolbar>
@@ -289,6 +350,7 @@ const onSubmitApplyGroupFiler = () => {
                 variant="solo"
                 rounded="pill"
                 :append-inner-icon="iconSearch"
+                clearable
               />
             </VToolbarItems>
             <VSpacer />
@@ -373,6 +435,7 @@ const onSubmitApplyGroupFiler = () => {
           </tr>
         </template>
 
+        <!-- render row --custom-strategy -->
         <template
           #item="{ internalItem, item, isSelected, toggleSelect, columns }"
         >
@@ -384,7 +447,7 @@ const onSubmitApplyGroupFiler = () => {
                 class="ps-2 pe-0"
               >
                 <VCheckboxBtn
-                  class="mx-0 scale-[109%]"
+                  class="mx-0 scale-[122%]"
                   @click.stop
                   :model-value="isSelected(internalItem)"
                   @update:model-value="toggleSelect(internalItem)"
@@ -393,7 +456,7 @@ const onSubmitApplyGroupFiler = () => {
                   :true-icon="iconCheckOn"
                   color="primary"
                   base-color="secondary-lighten-1"
-                ></VCheckboxBtn>
+                />
               </td>
               <td
                 v-else-if="col.key == 'groups'"
@@ -401,17 +464,17 @@ const onSubmitApplyGroupFiler = () => {
               >
                 <VChipPlus
                   :items="item.groups"
-                  :size="smAndUp ? undefined : 'x-small'"
+                  :size="smAndUp ? undefined : 'small'"
                 />
               </td>
               <!-- @@ -->
               <td
                 v-else-if="col.key == 'fullname'"
-                :class="[smAndUp ? undefined : 'ps-2']"
+                :class="[smAndUp ? undefined : 'ps-1']"
               >
                 <VBadgeUserAvailability :uid="item.id" />
                 <VBtnShowLocation
-                  :props-sheet="{ color: 'info-darken-1' }"
+                  :props-sheet="{ color: 'info' }"
                   :props-menu="{
                     location: 'bottom',
                   }"
@@ -425,7 +488,7 @@ const onSubmitApplyGroupFiler = () => {
                   </template>
                 </VBtnShowLocation>
                 <strong
-                  class="text-body-1 ps-2"
+                  class="text-body-1 ps-1"
                   :class="[
                     item.is_manager ? 'text-primary-darken-1' : undefined,
                   ]"
@@ -442,13 +505,14 @@ const onSubmitApplyGroupFiler = () => {
 
       <template #actions>
         <VSpacer />
+        <!-- @@ -->
         <VPagination
-          v-if="1 < totPages"
+          v-if="1 < sizeUsers"
           v-model="page$"
           :length="totPages"
           :total-visible="1"
           variant="text"
-          color="primary-darken-1"
+          color="primary"
           rounded="circle"
           density="comfortable"
         >
@@ -458,10 +522,11 @@ const onSubmitApplyGroupFiler = () => {
             }}</small>
           </template>
         </VPagination>
+        <VSpacer />
       </template>
     </VCard>
     <!-- fab:action -->
-    <VFabMain :to="{ name: 'nalog-nov' }" />
+    <VFabMain class="translate-y-2" :to="{ name: 'nalog-nov' }" />
   </section>
 </template>
 <style lang="scss">

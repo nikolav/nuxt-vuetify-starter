@@ -19,7 +19,7 @@ export const useTopics = () => {
       POSTS_LIKES_prefix,
       PRODUCT_RATING_prefix,
       PRODUCTS_LIKES_prefix,
-      TOPIC_CHAT_COM_prefix,
+      TOPIC_CHAT_USER_CHANNEL_prefix,
       TOPIC_CHAT_PRODUCTS_prefix,
       TOPIC_RATING_POSTS_prefix,
       USER_CONFIG_PREFERENCES,
@@ -37,8 +37,8 @@ export const useTopics = () => {
     },
     io: { IOEVENT_ACCOUNTS_UPDATED_prefix },
   } = useAppConfig();
-  const comChat = (comid: number | undefined) =>
-    comid ? `${TOPIC_CHAT_COM_prefix}${comid}` : "";
+  const chatUserChannel = (uid?: any) =>
+    uid ? `${TOPIC_CHAT_USER_CHANNEL_prefix}${uid}` : "";
   const productChat = (pid: number | undefined) =>
     pid ? `${TOPIC_CHAT_PRODUCTS_prefix}${pid}` : "";
   const productImages = (pid: number | undefined) =>
@@ -97,7 +97,7 @@ export const useTopics = () => {
     TOPIC_CHAT_ACTIVE_main,
     //
     chatOrder,
-    comChat,
+    chatUserChannel,
     likesProduct,
     productChat,
     productImages,

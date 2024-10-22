@@ -9,6 +9,7 @@ import {
   VBtnTopicChatToggle,
   VBtnShareSocialNetworks,
   VChipAssetCategory,
+  VBtnOpenGallery,
 } from "@/components/app";
 import { Iconx } from "@/components/icons";
 // ##config
@@ -26,6 +27,7 @@ const { ratingAssets, likesAssets, chatAssets } = useTopics();
 const { mdAndUp, smAndUp } = useDisplay();
 const route = useRoute();
 const pid = computed(() => get(route.params, "pid"));
+const watchID = useUniqueId();
 // ##icons
 // ##refs ##flags
 // ##data ##auth ##state
@@ -82,14 +84,25 @@ useHead({ title: titleProductName });
         route-back-name="index"
       >
         <template #prepend>
+          <VBtnOpenGallery
+            v-if="!mdAndUp"
+            :show-badge="false"
+            color="on-primary"
+            :slides="map(images, (src) => ({ src }))"
+            class="scale-[92%]"
+            :props-badge="{ class: '-translate-x-[3px] -me-[12px]' }"
+          />
           <Iconx
+            v-else
             size="1.5rem"
             class="ms-1 opacity-30"
             icon="game-icons:cardboard-box-closed"
           />
         </template>
-        <template v-if="smAndUp" #title>
-          <span> Podaci o proizvodu </span>
+        <template #title>
+          <span :class="!smAndUp ? 'text-sm' : undefined">
+            Podaci o proizvodu
+          </span>
         </template>
         <template #actions>
           <VBtnTopicChatToggle :topic="topicChatAsset" />

@@ -51,8 +51,11 @@ watch(
 // provide current user data
 const uid = computed(() => auth.uid);
 const token = computed(() => auth.token$ || "");
+const myDisplayName = computed(() => auth.displayName || "");
+
 provide(key_UID, uid);
 provide(key_TOKEN, token);
+provide(key_USER_DISPLAY_NAME, myDisplayName);
 
 const {
   $theme: { theme },

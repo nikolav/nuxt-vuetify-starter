@@ -267,3 +267,11 @@ export const M_assetsUpsert = gql`
     assetsUpsert(fields: $fields, aid: $aid)
   }
 `;
+
+// commsMessageMany(uids: [ID!]!, message: JsonData!): JsonData!
+export const M_commsMessageMany = gql`
+  mutation m_commsMessageMany($uids: [ID!]!, $message: JsonData!) {
+    commsMessageMany(uids: $uids, message: $message)
+  }
+`;
+

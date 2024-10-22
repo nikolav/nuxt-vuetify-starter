@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useDisplay } from "vuetify";
 import {
   VFabMain,
   VCardDataIterator,
@@ -14,6 +15,7 @@ definePageMeta({
 const {
   app: { DEFAULT_TRANSITION, TOOLTIPS_OPEN_DELAY },
 } = useAppConfig();
+const { smAndUp } = useDisplay();
 
 const productsSelected = ref();
 const {
@@ -30,9 +32,10 @@ const itemLinkTo = (item: any) => ({
   external: true,
   target: "_blank",
 });
-const productGrops = (p: any) => [
-  String(last(p.name.split(":"))).toLocaleUpperCase(),
-];
+const { categoryNodeByTag, categoryTagByAsset } = useCategoryAssets();
+// @@items-groups
+const productGrops = (p: any) =>
+  [categoryNodeByTag(categoryTagByAsset(p))?.value().title].filter(Boolean);
 const getid = (node: any) => get(node, "id");
 const assetNameById = (id: any) => get(find(products.value, { id }), "name");
 
@@ -49,7 +52,7 @@ useHead({ title: "Roba" });
       item-title="name"
       item-value="id"
       :reload="reload"
-      :per-page="2"
+      :per-page="6"
       :item-groups="productGrops"
       :card-props="{ disabled: processing }"
     >
@@ -148,7 +151,10 @@ useHead({ title: "Roba" });
         </VBtn>
       </template>
     </VCardDataIterator>
-    <VFabMain :to="{ name: 'aktiva-proizvodi-nov' }" />
+    <VFabMain
+      :class="[smAndUp ? '-translate-x-12' : '-translate-y-8 translate-x-2']"
+      :to="{ name: 'aktiva-proizvodi-nov' }"
+    />
   </section>
 </template>
 <style lang="scss" scoped></style>

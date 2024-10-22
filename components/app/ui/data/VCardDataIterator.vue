@@ -395,6 +395,7 @@ const onSubmitApplyGroupFiler = () => {
           }}</small>
         </template>
       </VPagination>
+      <VSpacer />
     </template>
   </VCard>
 </template>
