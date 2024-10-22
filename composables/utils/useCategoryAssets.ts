@@ -23,9 +23,23 @@ const categories_select_menu = top
 
 //
 export const useCategoryAssets = () => {
+  const {
+    db: {
+      Assets: {
+        categories: { CATEGORY_KEY_ASSETS_prefix },
+      },
+    },
+  } = useAppConfig();
+  const categoryNodeByTag = (tag?: string) => {
+    if (!(tag && String(tag).startsWith(CATEGORY_KEY_ASSETS_prefix))) return;
+    const key_ = matchAfterLastColon(tag);
+    // return menu.find((node) => key_ === node.value().key);
+    return top.lsa().find((node) => key_ === node.value().key);
+  };
   return {
     menu,
     top,
     categories_select_menu,
+    categoryNodeByTag,
   };
 };

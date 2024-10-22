@@ -8,6 +8,7 @@ import {
   VBtnGroupTopicLikeDislike,
   VBtnTopicChatToggle,
   VBtnShareSocialNetworks,
+  VChipAssetCategory,
 } from "@/components/app";
 import { Iconx } from "@/components/icons";
 // ##config
@@ -48,6 +49,8 @@ const {
   DEFAULT_NO_IMAGE_AVAILABLE,
 ]);
 const assetDescription = computed(() => p.value?.notes || "");
+const barcode = computed(() => get(p.value, "data.barcode"));
+const description = computed(() => p.value?.notes);
 // ##forms ##helpers
 const aFields = {
   name: computed(() => p.value?.name),
@@ -72,7 +75,7 @@ useHead({ title: titleProductName });
 </script>
 <template>
   <section class="page--aktiva-proizvodi-pid">
-    <VCard :disabled="false" variant="text" rounded="0">
+    <VCard variant="text" rounded="0">
       <VToolbarPrimary
         :props-title="{ class: 'text-start text-body-1 font-italic' }"
         :props-actions="{ class: 'pe-5' }"
@@ -146,8 +149,39 @@ useHead({ title: titleProductName });
               </h1>
               <h1 v-else>{{ aFields.name }}</h1>
             </section>
-            <hr />
-            <Dump :data="{ images, p }" />
+            <!-- @chips @tags -->
+            <div class="ps-3 d-flex items-center gap-2">
+              <VChipAssetCategory
+                :asset="p"
+                :size="smAndUp ? 'large' : 'small'"
+                :show-extra="smAndUp"
+              />
+              <VChip
+                color="primary"
+                elevation="1"
+                variant="tonal"
+                v-if="barcode"
+                :size="smAndUp ? 'large' : 'small'"
+              >
+                <template v-if="smAndUp" #prepend>
+                  <Iconx
+                    size="1.33rem"
+                    class="opacity-30 translate-y-px"
+                    icon="material-symbols:barcode"
+                  />
+                </template>
+                <pre class="ms-1">{{ barcode }}</pre>
+              </VChip>
+            </div>
+            <!-- @description @info -->
+            <section
+              v-if="description"
+              class="indent-4 pa-5"
+              :class="[smAndUp ? 'prose-lg' : 'prose']"
+            >
+              <p>{{ description }}</p>
+            </section>
+            <!-- <Dump :data="{ images, p }" /> -->
           </VCol>
         </VRow>
       </VContainer>
