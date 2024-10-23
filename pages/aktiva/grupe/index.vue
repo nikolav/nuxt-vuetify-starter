@@ -1,31 +1,33 @@
 <script setup lang="ts">
 // mGboFLwXJpbrJ1T
+import { useDisplay } from "vuetify";
 import { VFabMain, VCardDataIterator } from "@/components/app";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
 
-// @data @auth
+// @utils
+const { smAndUp } = useDisplay();
 
-const {
-  db: {
-    Assets: {
-      type: { PEOPLE_GROUP_TEAM },
-    },
-  },
-} = useAppConfig();
-const {
-  assets: groups,
-  reload,
-  processing,
-} = useQueryManageAssets(PEOPLE_GROUP_TEAM);
+// @data @auth
+const { assets: groups, reload, processing } = useQueryManageAssetsGroups();
+
+// @forms @helpers
 const itemTo = (item: any) => ({
   name: "aktiva-grupe-gid",
-  params: { gid: item.raw.id },
+  params: { gid: item?.id },
 });
-const lsItemGroups = (d: any) => [last(d.name.split(":"))];
-
+const {
+  categoryNodeByTag,
+  categoryTagByAsset,
+  groups: { top: parent },
+} = useCategoryAssets();
+const itemGroups = (g: any) =>
+  [categoryNodeByTag(categoryTagByAsset(g), parent)?.value().title].filter(
+    Boolean
+  );
+useHead({ title: "Grupe" });
 // @@eos
 </script>
 <template>
@@ -33,18 +35,21 @@ const lsItemGroups = (d: any) => [last(d.name.split(":"))];
     <VCardDataIterator
       :items="groups"
       item-title="name"
+      :item-groups="itemGroups"
+      :item-to="itemTo"
       :reload="reload"
       :card-props="{ disabled: processing }"
       :menu-props="{ 'max-height': 255 }"
-      :item-to="itemTo"
-      :item-groups="lsItemGroups"
       :per-page="3"
     >
       <template #menu="{ selection }">
         <p>{{ selection?.length }}</p>
       </template>
     </VCardDataIterator>
-    <VFabMain :to="{ name: 'aktiva-grupe-nova' }" />
+    <VFabMain
+      :class="[smAndUp ? '-translate-x-12' : '-translate-y-8 translate-x-2']"
+      :to="{ name: 'aktiva-grupe-nova' }"
+    />
   </section>
 </template>
 <style lang="scss" scoped></style>

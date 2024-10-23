@@ -1,28 +1,25 @@
 <script setup lang="ts">
+import { useDisplay } from "vuetify";
 import { VFabMain, VCardDataIterator } from "@/components/app";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
 
-const {
-  db: {
-    Assets: {
-      type: { PHYSICAL_STORE },
-    },
-  },
-} = useAppConfig();
+const { smAndUp } = useDisplay();
+
 const {
   assets: sites,
   processing,
   reload: sitesReload,
-} = useQueryManageAssets(PHYSICAL_STORE);
-const itemLinkToSite = (node: any) => ({
+} = useQueryManageAssetsSites();
+const itemLinkToSite = (item: any) => ({
   name: "aktiva-lokali-sid",
-  params: { sid: node.raw.id },
+  params: { sid: item?.id },
 });
 const sitesSelected = ref();
 
+useHead({ title: "Lokali" });
 // @@eos
 </script>
 <template>
@@ -38,7 +35,10 @@ const sitesSelected = ref();
     >
       <template #menu> foo </template>
     </VCardDataIterator>
-    <VFabMain :to="{ name: 'aktiva-lokali-nov' }" />
+    <VFabMain
+      :class="[smAndUp ? '-translate-x-12' : '-translate-y-8 translate-x-2']"
+      :to="{ name: 'aktiva-lokali-nov' }"
+    />
   </section>
 </template>
 <style lang="scss" scoped></style>

@@ -33,7 +33,11 @@ export const useTopics = () => {
     },
     firebase: {
       messaging: { KEY_FCM_DEVICE_TOKENS },
-      storage: { PATH_PROFILE_AVATARS, PATH_ASSETS_IMAGES },
+      storage: {
+        PATH_PROFILE_AVATARS,
+        PATH_ASSETS_IMAGES,
+        PATH_ASSETS_AVATARS,
+      },
     },
     io: { IOEVENT_ACCOUNTS_UPDATED_prefix },
   } = useAppConfig();
@@ -88,6 +92,8 @@ export const useTopics = () => {
   const chatAssets = (aid?: any) =>
     aid ? `${TOPIC_CHAT_ASSETS_prefix}${aid}` : "";
   const likesDocs = (ddid?: any) => (ddid ? `${DOCS_LIKES_prefix}${ddid}` : "");
+  const firebasePathAssetsAvatars = (id?: any) =>
+    id ? `${trimEnd(PATH_ASSETS_AVATARS, "/")}/${id}` : "";
 
   return {
     CHAT_MAIN,
@@ -115,6 +121,7 @@ export const useTopics = () => {
     userAvailabilityStatus,
     firebasePathAvatars,
     firebasePathAssets,
+    firebasePathAssetsAvatars,
     ratingAssets,
     likesAssets,
     chatAssets,

@@ -114,7 +114,10 @@ const { width: WSELECT } = useElementSize(ref_9yvgmhpVs9DnAXGuV5Hm);
     </VSnackbarSuccess>
     <VForm @submit.prevent="submit" autocomplete="off">
       <VCard :disabled="pc.processing.value" variant="text" rounded="0">
-        <VToolbarPrimary text="Dodaj proizvod">
+        <VToolbarPrimary
+          :props-title="{ class: 'font-italic text-body-1' }"
+          text="Ulistaj proizvod"
+        >
           <template #prepend>
             <Icon
               class="opacity-40 ms-1"

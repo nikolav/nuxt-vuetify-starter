@@ -1,20 +1,15 @@
 <script setup lang="ts">
 // 8rWqBKIKsWZ4pbf1
 import { Test, Dump } from "@/components/dev";
-import { VMenuComposeChatMessage } from "@/components/app";
+import { ProvideAssetsGroupAvatar } from "@/components/app";
 
-const { chatMessageMany } = useQueryComms();
-
-const ok = async (message: any) => {
-  console.log(await chatMessageMany({ uids: [1, 6, 5, 7], message }));
-};
+const ok = async (message: any) => {};
 // @@eos
 </script>
 <template>
   <VBtn @click="ok">ok</VBtn>
-  <VBtn>
-    <span>msg</span>
-    <VMenuComposeChatMessage @message="ok" />
-  </VBtn>
+  <ProvideAssetsGroupAvatar :gid="101" v-slot="{ avatarImage }">
+    <VImg :src="avatarImage" />
+  </ProvideAssetsGroupAvatar>
 </template>
 <style lang="scss" scoped></style>

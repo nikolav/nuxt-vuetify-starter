@@ -226,7 +226,10 @@ const onUpdateModelValuePicker = (args: any[]) => {
     <VForm @submit.prevent="formSubmit" autocomplete="off">
       <VCard variant="text" rounded="0">
         <!-- @@toolbar:primary -->
-        <VToolbarPrimary text="Ažuriraj proizvod">
+        <VToolbarPrimary
+          :props-title="{ class: 'font-italic text-body-1' }"
+          text="Ažuriraj proizvod"
+        >
           <template #prepend>
             <Iconx
               size="1.22rem"

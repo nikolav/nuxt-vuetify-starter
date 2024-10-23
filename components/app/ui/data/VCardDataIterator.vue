@@ -14,21 +14,20 @@ const props = withDefaults(
     items: any[];
     itemTitle?: string;
     itemValue?: any;
+    // route name @item
     itemTo?: any;
+    // fn; get groups @item
     itemGroups?: any;
+
     cardProps?: any;
     menuProps?: any;
+
     perPage?: number;
     reload?: any;
   }>(),
   {
     itemTitle: "title",
     itemValue: "id",
-    itemTo: () => {
-      return <any>{};
-    },
-    cardProps: {},
-    menuProps: {},
     perPage: 5,
     reload: noop,
   }
@@ -106,6 +105,7 @@ const filterClear = () => {
   textSearch.value = undefined;
   groupsSelected.value = groupSelectionMany.value = [];
 };
+const showItemPage = async (item: any) => await navigateTo(props.itemTo(item));
 
 // @forms
 const onSubmitApplyGroupFiler = () => {
@@ -225,7 +225,7 @@ const onSubmitApplyGroupFiler = () => {
           icon
           variant="text"
         >
-          <Icon name="mdi:dots-vertical" size="1.35rem" />
+          <Icon name="mdi:dots-vertical" size="1.33rem" />
           <VMenu
             activator="parent"
             location="bottom end"
@@ -327,8 +327,8 @@ const onSubmitApplyGroupFiler = () => {
         :items="itemsFilteredGroups"
         :items-per-page="itemsPerPage"
         :page="page$"
-        return-object
         :search="searchTerm"
+        return-object
         v-bind="$attrs"
       >
         <template #no-data>
@@ -337,7 +337,7 @@ const onSubmitApplyGroupFiler = () => {
           </slot>
         </template>
         <template #default="{ items, isSelected, select }">
-          <VList density="comfortable" variant="text" class="py-0">
+          <VList lines="one" density="comfortable" variant="text" class="py-0">
             <!-- @@list:item -->
             <template v-for="node in items" :key="node.raw[itemValue]">
               <VListItem :value="node.raw[itemValue]" class="ps-2">
@@ -350,28 +350,46 @@ const onSubmitApplyGroupFiler = () => {
                 <template #prepend>
                   <VCheckboxBtn
                     base-color="secondary-lighten-1"
-                    class="mx-0 scale-[109%]"
+                    class="mx-0 scale-[122%]"
                     @click.stop
                     :model-value="isSelected(node)"
                     @update:model-value="select([node], !isSelected(node))"
-                    density="comfortable"
+                    density="compact"
                     :false-icon="iconCheckOff"
                     :true-icon="iconCheckOn"
                     color="primary"
                   ></VCheckboxBtn>
                 </template>
-                <VListItemTitle
-                  class="ps-1 text-body-1"
-                  @click="select([node], !isSelected(node))"
-                >
+                <template #title="props_">
                   <slot
-                    name="list-item-title"
-                    :item="node.raw"
-                    :title="node.raw[itemTitle]"
+                    name="title"
+                    v-bind="
+                      mergeProps(props_, {
+                        node,
+                        item: node.raw,
+                        isSelected,
+                        select,
+                      })
+                    "
                   >
-                    <span>{{ node.raw[itemTitle] }}</span>
+                    <VListItemTitle
+                      class="ps-1 text-body-1"
+                      @click.stop="
+                        itemTo
+                          ? showItemPage(node.raw)
+                          : select([node], !isSelected(node))
+                      "
+                    >
+                      <slot
+                        name="list-item-title"
+                        :item="node.raw"
+                        :title="node.raw[itemTitle]"
+                      >
+                        <span>{{ node.raw[itemTitle] }}</span>
+                      </slot>
+                    </VListItemTitle>
                   </slot>
-                </VListItemTitle>
+                </template>
               </VListItem>
             </template>
           </VList>

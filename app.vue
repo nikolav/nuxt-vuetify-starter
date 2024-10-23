@@ -44,9 +44,9 @@ watch(
 );
 
 // meta, seo --config
-// useHead({
-//   titleTemplate: (ttl) => `${ttl ? ttl + " | " : ""}tereni:frikom`,
-// });
+useHead({
+  titleTemplate: (ttl) => `${ttl ? ttl + " | " : ""}tereni:frikom`,
+});
 
 // provide current user data
 const uid = computed(() => auth.uid);

@@ -247,6 +247,7 @@ export default defineAppConfig({
     storage: {
       PATH_PROFILE_AVATARS: "/media/AVATARS:yenDhzULhtZohA9yo",
       PATH_ASSETS_IMAGES: "/media/ASSETS:ZJYH3/images",
+      PATH_ASSETS_AVATARS: "/media/ASSETS:AVATARS:OYDQyknrfYvlUCzFGON",
     },
     firestore: {
       COLLECTIONS_PATH: "/app/collections",
@@ -272,6 +273,7 @@ export default defineAppConfig({
       nuxt: "logos:nuxt-icon",
       github: "tabler:brand-github-filled",
       chat: "streamline:chat-two-bubbles-oval",
+      location: "material-symbols:location-on",
     },
   },
   acconts: {

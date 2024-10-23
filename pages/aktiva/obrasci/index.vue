@@ -1,28 +1,25 @@
 <script setup lang="ts">
+import { useDisplay } from "vuetify";
 import { VFabMain, VCardDataIterator } from "@/components/app";
 definePageMeta({
   layout: "app-default",
   middleware: "authorized",
 });
 
-const {
-  db: {
-    Assets: {
-      type: { DIGITAL_FORM },
-    },
-  },
-} = useAppConfig();
+const { smAndUp } = useDisplay();
+
 const {
   assets: forms,
   processing,
   reload: formsReload,
-} = useQueryManageAssets(DIGITAL_FORM);
+} = useQueryManageAssetsForms();
 const formsSelected = ref();
-const itemLinkToForm = (node: any) => ({
+const itemLinkToForm = (item: any) => ({
   name: "aktiva-obrasci-fid",
-  params: { fid: node.raw.id },
+  params: { fid: item?.id },
 });
 
+useHead({ title: "Obrasci" });
 // @@eos
 </script>
 <template>
@@ -38,7 +35,10 @@ const itemLinkToForm = (node: any) => ({
     >
       <template #menu> forms:active </template>
     </VCardDataIterator>
-    <VFabMain :to="{ name: 'aktiva-obrasci-nov' }" />
+    <VFabMain
+      :class="[smAndUp ? '-translate-x-12' : '-translate-y-8 translate-x-2']"
+      :to="{ name: 'aktiva-obrasci-nov' }"
+    />
   </section>
 </template>
 <style lang="scss" scoped></style>
