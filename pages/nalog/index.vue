@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { type Dayjs } from "dayjs";
+import { type OrNoValue } from "@/types";
 import {
   VSheetPinCodeRequired,
   VBtnUpdateProfileImage,
   VSelectAvailabilityPicker,
   VBtnTopicChatToggle,
+  VBtnDatePicker,
 } from "@/components/app";
 
 definePageMeta({
@@ -22,12 +25,16 @@ const displayLocation$ = computed(() =>
 );
 
 const FIELDS = [
+  // @@.1
   "firstName",
   "lastName",
   "phone",
   "address",
   "displayName",
   "displayLocation",
+  // @@.2
+  "job",
+  "employed_at",
 ];
 const toggleDisplayLocation = useToggleFlag(!!displayLocation$.value);
 const {
@@ -50,6 +57,8 @@ const { form, submit, valid } = useFormDataFields(
 
   {
     onSubmit: async (data: any) => {
+      // console.log({ data });
+      // return;
       const patch = transform(
         data,
         (accum, value, field) => {
@@ -58,6 +67,9 @@ const { form, submit, valid } = useFormDataFields(
               accum["displayLocation"] = toggleDisplayLocation.isActive.value
                 ? value
                 : "";
+            } else if ("employed_at" == field) {
+              // commit:date.utc
+              accum["employed_at"] = (<OrNoValue<Dayjs>>value)?.format() || "";
             } else {
               accum[String(field)] = value;
             }
@@ -65,15 +77,21 @@ const { form, submit, valid } = useFormDataFields(
         },
         <any>{}
       );
+      // return console.log({ patch });
+      // store:commit
       if (!isEmpty(patch)) await profilePatch(auth.uid, patch);
     },
   }
 );
 
 // @utils
+const { $dd } = useNuxtApp();
+// store:pull
 const restoreFormFieldsFromStore = () => {
   FIELDS.forEach((field) => {
-    form[field].value = get(auth.profile, field);
+    const val = get(auth.profile, field);
+    form[field].value =
+      "employed_at" != field ? val : val ? $dd.utc(val) : undefined;
   });
 };
 const { chatUserChannel } = useTopics();
@@ -146,6 +164,19 @@ onMounted(() => {
               label="Adresa stanovanja"
               variant="underlined"
             />
+            <VTextField
+              v-model.trim="form.job.value"
+              density="comfortable"
+              label="Naziv radnog mesta"
+              variant="underlined"
+            />
+
+            <VBtnDatePicker
+              label="Datum zaposlenja"
+              v-model="form.employed_at.value"
+            />
+
+            <VSpacer class="mt-8" />
             <VTextField
               v-model.trim="form.displayName.value"
               density="comfortable"

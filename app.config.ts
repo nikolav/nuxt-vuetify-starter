@@ -274,6 +274,7 @@ export default defineAppConfig({
       github: "tabler:brand-github-filled",
       chat: "streamline:chat-two-bubbles-oval",
       location: "material-symbols:location-on",
+      user: "ri:user-line",
     },
   },
   acconts: {

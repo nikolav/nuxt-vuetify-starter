@@ -337,7 +337,7 @@ const onSubmitApplyGroupFiler = () => {
           </slot>
         </template>
         <template #default="{ items, isSelected, select }">
-          <VList lines="one" density="comfortable" variant="text" class="py-0">
+          <VList density="comfortable" variant="text" class="py-0">
             <!-- @@list:item -->
             <template v-for="node in items" :key="node.raw[itemValue]">
               <VListItem :value="node.raw[itemValue]" class="ps-2">

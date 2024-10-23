@@ -40,7 +40,7 @@ useHead({ title: "Grupe" });
       :reload="reload"
       :card-props="{ disabled: processing }"
       :menu-props="{ 'max-height': 255 }"
-      :per-page="3"
+      :per-page="6"
     >
       <template #menu="{ selection }">
         <p>{{ selection?.length }}</p>

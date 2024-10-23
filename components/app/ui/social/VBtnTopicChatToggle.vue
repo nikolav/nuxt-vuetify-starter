@@ -8,6 +8,7 @@ defineOptions({
 const props = defineProps<{
   topic?: any;
   main?: boolean;
+  propsIcon?: any;
 }>();
 
 // ##utils
@@ -41,7 +42,11 @@ const topic_ = () => {
       v-bind="$attrs"
     >
       <slot name="icon" :isActive="isActive">
-        <Iconx size="1.33rem" icon="streamline:chat-two-bubbles-oval" />
+        <Iconx
+          size="1.33rem"
+          icon="streamline:chat-two-bubbles-oval"
+          v-bind="propsIcon"
+        />
       </slot>
     </VBtn>
   </slot>
