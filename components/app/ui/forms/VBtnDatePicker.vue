@@ -91,7 +91,7 @@ const dateSelected = () => {
               v-model="Date_"
               :max="new Date().toISOString()"
               hide-header
-              title="Datum zaposlenja"
+              :title="label"
               color="primary-darken-1"
               v-bind="$attrs"
             >

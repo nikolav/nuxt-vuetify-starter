@@ -25,31 +25,40 @@ export default defineNuxtConfig({
   // # client-side rendering;
   //  prerender    .true
   //  no-prerender .false
-  ssr: SSR,
+  // ssr: SSR,
 
   // #hybrid-rendering
   // #https://nuxt.com/docs/getting-started/server#hybrid-rendering
   // #https://nuxt.com/docs/guide/concepts/rendering#:~:text=defineNuxtConfig(%7B-,routeRules,-%3A%20%7B
-  // routeRules: {
-  //   // Generated at build time for SEO purpose
-  //   // "/": { prerender: true },
-  //   // "/o-nama": { prerender: true },
-  //   // Cached for 1 hour
-  //   // "/api/*": { cache: { maxAge: 60 * 60 } },
-  //   // Redirection to avoid 404
-  //   // "/old-page": {
-  //   //   redirect: { to: "/new-page", statusCode: 302 },
-  //   // },
-  // Set prerender to true to configure it to be prerendered
-  // "/rss.xml": { prerender: true },
-  // Set it to false to configure it to be skipped for prerendering
-  // "/this-DOES-NOT-get-prerendered": { prerender: false },
-  // Everything under /blog gets prerendered as long as it
-  // is linked to from another page
-  // "/blog/**": { prerender: true },
+  routeRules: {
+    //   // Generated at build time for SEO purpose
+    //   // "/": { prerender: true },
+    "/aktiva/proizvodi/**": { swr: true },
+    // "/aktiva/proizvodi/1": { prerender: true },
+    // "/aktiva/proizvodi/2": { prerender: true },
+    // "/aktiva/proizvodi/4": { prerender: true },
+    // "/aktiva/proizvodi/6": { prerender: true },
+    // "/aktiva/proizvodi/7": { prerender: true },
+    // "/aktiva/proizvodi/8": { prerender: true },
+    // "/aktiva/proizvodi/9": { prerender: true },
+    // "/aktiva/proizvodi/10": { prerender: true },
+    // "/aktiva/proizvodi/*": { prerender: true },
+    //   // Cached for 1 hour
+    //   // "/api/*": { cache: { maxAge: 60 * 60 } },
+    //   // Redirection to avoid 404
+    //   // "/old-page": {
+    //   //   redirect: { to: "/new-page", statusCode: 302 },
+    //   // },
+    // Set prerender to true to configure it to be prerendered
+    // "/rss.xml": { prerender: true },
+    // Set it to false to configure it to be skipped for prerendering
+    // "/this-DOES-NOT-get-prerendered": { prerender: false },
+    // Everything under /blog gets prerendered as long as it
+    // is linked to from another page
+    // "/blog/**": { prerender: true },
 
-  //   // ...
-  // },
+    //   // ...
+  },
   //
   // #Selective Pre-rendering @nitro
   // #https://nuxt.com/docs/getting-started/prerendering#selective-pre-rendering
@@ -71,21 +80,18 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
-    // https://vuetifyjs.com/en/getting-started/installation/#using-nuxt-3
     (_options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) => {
-        // --at-ts-expect-error
-        // config.plugins.push(vitePluginVuetify({ autoImport: true }));
         try {
-          config.plugins &&
-            config.plugins.push(
-              vitePluginVuetify({
-                autoImport: true,
-                styles: {
-                  configFile: "assets/styles/vuetify/settings.scss",
-                },
-              })
-            );
+          // config.plugins &&
+          config.plugins?.push(
+            vitePluginVuetify({
+              autoImport: true,
+              styles: {
+                configFile: "assets/styles/vuetify/settings.scss",
+              },
+            })
+          );
         } catch (error) {
           // ignore
         }
@@ -105,6 +111,12 @@ export default defineNuxtConfig({
 
   build: {
     transpile: ["vuetify"],
+    rollupOptions: {
+      external: [
+        /^@vue\/apollo-composable/,
+        // /^node:.*/,
+      ],
+    },
   },
 
   runtimeConfig: {
@@ -365,7 +377,7 @@ export default defineNuxtConfig({
     "@fancyapps/ui/dist/fancybox/fancybox.css",
 
     // https://github.com/surmon-china/videojs-player
-    "video.js/dist/video-js.css",
+    // "video.js/dist/video-js.css",
 
     // https://github.com/Maronato/vue-toastification
     // "vue-toastification/dist/index.css",

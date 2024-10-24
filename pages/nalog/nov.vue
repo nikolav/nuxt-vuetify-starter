@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// TBqxaj
+// 0e1ef4f7-59ba-5029-a73a-58d4854a4312
 import {
   schemaAuthAccount,
   schemaAuthCredentialsWithPolicies,
@@ -13,7 +13,7 @@ definePageMeta({
 
 const {
   layout: { toolbarMainHeight },
-  app: { TOOLTIPS_OPEN_DELAY, DEFAULT_TRANSITION },
+  app: { TOOLTIPS_OPEN_DELAY },
 } = useAppConfig();
 
 // @ref
@@ -79,6 +79,9 @@ const onCancel = formClear;
     <VForm @submit.prevent autocomplete="off">
       <VCard rounded="t-0" variant="text">
         <VToolbar color="primary" :height="toolbarMainHeight" class="ps-3">
+          <VToolbarTitle class="text-center font-italic text-body-1 opacity-50">
+            Nov korisnički nalog
+          </VToolbarTitle>
           <template #prepend>
             <Icon
               name="streamline:interface-user-add-actions-add-close-geometric-human-person-plus-single-up-user"

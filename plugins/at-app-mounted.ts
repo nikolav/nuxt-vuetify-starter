@@ -13,12 +13,13 @@ export default defineNuxtPlugin((nuxtApp) => {
     // firebase remote-config
     () => {
       remoteConfig().then(async (client) => {
-        if (!client) return;
-        try {
-          const fetched = await fetchAndActivate(client);
-          console.log({ "remoteConfig:fetchAndActivate": fetched });
-        } catch (error) {
-          console.error({ "remoteConfig:init:error": error });
+        if (client) {
+          try {
+            const fetched = await fetchAndActivate(client);
+            console.log({ "remoteConfig:fetchAndActivate": fetched });
+          } catch (error) {
+            console.error({ "remoteConfig:init:error": error });
+          }
         }
       });
     },

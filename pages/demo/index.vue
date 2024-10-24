@@ -8,10 +8,6 @@ definePageMeta({
 </script>
 <template>
   <section class="page--demo">
-    <div>
-      <VBtn icon density="comfortable" :to="{ name: 'index' }"> &lt; </VBtn>
-    </div>
-    <hr />
     <Demo />
   </section>
 </template>
