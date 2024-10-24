@@ -33,7 +33,7 @@ export default defineNuxtConfig({
   routeRules: {
     //   // Generated at build time for SEO purpose
     //   // "/": { prerender: true },
-    "/aktiva/proizvodi/**": { swr: true },
+    // "/aktiva/proizvodi/**": { swr: true },
     // "/aktiva/proizvodi/1": { prerender: true },
     // "/aktiva/proizvodi/2": { prerender: true },
     // "/aktiva/proizvodi/4": { prerender: true },
@@ -111,12 +111,12 @@ export default defineNuxtConfig({
 
   build: {
     transpile: ["vuetify"],
-    rollupOptions: {
-      external: [
-        /^@vue\/apollo-composable/,
-        // /^node:.*/,
-      ],
-    },
+    // rollupOptions: {
+    //   external: [
+    //     /^@vue\/apollo-composable/,
+    //     // /^node:.*/,
+    //   ],
+    // },
   },
 
   runtimeConfig: {
